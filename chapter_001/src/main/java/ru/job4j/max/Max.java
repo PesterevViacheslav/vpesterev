@@ -16,6 +16,17 @@ public class Max {
      * @return Максимальное число.
      */
     public int max(int first, int second) {
-      return first > second ? first : second;
+        return first > second ? first : second;
+    }
+
+    /**
+     * Method max. Определение максимума из трех чисел.
+     * @param first Первое число.
+     * @param second Второе число.
+     * @param third Третье число.
+     * @return Максимальное число.
+     */
+    public int max(int first, int second, int third) {
+        return this.max(this.max(first, second), third);
     }
 }

@@ -42,6 +42,46 @@ public class MaxTest {
         assertThat(result, is(3));
     }
 
+    /**
+     * Тест операции получения максимума из трех чисел (первое равно второму и третьему)
+     */
+    @Test
+    public void whenFirstEqualSecondAndThird() {
+        Max maxim = new Max();
+        int result = maxim.max(3, 3, 3);
+        assertThat(result, is(3));
+    }
+
+    /**
+     * Тест операции получения максимума из трех чисел (первое равно второму и они меньше третьего)
+     */
+    @Test
+    public void whenFirstEqualSecondAndLessThird() {
+        Max maxim = new Max();
+        int result = maxim.max(3, 3, 5);
+        assertThat(result, is(5));
+    }
+
+    /**
+     * Тест операции получения максимума из трех чисел (первое меньше второго и второе меньше третьего)
+     */
+    @Test
+    public void whenFirstLessSecondAndLessThird() {
+        Max maxim = new Max();
+        int result = maxim.max(1, 3, 5);
+        assertThat(result, is(5));
+    }
+
+    /**
+     * Тест операции получения максимума из трех чисел (первое больше второго и второе равно третьему)
+     */
+    @Test
+    public void whenFirstGreaterSecondAndThird() {
+        Max maxim = new Max();
+        int result = maxim.max(3, 1, 1);
+        assertThat(result, is(3));
+    }
+
 }
 
 
