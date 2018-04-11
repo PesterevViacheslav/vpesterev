@@ -1,4 +1,7 @@
 package ru.job4j.array;
+
+import java.util.Arrays;
+
 /**
  * Class ArrayChar решение задачи Части 001. Базовый синтаксис урок 6.
  *
@@ -34,6 +37,23 @@ public class ArrayChar {
             }
         } else {
             result = false;
+        }
+        return result;
+    }
+
+    /**
+     * Method contains. Проверка наличия подстроки в строке.
+     * @param sub Подстрока.
+     * @return Наличие совпадения подстроки в строке.
+     */
+    public boolean contains(String sub) {
+        boolean result = false;
+        for (int i = 0; i < this.dataArray.length; i++) {
+            result = this.startWith(sub);
+            if (result == true) {
+                break;
+            }
+            this.dataArray = Arrays.copyOfRange(this.dataArray, 1, this.dataArray.length);
         }
         return result;
     }

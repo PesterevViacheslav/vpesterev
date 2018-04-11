@@ -50,4 +50,53 @@ public class ArrayCharTest {
         assertThat(result, is(false));
     }
 
+    /**
+     * Тест операции поиска подстроки (Подстрока присутствует).
+     */
+    @Test
+    public void checkArrayContainsTrue() {
+        ArrayChar p = new ArrayChar("RRRTestUIUI");
+        boolean result = p.contains("Test");
+        assertThat(result, is(true));
+    }
+
+    /**
+     * Тест операции поиска подстроки (Подстрока равна строке).
+     */
+    @Test
+    public void checkArrayContainsTrueAll() {
+        ArrayChar p = new ArrayChar("Test");
+        boolean result = p.contains("Test");
+        assertThat(result, is(true));
+    }
+
+    /**
+     * Тест операции поиска подстроки (Подстрока присутствует в начале).
+     */
+    @Test
+    public void checkArrayContainsTrueStart() {
+        ArrayChar p = new ArrayChar("TestUIUI");
+        boolean result = p.contains("Test");
+        assertThat(result, is(true));
+    }
+
+    /**
+     * Тест операции поиска подстроки (Подстрока присутствует в конце).
+     */
+    @Test
+    public void checkArrayContainsTrueEnd() {
+        ArrayChar p = new ArrayChar("RRRTest");
+        boolean result = p.contains("Test");
+        assertThat(result, is(true));
+    }
+
+    /**
+     * Тест операции поиска подстроки (Подстрока отсутствует).
+     */
+    @Test
+    public void checkArrayContainsFalse() {
+        ArrayChar p = new ArrayChar("est");
+        boolean result = p.contains("Test");
+        assertThat(result, is(false));
+    }
 }
