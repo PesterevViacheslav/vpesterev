@@ -50,7 +50,7 @@ public class ArrayChar {
         boolean result = false;
         for (int i = 0; i < this.dataArray.length; i++) {
             result = this.startWith(sub);
-            if (result == true) {
+            if (result) {
                 break;
             }
             this.dataArray = Arrays.copyOfRange(this.dataArray, 1, this.dataArray.length);
