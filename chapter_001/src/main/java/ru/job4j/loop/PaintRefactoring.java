@@ -1,7 +1,5 @@
 package ru.job4j.loop;
-
 import java.util.function.BiPredicate;
-
 /**
  * Class PaintRefactoring решение задач Части 001. Базовый синтаксис урок 5 (Рефакторинг).
  *
@@ -10,7 +8,6 @@ import java.util.function.BiPredicate;
  * @version 1
  */
 public class PaintRefactoring {
-
     /**
      * Method rightTrl. Отрисовка правой части пирамиды заданной высоты.
      * @param height Высота пирамиды.
@@ -23,7 +20,6 @@ public class PaintRefactoring {
                 (row, column) -> row >= column
         );
     }
-
     /**
      * Method leftTrl. Отрисовка левой части пирамиды заданной высоты.
      * @param height Высота пирамиды.
@@ -36,7 +32,6 @@ public class PaintRefactoring {
                 (row, column) -> row >= height - column - 1
         );
     }
-
     /**
      * Method piramid. Отрисовка пирамиды заданной высоты.
      * @param height Высота пирамиды.
@@ -49,7 +44,6 @@ public class PaintRefactoring {
                 (row, column) -> row >= height - column - 1 && row + height - 1 >= column
         );
     }
-
     /**
      * Method loopBy. Отрисовка пирамиды заданной высоты.
      * @param height Высота пирамиды.

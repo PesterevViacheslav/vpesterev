@@ -1,11 +1,9 @@
 package ru.job4j;
-
 import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
 * Class CalculateTest Автотесты для задач Части 001. Базовый синтаксис урок 1.
 *
@@ -14,7 +12,6 @@ import static org.junit.Assert.assertThat;
 * @version 1
 */
 public class CalculateTest {
-
   /**
     * Test echo.
     */ @Test

@@ -1,5 +1,4 @@
 package ru.job4j.condition;
-
 /**
  * Class DummyBot решение задач Части 001. Базовый синтаксис урок 4.
  *
@@ -8,7 +7,6 @@ package ru.job4j.condition;
  * @version 1
  */
 public class DummyBot {
-
     /**
      * Method answer. Предоставление ответа на заданный вопрос.
      * @param question Вопрос от клиента.
@@ -24,6 +22,3 @@ public class DummyBot {
         return result;
     }
 }
-
-
-

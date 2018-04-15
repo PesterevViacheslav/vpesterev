@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 /**
  * Class BubbleSort решение задачи Части 001. Базовый синтаксис урок 6.
  *

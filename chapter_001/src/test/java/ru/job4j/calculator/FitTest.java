@@ -1,9 +1,7 @@
 package ru.job4j.calculator;
-
 import org.junit.Test;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.number.IsCloseTo.closeTo;
-
 /**
  * Class FitTest Автотесты для задач Части 001. Базовый синтаксис урок 3.
  *
@@ -11,7 +9,6 @@ import static org.hamcrest.number.IsCloseTo.closeTo;
  * @since 16.03.2018
  * @version 1
  */
-
 public class FitTest {
     /**
      * Тест операции вычисления идеального веса мужчины.
@@ -22,7 +19,6 @@ public class FitTest {
         double weight = fit.manWeight(180);
         assertThat(weight, closeTo(92.0, 0.1));
     }
-
     /**
      * Тест операции вычисления идеального веса женщины.
      */
@@ -33,4 +29,3 @@ public class FitTest {
         assertThat(weight, closeTo(69.0, 0.1));
     }
 }
-

@@ -1,5 +1,4 @@
 package ru.job4j;
-
 /**
 * Class Calculate решение задачи Части 001. Базовый синтаксис урок 1.
 *
@@ -8,7 +7,6 @@ package ru.job4j;
 * @version 1
 */
 public class Calculate {
-
   /**
     * Method main. Вывод строки в консоль. 
     * @param  args - args.
@@ -16,7 +14,6 @@ public class Calculate {
   public static void main(String[] args) {
     System.out.println("Hello, World!!!!!"); 
   }
-
   /**
      * Method echo.
      * @param name Your name.

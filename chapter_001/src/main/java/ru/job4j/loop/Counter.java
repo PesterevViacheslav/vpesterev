@@ -1,5 +1,4 @@
 package ru.job4j.loop;
-
 /**
  * Class Counter решение задач Части 001. Базовый синтаксис урок 5.
  *
@@ -8,7 +7,6 @@ package ru.job4j.loop;
  * @version 1
  */
 public class Counter {
-
     /**
      * Method add. Определение суммы нечетных чисел в диапазоне.
      * @param start Начало диапазона.
@@ -17,13 +15,11 @@ public class Counter {
      */
     public int add(int start, int finish) {
         int result = 0;
-
         for (int i = start; i <= finish; i++) {
             if (i % 2 == 0) {
                 result += i;
             }
         }
-
         return result;
     };
 }

@@ -9,7 +9,6 @@ package ru.job4j.calculator;
 public class Converter {
     private static final int EURO_TO_RUBLE_RATE = 70;
     private static final int DOLLAR_TO_RUBLE_RATE = 60;
-
     /**
      * Method rubleToEuro. Конвертирут рубли в евро.
      * @param value - Сумма в рублях.
@@ -18,7 +17,6 @@ public class Converter {
     public int rubleToEuro(int value) {
         return value / EURO_TO_RUBLE_RATE;
     }
-
     /**
      * Method rubleToDollar. Конвертирут рубли в доллары.
      * @param value - Сумма в рублях.
@@ -27,7 +25,6 @@ public class Converter {
     public int rubleToDollar(int value) {
         return value / DOLLAR_TO_RUBLE_RATE;
     }
-
     /**
      * Method euroToRuble. Конвертирут евро в рубли.
      * @param value - Сумма в евро.
@@ -36,7 +33,6 @@ public class Converter {
     public int euroToRuble(int value) {
         return value * EURO_TO_RUBLE_RATE;
     }
-
     /**
      * Method dollarToRuble. Конвертирут доллары в рубли.
      * @param value - Сумма в долларах.

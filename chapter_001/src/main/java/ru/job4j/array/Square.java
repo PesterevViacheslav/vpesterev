@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 /**
  * Class Square решение задачи Части 001. Базовый синтаксис урок 6.
  *
@@ -8,7 +7,6 @@ package ru.job4j.array;
  * @version 1
  */
 public class Square {
-
     /**
      * Method calculate. Возведение в квадрат элементов массива.
      * @param bound Размер массива.
@@ -17,7 +15,6 @@ public class Square {
     public int[] calculate(int bound) {
         int size = bound <= 0 ? 1 : bound;
         int[] result = new int[size];
-
         if (bound > 0) {
             for (int i = 0; i < bound; i++) {
                 result[i] = (int) Math.pow(i + 1, 2);
@@ -25,7 +22,6 @@ public class Square {
         } else {
             result[0] = -1;
         }
-
         return result;
     }
 }

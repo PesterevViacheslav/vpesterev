@@ -1,10 +1,8 @@
 package ru.job4j.array;
-
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class FindLoopTest Автотесты для задач Части 001. Базовый синтаксис урок 6.
  *
@@ -13,7 +11,6 @@ import static org.junit.Assert.assertThat;
  * @version 1
  */
 public class FindLoopTest {
-
     /**
      * Тест операции поиска элемента в массиве (элемент присутствует)
      */
@@ -24,7 +21,6 @@ public class FindLoopTest {
         int result = 2;
         assertThat(result, is(p.indexOf(array, 9)));
     }
-
     /**
      * Тест операции поиска элемента в массиве (элемент отсутствует)
      */

@@ -1,9 +1,7 @@
 package ru.job4j.loop;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class CounterTest Автотесты для задач Части 001. Базовый синтаксис урок 5.
  *
@@ -48,5 +46,4 @@ public class CounterTest {
         int result = summ.add(2, 8);
         assertThat(result, is(20));
     }
-
 }

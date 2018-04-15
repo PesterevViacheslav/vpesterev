@@ -1,12 +1,10 @@
 package ru.job4j.loop;
-
 import org.junit.Test;
 
 import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class PaintRefactoringTest Автотесты для задач Части 001. Базовый синтаксис урок 5.
  *
@@ -15,7 +13,6 @@ import static org.junit.Assert.assertThat;
  * @version 1
  */
 public class PaintRefactoringTest {
-
     /**
      * Тест операции получения псевдографики пирамиды высотой 1
      */
@@ -26,7 +23,6 @@ public class PaintRefactoringTest {
         String result = p.piramid(1);
         assertThat(result, is(String.format("^%s", ln)));
     }
-
     /**
      * Тест операции получения псевдографики пирамиды высотой 3
      */

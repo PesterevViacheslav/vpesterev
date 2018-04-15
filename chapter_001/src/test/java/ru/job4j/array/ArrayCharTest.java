@@ -19,7 +19,6 @@ public class ArrayCharTest {
         boolean result = p.startWith("T");
         assertThat(result, is(true));
     }
-
     /**
      * Тест операции проверки начала массива с нужного префикса (Префикс не совпадает с началом массива).
      */
@@ -29,7 +28,6 @@ public class ArrayCharTest {
         boolean result = p.startWith("Err");
         assertThat(result, is(false));
     }
-
     /**
      * Тест операции проверки начала массива с нужного префикса (Длина префиксам равна размерности массива).
      */
@@ -39,7 +37,6 @@ public class ArrayCharTest {
         boolean result = p.startWith("Test");
         assertThat(result, is(true));
     }
-
     /**
      * Тест операции проверки начала массива с нужного префикса (Длина префиксам меньше размерности массива).
      */
@@ -49,7 +46,6 @@ public class ArrayCharTest {
         boolean result = p.startWith("Test01");
         assertThat(result, is(false));
     }
-
     /**
      * Тест операции поиска подстроки (Подстрока присутствует).
      */
@@ -59,7 +55,6 @@ public class ArrayCharTest {
         boolean result = p.contains("Test");
         assertThat(result, is(true));
     }
-
     /**
      * Тест операции поиска подстроки (Подстрока равна строке).
      */
@@ -69,7 +64,6 @@ public class ArrayCharTest {
         boolean result = p.contains("Test");
         assertThat(result, is(true));
     }
-
     /**
      * Тест операции поиска подстроки (Подстрока присутствует в начале).
      */
@@ -79,7 +73,6 @@ public class ArrayCharTest {
         boolean result = p.contains("Test");
         assertThat(result, is(true));
     }
-
     /**
      * Тест операции поиска подстроки (Подстрока присутствует в конце).
      */
@@ -89,7 +82,6 @@ public class ArrayCharTest {
         boolean result = p.contains("Test");
         assertThat(result, is(true));
     }
-
     /**
      * Тест операции поиска подстроки (Подстрока отсутствует).
      */

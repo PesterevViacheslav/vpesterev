@@ -1,7 +1,5 @@
 package ru.job4j.array;
-
 import java.util.Arrays;
-
 /**
  * Class ArrayChar решение задачи Части 001. Базовый синтаксис урок 6.
  *
@@ -11,7 +9,6 @@ import java.util.Arrays;
  */
 public class ArrayChar {
     private char[] dataArray;
-
     /**
      * Method ArrayChar. Конструктор.
      * @param line Строка.
@@ -19,7 +16,6 @@ public class ArrayChar {
     public ArrayChar(String line) {
         this.dataArray = line.toCharArray();
     }
-
     /**
      * Method startWith. Проверка начала массива с префикса.
      * @param prefix Префикс.
@@ -40,7 +36,6 @@ public class ArrayChar {
         }
         return result;
     }
-
     /**
      * Method contains. Проверка наличия подстроки в строке.
      * @param sub Подстрока.

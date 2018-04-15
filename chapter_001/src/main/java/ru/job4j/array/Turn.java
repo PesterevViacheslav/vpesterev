@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 /**
  * Class Turn решение задачи Части 001. Базовый синтаксис урок 6.
  *
@@ -8,7 +7,6 @@ package ru.job4j.array;
  * @version 1
  */
 public class Turn {
-
     /**
      * Method turn. Переворачивание массива.
      * @param array Массив элементов.

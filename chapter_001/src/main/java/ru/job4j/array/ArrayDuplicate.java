@@ -1,5 +1,4 @@
 package ru.job4j.array;
-
 import java.util.Arrays;
 /**
  * Class ArrayDuplicate решение задачи Части 001. Базовый синтаксис урок 6.
@@ -13,7 +12,6 @@ public class ArrayDuplicate {
         int shift = 0;
         String tmp;
         int makeShift = 0;
-
         for (int i = 0; i < array.length; i++) {
             if (i > 0 && makeShift == 1) {
                 i--;
@@ -28,7 +26,6 @@ public class ArrayDuplicate {
                     makeShift = 1;
                 }
             }
-
         }
         return Arrays.copyOf(array, array.length - shift);
     }

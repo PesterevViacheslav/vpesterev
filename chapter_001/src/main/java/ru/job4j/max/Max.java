@@ -1,5 +1,4 @@
 package ru.job4j.max;
-
 /**
  * Class Max решение задач Части 001. Базовый синтаксис урок 4.
  *
@@ -8,7 +7,6 @@ package ru.job4j.max;
  * @version 1
  */
 public class Max {
-
     /**
      * Method max. Определение максимума из двух чисел.
      * @param first Первое число.
@@ -18,7 +16,6 @@ public class Max {
     public int max(int first, int second) {
         return first > second ? first : second;
     }
-
     /**
      * Method max. Определение максимума из трех чисел.
      * @param first Первое число.

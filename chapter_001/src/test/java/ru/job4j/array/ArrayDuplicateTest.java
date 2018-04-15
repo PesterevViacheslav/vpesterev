@@ -21,7 +21,6 @@ public class ArrayDuplicateTest {
         String[] result = {"One", "Two", "Three", "Four"};
         assertThat(result, is(arrayContainingInAnyOrder(array.remove(p))));
     }
-
     /**
      * Тест операции устранения дубликатов в массиве (одинаковые значения).
      */
@@ -32,7 +31,6 @@ public class ArrayDuplicateTest {
         String[] result = {"One"};
         assertThat(result, is(arrayContainingInAnyOrder(array.remove(p))));
     }
-
     /**
      * Тест операции устранения дубликатов в массиве (одно значение).
      */
@@ -63,7 +61,6 @@ public class ArrayDuplicateTest {
         String[] result = {"One", "Three", "Two"};
         assertThat(result, is(arrayContainingInAnyOrder(array.remove(p))));
     }
-
     /**
      * Тест операции устранения дубликатов в массиве (дубликаты в середине).
      */

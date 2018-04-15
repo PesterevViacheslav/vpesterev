@@ -1,9 +1,7 @@
 package ru.job4j.condition;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class DummyBotTest Автотесты для задач Части 001. Базовый синтаксис урок 4.
  *
@@ -23,7 +21,6 @@ public class DummyBotTest {
                 is("Привет, умник.")
         );
     }
-
     /**
      * Тест операции прощания с ботом.
      */
@@ -35,7 +32,6 @@ public class DummyBotTest {
                 is("До скорой встречи.")
         );
     }
-
     /**
      * Тест операции задания неизвестного для бота вопроса.
      */

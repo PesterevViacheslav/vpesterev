@@ -1,9 +1,7 @@
 package ru.job4j.array;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class BubbleSortTest Автотесты для задач Части 001. Базовый синтаксис урок 6.
  *

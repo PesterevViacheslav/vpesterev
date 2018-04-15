@@ -1,9 +1,7 @@
 package ru.job4j.calculator;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class ConverterTest Автотесты для задач Части 001. Базовый синтаксис урок 3.
  *
@@ -21,7 +19,6 @@ public class ConverterTest {
         int result = converter.rubleToDollar(60);
         assertThat(result, is(1));
     }
-
     /**
      * Тест операции конвертации из рублей в евро.
      */
@@ -31,7 +28,6 @@ public class ConverterTest {
         int result = converter.rubleToEuro(70);
         assertThat(result, is(1));
     }
-
     /**
      * Тест операции конвертации из долларов в рубли.
      */
@@ -41,7 +37,6 @@ public class ConverterTest {
         int result = converter.dollarToRuble(1);
         assertThat(result, is(60));
     }
-
     /**
      * Тест операции конвертации из евро в рубли.
      */

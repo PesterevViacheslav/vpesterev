@@ -1,9 +1,7 @@
 package ru.job4j.loop;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class FactorialTest Автотесты для задач Части 001. Базовый синтаксис урок 5.
  *
@@ -21,7 +19,6 @@ public class FactorialTest {
         int result = clc.calc(5);
         assertThat(result, is(120));
     }
-
     /**
      * Тест операции получения факториала числа 0
      */

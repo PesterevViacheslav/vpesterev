@@ -1,9 +1,7 @@
 package ru.job4j.calculator;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class CalculateTest Автотесты для задач Части 001. Базовый синтаксис урок 3.
  *
@@ -23,7 +21,6 @@ public class CalculatorTest {
         double expected = 2D;
         assertThat(result, is(expected));
     }
-
     /**
      * Тест операции вычитания.
      */
@@ -35,7 +32,6 @@ public class CalculatorTest {
         double expected = 1D;
         assertThat(result, is(expected));
     }
-
     /**
      * Тест операции умножения.
      */
@@ -47,7 +43,6 @@ public class CalculatorTest {
         double expected = 8D;
         assertThat(result, is(expected));
     }
-
     /**
      * Тест операции деления.
      */

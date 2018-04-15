@@ -19,7 +19,6 @@ public class Fit {
      * Коэффициент корректировки роста для женщин
      */
     private static final int WOMAN_CM_COEFFICIENT = 110;
-
     /**
      * Method manWeight. Идеальный вес для мужщины.
      * @param height Рост в сантиметрах.
@@ -28,7 +27,6 @@ public class Fit {
     public double manWeight(double height) {
         return (height - MAN_CM_COEFFICIENT) * WEIGHT_CORRECTION_COEFFICIENT;
     }
-
     /**
      * Method womanWeight. Идеальный вес для женщин.
      * @param height Рост в сантиметрах.
@@ -38,4 +36,3 @@ public class Fit {
         return (height - WOMAN_CM_COEFFICIENT) * WEIGHT_CORRECTION_COEFFICIENT;
     }
 }
-

@@ -1,7 +1,5 @@
 package ru.job4j.condition;
-
 import static java.lang.Math.sqrt;
-
 /**
  * Class Triangle решение задач Части 001. Базовый синтаксис урок 4.
  *
@@ -13,7 +11,6 @@ public class Triangle {
     private Point a;
     private Point b;
     private Point c;
-
     /**
      * Method Triangle. Конструктор.
      * @param a Точка a.
@@ -25,7 +22,6 @@ public class Triangle {
         this.b = b;
         this.c = c;
     }
-
     /**
      * Method period. Вычисление полупериметра по длинам сторон.
      * @param ab Расстояние между точками a b.
@@ -36,7 +32,6 @@ public class Triangle {
     public double period(double ab, double ac, double bc) {
         return (ab + ac + bc) / 2;
     }
-
     /**
      * Method area. Вычисление площади треугольника.
      * @return Площадь треугольника.
@@ -47,13 +42,11 @@ public class Triangle {
         double ac = this.a.distanceTo(this.c);
         double bc = this.b.distanceTo(this.c);
         double p = this.period(ab, ac, bc);
-
         if (this.exist(ab, ac, bc)) {
             result = sqrt(p * (p - ab) * (p - ac) * (p - bc));
         }
         return result;
     }
-
     /**
      * Method exist. Проверка возможности построения треугольника с заданными длинами сторон.
      * @param ab Длина от точки a до точки b.
@@ -63,7 +56,6 @@ public class Triangle {
      */
     private boolean exist(double ab, double ac, double bc) {
         boolean result = true;
-
         if ((ab == 0) || (ac == 0) || (bc == 0) || (ab == (ac + bc)) || (bc == (ac + ab)) || (ac == (ab + bc))) {
             result = false;
         }

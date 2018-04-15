@@ -8,7 +8,6 @@ package ru.job4j.calculator;
  */
 public class Calculator {
     private double result;
-
     /**
      * Method add. Сумма двух элементов.
      * @param  first - Первое слагаемое.
@@ -17,7 +16,6 @@ public class Calculator {
     public void add(double first, double second) {
         this.result = first + second;
     }
-
     /**
      * Method minus. Разность двух элементов.
      * @param  first -  Уменьшаемое.
@@ -26,7 +24,6 @@ public class Calculator {
     public void minus(double first, double second) {
         this.result = first - second;
     }
-
     /**
      * Method multiply. Произведение двух элементов.
      * @param  first - Первый множитель.
@@ -35,7 +32,6 @@ public class Calculator {
     public void multiply(double first, double second) {
         this.result = first * second;
     }
-
     /**
      * Method divide. Деление двух элементов.
      * @param  first - Делимое.
@@ -44,7 +40,6 @@ public class Calculator {
     public void divide(double first, double second) {
         this.result = first / second;
     }
-
     /**
      * Method getResult. Получение результата.
      * @return  Результат вычислений.

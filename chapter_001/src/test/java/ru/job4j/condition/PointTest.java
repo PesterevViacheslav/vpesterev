@@ -1,9 +1,7 @@
 package ru.job4j.condition;
-
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-
 /**
  * Class PointTest Автотесты для задач Части 001. Базовый синтаксис урок 3.4.
  *
@@ -12,7 +10,6 @@ import static org.junit.Assert.assertThat;
  * @version 1
  */
 public class PointTest {
-
     /**
      * Тест операции вычисления расстояния между точками.
      */
@@ -25,5 +22,4 @@ public class PointTest {
         double expected = 2D;
         assertThat(result, is(expected));
     }
-
 }
