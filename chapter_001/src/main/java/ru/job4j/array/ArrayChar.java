@@ -19,13 +19,14 @@ public class ArrayChar {
     /**
      * Method startWith. Проверка начала массива с префикса.
      * @param prefix Префикс.
+     * @param position Начальная позиция поиска.
      * @return Наличие совпадения начала массива с префиксом.
      */
-    public boolean startWith(String prefix) {
+    public boolean startWith(String prefix, int position) {
         boolean result = true;
         char[] prefixArray = prefix.toCharArray();
         if (prefixArray.length <= this.dataArray.length) {
-            for (int i = 0; i < prefixArray.length; i++) {
+            for (int i = position; i < prefixArray.length; i++) {
                 if (prefixArray[i] != this.dataArray[i]) {
                     result = false;
                     break;
@@ -44,11 +45,10 @@ public class ArrayChar {
     public boolean contains(String sub) {
         boolean result = false;
         for (int i = 0; i < this.dataArray.length; i++) {
-            result = this.startWith(sub);
+            result = this.startWith(sub, i);
             if (result) {
                 break;
             }
-            this.dataArray = Arrays.copyOfRange(this.dataArray, 1, this.dataArray.length);
         }
         return result;
     }

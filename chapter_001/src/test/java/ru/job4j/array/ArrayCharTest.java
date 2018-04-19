@@ -16,7 +16,7 @@ public class ArrayCharTest {
     @Test
     public void checkArrayStartWithPrefixSuccess() {
         ArrayChar p = new ArrayChar("Test");
-        boolean result = p.startWith("T");
+        boolean result = p.startWith("T", 0);
         assertThat(result, is(true));
     }
     /**
@@ -25,7 +25,7 @@ public class ArrayCharTest {
     @Test
     public void checkArrayStartWithPrefixError() {
         ArrayChar p = new ArrayChar("Test");
-        boolean result = p.startWith("Err");
+        boolean result = p.startWith("Err", 0);
         assertThat(result, is(false));
     }
     /**
@@ -34,7 +34,7 @@ public class ArrayCharTest {
     @Test
     public void checkArrayStartWithPrefixLengthEqualArraySize() {
         ArrayChar p = new ArrayChar("Test");
-        boolean result = p.startWith("Test");
+        boolean result = p.startWith("Test", 0);
         assertThat(result, is(true));
     }
     /**
@@ -43,7 +43,7 @@ public class ArrayCharTest {
     @Test
     public void checkArrayStartWithPrefixLengthLessArraySize() {
         ArrayChar p = new ArrayChar("Test");
-        boolean result = p.startWith("Test01");
+        boolean result = p.startWith("Test01", 0);
         assertThat(result, is(false));
     }
     /**
