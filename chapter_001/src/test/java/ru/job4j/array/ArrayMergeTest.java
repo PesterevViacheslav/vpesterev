@@ -16,8 +16,8 @@ public class ArrayMergeTest {
     @Test
     public void checkArrayMergeLessB() {
         ArrayMerge p = new ArrayMerge();
-        int[] result = {1, 2, 4, 5, 7, 8, 10, 11, 12, 13, 13, 14, 15};
-        int[] arrayA = {2, 4, 7, 10, 11, 13, 15};
+        int[] result = {1, 2, 4, 5, 7, 8, 10, 11, 12, 13, 13, 14, 15, 16, 17};
+        int[] arrayA = {2, 4, 7, 10, 11, 13, 15, 16, 17};
         int[] arrayB = {1, 5, 8, 12, 13, 14};
         assertThat(result, is(p.merge(arrayA, arrayB)));
     }
@@ -27,9 +27,9 @@ public class ArrayMergeTest {
     @Test
     public void checkArrayMergeLessA() {
         ArrayMerge p = new ArrayMerge();
-        int[] result = {1, 4, 5, 7, 8};
+        int[] result = {1, 4, 5, 7, 8, 9};
         int[] arrayA = {4, 7};
-        int[] arrayB = {1, 5, 8};
+        int[] arrayB = {1, 5, 8, 9};
         assertThat(result, is(p.merge(arrayA, arrayB)));
     }
     /**

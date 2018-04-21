@@ -1,4 +1,5 @@
 package ru.job4j.array;
+
 /**
  * Class ArrayMerge решение задачи Части 001. Базовый синтаксис урок 7.
  *
@@ -18,46 +19,34 @@ public class ArrayMerge {
         int lengthB = arrayB.length;
         int lengthC = lengthA + lengthB;
         int[] arrayC = new int[lengthC];
-        int j = -1;
-        int tmp;
-        int tail;
-        for (int i = 0; i < Math.max(lengthA, lengthB); i++) {
-            if (i < Math.min(lengthA, lengthB)) {
-                if (j >= 0) {
-                    if (arrayC[j] < Math.min(arrayA[i], arrayB[i])) {
-                        j++;
-                        arrayC[j] = Math.min(arrayA[i], arrayB[i]);
-                        j++;
-                        arrayC[j] = Math.max(arrayA[i], arrayB[i]);
-                    } else {
-                        tmp = arrayC[j];
-                        arrayC[j] = Math.min(arrayA[i], arrayB[i]);
-                        j++;
-                        arrayC[j] = tmp;
-                        j++;
-                        arrayC[j] = Math.max(arrayA[i], arrayB[i]);
-                    }
+        int idxC = 0;
+        int shift = 0;
+        int idxA = 0;
+        int idxB = 0;
+        for (int i = 0; i < lengthA; i++) {
+            for (int j = shift; j < lengthB; j++) {
+                if (arrayA[i] <= arrayB[j]) {
+                    arrayC[idxC] = arrayA[i];
+                    idxC++;
+                    idxA = i;
+                    break;
                 } else {
-                    j++;
-                    arrayC[j] = Math.min(arrayA[i], arrayB[i]);
-                    j++;
-                    arrayC[j] = Math.max(arrayA[i], arrayB[i]);
+                    arrayC[idxC] = arrayB[j];
+                    idxC++;
+                    shift++;
+                    idxB = j;
                 }
-            } else {
-                if (lengthA < lengthB) {
-                    tail = arrayB[i];
-                } else {
-                    tail = arrayA[i];
-                }
-                if (arrayC[j] < tail) {
-                    j++;
-                    arrayC[j] = tail;
-                } else {
-                    tmp = arrayC[j];
-                    arrayC[j] = tail;
-                    j++;
-                    arrayC[j] = tmp;
-                }
+            }
+        }
+        if (idxA < lengthA - 1) {
+            for (int i = idxA + 1; i < lengthA; i++) {
+                arrayC[idxC] = arrayA[i];
+                idxC++;
+            }
+        } else if (idxB < lengthB - 1) {
+            for (int i = idxB + 1; i < lengthB; i++) {
+                arrayC[idxC] = arrayB[i];
+                idxC++;
             }
         }
         return arrayC;
