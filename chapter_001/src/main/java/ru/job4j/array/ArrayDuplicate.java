@@ -9,24 +9,19 @@ import java.util.Arrays;
  */
 public class ArrayDuplicate {
     public String[] remove(String[] array) {
-        int shift = 0;
+        int ln = array.length;
         String tmp;
-        int makeShift = 0;
-        for (int i = 0; i < array.length; i++) {
-            if (i > 0 && makeShift == 1) {
-                i--;
-            }
-            makeShift = 0;
-            for (int j = i + 1; j < array.length - shift; j++) {
-                if (array[j].equals(array[i])) {
-                    shift++;
+        for (int i = 0; i != ln; i++) {
+            for (int j = i + 1; j != ln; j++) {
+                if (array[i].equals(array[j])) {
+                    ln--;
                     tmp = array[j];
-                    array[j] = array[array.length - shift];
-                    array[array.length - shift] = tmp;
-                    makeShift = 1;
+                    array[j] = array[ln];
+                    array[ln] = tmp;
+                    j--;
                 }
             }
         }
-        return Arrays.copyOf(array, array.length - shift);
+        return Arrays.copyOf(array, ln);
     }
 }
