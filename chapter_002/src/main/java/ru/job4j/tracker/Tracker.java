@@ -13,9 +13,9 @@ public class Tracker {
     private Item[] items = new Item[100];
     private int position = 0;
     /**
-     * Method getName. Получить размер стека заявок.
+     * Method size. Получить размер стека заявок.
      */
-    public int getPosition() {
+    public int size() {
         return this.position;
     }
     /**

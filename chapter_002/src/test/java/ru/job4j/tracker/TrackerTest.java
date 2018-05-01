@@ -47,7 +47,7 @@ public class TrackerTest {
         tracker.add(item2);
         tracker.delete(item.getId());
         assertThat(new Item(), is(tracker.findById(item.getId())));
-        assertThat(1, is(tracker.getPosition()));
+        assertThat(1, is(tracker.size()));
     }
     /**
      * Тест метода поиска заявки по ID (Найдено).
