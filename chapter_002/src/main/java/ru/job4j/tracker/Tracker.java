@@ -68,8 +68,6 @@ public class Tracker {
         result.setName(item.getName());
         result.setDescription(item.getDescription());
         result.setChanged(System.currentTimeMillis());
-        result.setId(item.getId());
-        result.setChanged(item.getChanged());
     }
     /**
      * Method replace. Изменение заявки.
