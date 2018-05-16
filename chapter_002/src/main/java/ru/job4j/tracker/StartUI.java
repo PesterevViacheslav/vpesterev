@@ -14,20 +14,20 @@ public class StartUI {
     private static final String FIND_ITEM_BY_ID = "4";
     private static final String FIND_ITEMS_BY_NAME = "5";
     private static final String EXIT = "6";
-    private ConsoleInput consoleInput = new ConsoleInput();
-    private Tracker tracker = new Tracker();
+    private Input input;
+    private Tracker tracker;
     /**
      * Method StartUI. Конструктор.
-     * @param consoleInput Ввод с консоли.
+     * @param input Ввод с консоли.
      * @param tracker Стек заявок.
      * @return ID заявки
      */
-    public StartUI(ConsoleInput consoleInput, Tracker tracker) {
-        this.consoleInput = consoleInput;
+    public StartUI(Input input, Tracker tracker) {
+        this.input = input;
         this.tracker = tracker;
     }
     /**
-     * Method addItem. Добавление заявки в стек.
+     * Method showMenu. Отображение меню.
      */
     private void showMenu() {
         System.out.println("TRACKER MENU\n"
@@ -44,8 +44,8 @@ public class StartUI {
      */
     private void addItem() {
         System.out.println("***Add new item Start***");
-        String name = consoleInput.ask("Input Item Name:");
-        String description = consoleInput.ask("Input Item Description:");
+        String name = input.ask("Input Item Name:");
+        String description = input.ask("Input Item Description:");
         Item item = new Item(name, description);
         this.tracker.add(item);
         System.out.println("Item created, ID=" + item.getId());
@@ -69,12 +69,12 @@ public class StartUI {
      */
     private void editItem() {
         System.out.println("***Edit item Start***");
-        String id = consoleInput.ask("Input Item ID:");
+        String id = input.ask("Input Item ID:");
         if (this.tracker.findById(id).equals(new Item())) {
             System.out.println("Item not found");
         } else {
-            String name = consoleInput.ask("Input New Item Name:");
-            String description = consoleInput.ask("Input New Item Description:");
+            String name = input.ask("Input New Item Name:");
+            String description = input.ask("Input New Item Description:");
             Item item = new Item(name, description);
             this.tracker.replace(id, item);
             System.out.println("***Item edited successfully***");
@@ -85,7 +85,7 @@ public class StartUI {
      */
     private void deleteItem() {
         System.out.println("***Delete item Start***");
-        String id = consoleInput.ask("Input Item ID:");
+        String id = input.ask("Input Item ID:");
         if (this.tracker.findById(id).equals(new Item())) {
             System.out.println("Item not found");
         } else {
@@ -98,7 +98,7 @@ public class StartUI {
      */
     private void findItemById() {
         System.out.println("***Find item by ID Start***");
-        String id = consoleInput.ask("Input Item ID:");
+        String id = input.ask("Input Item ID:");
         Item item = this.tracker.findById(id);
         if (item.equals(new Item())) {
             System.out.println("Item not found");
@@ -111,7 +111,7 @@ public class StartUI {
      */
     private void findItemsByName() {
         System.out.println("***Find items by Name Start***");
-        String name = consoleInput.ask("Input Item name:");
+        String name = input.ask("Input Item name:");
         Item[] items = this.tracker.findByName(name);
         if (items.length == 0) {
             System.out.println("Items not found");
@@ -136,12 +136,12 @@ public class StartUI {
     /**
      * Method Init. Запуск на выполнение.
      */
-    private void init() {
+    public void init() {
         boolean exit = false;
 
         while (!exit) {
             this.showMenu();
-            String answer = this.consoleInput.ask("Select:");
+            String answer = this.input.ask("Select:");
             if (ADD_NEW_ITEM.equals(answer)) {
                 this.addItem();
             } else if (EXIT.equals(answer)) {

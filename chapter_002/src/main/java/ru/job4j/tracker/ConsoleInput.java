@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
-
 import java.util.Scanner;
-
 /**
  * Class ConsoleInput - Консольный ввод. Решение задачи Части 002. ООП. Общая задача на второй модуль.
  *
@@ -9,7 +7,7 @@ import java.util.Scanner;
  * @since 02.05.2018
  * @version 1
  */
-public class ConsoleInput {
+public class ConsoleInput implements Input {
     private Scanner scanner = new Scanner(System.in);
     /**
      * Method ask. Получение ответа на вопрос из консоли.
@@ -18,6 +16,6 @@ public class ConsoleInput {
      */
     public String ask(String question) {
         System.out.println(question);
-        return scanner.next();
+        return scanner.nextLine();
     }
 }

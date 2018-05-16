@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
-
 import java.util.Arrays;
-
 /**
  * Class Tracker - Обработка заявок. Решение задачи Части 002. ООП. Общая задача на второй модуль.
  *
@@ -70,7 +68,7 @@ public class Tracker {
         result.setChanged(System.currentTimeMillis());
     }
     /**
-     * Method replace. Изменение заявки.
+     * Method delete. Удаление заявки.
      * @param id ID заявки.
      */
     public void delete(String id) {
