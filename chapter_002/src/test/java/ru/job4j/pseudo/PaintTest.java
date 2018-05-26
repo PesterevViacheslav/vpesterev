@@ -1,4 +1,6 @@
 package ru.job4j.pseudo;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -12,14 +14,23 @@ import java.io.PrintStream;
  * @version 1
  */
 public class PaintTest {
+    private PrintStream stdout = System.out;
+    private ByteArrayOutputStream out = new ByteArrayOutputStream();
+    @Before
+    public void loadOut() {
+        System.out.println("Exec before");
+        System.setOut(new PrintStream(this.out));
+    }
+    @After
+    public void backOut() {
+        System.setOut(this.stdout);
+        System.out.println("Exec after");
+    }
     /**
      * Тест метода рисования квадрата.
      */
     @Test
     public void checkDrawSquare() {
-        PrintStream stdout = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
         Shape square = new Square();
         new Paint().draw(square);
         StringBuilder pic = new StringBuilder();
@@ -27,16 +38,12 @@ public class PaintTest {
         pic.append("+   +\n");
         pic.append("+++++\r\n");
         assertThat(new String(out.toByteArray()), is(pic.toString()));
-        System.setOut(stdout);
     }
     /**
      * Тест метода рисования треугольника.
      */
     @Test
     public void checkDrawTriangle() {
-        PrintStream stdout = System.out;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(out));
         Shape triangle = new Triangle();
         new Paint().draw(triangle);
         StringBuilder pic = new StringBuilder();
@@ -44,6 +51,5 @@ public class PaintTest {
         pic.append(" +   + \n");
         pic.append("+++++++\r\n");
         assertThat(new String(out.toByteArray()), is(pic.toString()));
-        System.setOut(stdout);
     }
 }
