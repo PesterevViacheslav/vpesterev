@@ -19,7 +19,7 @@ import java.io.PrintStream;
  */
 public class StartUITest {
     private Tracker tracker = new Tracker();
-    private StubInput input = new StubInput(new String[] {"0", "TestName", "TestDsc", "0", "TestName2", "TestDsc2", "6"});
+    private StubInput input = new StubInput(new String[] {"0", "TestName", "TestDsc", "n", "0", "TestName2", "TestDsc2", "n", "6"});
     private PrintStream stdout = System.out;
     private ByteArrayOutputStream out = new ByteArrayOutputStream();
     private void loadOut() {
@@ -46,7 +46,7 @@ public class StartUITest {
      */
     @Test
     public void whenReplaceItemThenReturnNewItem() {
-        input = new StubInput(new String[] {"2", tracker.findAll()[0].getId(), "TestName2", "TestDsc2", "6"});
+        input = new StubInput(new String[] {"2", tracker.findAll()[0].getId(), "TestName2", "TestDsc2", "n", "6"});
         new StartUI(input, tracker).init();
         Item item = new Item("TestName2", "TestDsc2");
         assertThat(tracker.findAll()[0], is(item));
@@ -60,7 +60,7 @@ public class StartUITest {
         assertThat(tracker.findAll()[0].getDescription(), is("TestDsc"));
         assertThat(tracker.findAll()[1].getName(), is("TestName2"));
         assertThat(tracker.findAll()[1].getDescription(), is("TestDsc2"));
-        input = new StubInput(new String[] {"3", tracker.findAll()[0].getId(), "6"});
+        input = new StubInput(new String[] {"3", tracker.findAll()[0].getId(), "n", "6"});
         new StartUI(input, tracker).init();
         assertThat(1, is(tracker.size()));
     }
@@ -69,28 +69,28 @@ public class StartUITest {
      */
     @Test
     public void checkFindItemById() {
-        input = new StubInput(new String[] {"4", tracker.findAll()[0].getId(), "6"});
+        input = new StubInput(new String[] {"4", tracker.findAll()[0].getId(), "n", "6"});
         loadOut();
         new StartUI(input, tracker).init();
         backOut();
         StringBuilder tst = new StringBuilder();
-        tst.append("TRACKER MENU\n");
-        tst.append("0. Add new Item\n");
-        tst.append("1. Show all items\n");
-        tst.append("2. Edit item\n");
-        tst.append("3. Delete item\n");
-        tst.append("4. Find item by Id\n");
-        tst.append("5. Find items by name\n");
+        tst.append("TRACKER MENU\r\n");
+        tst.append("0. Add new Item\r\n");
+        tst.append("1. Show all items\r\n");
+        tst.append("2. Edit item\r\n");
+        tst.append("3. Delete item\r\n");
+        tst.append("4. Find item by Id\r\n");
+        tst.append("5. Find items by name\r\n");
         tst.append("6. Exit Program\r\n");
         tst.append("***Find item by ID Start***\r\n");
         tst.append("Item found ID=" + tracker.findAll()[0].getId() + " Name=TestName Description=TestDsc\r\n");
-        tst.append("TRACKER MENU\n");
-        tst.append("0. Add new Item\n");
-        tst.append("1. Show all items\n");
-        tst.append("2. Edit item\n");
-        tst.append("3. Delete item\n");
-        tst.append("4. Find item by Id\n");
-        tst.append("5. Find items by name\n");
+        tst.append("TRACKER MENU\r\n");
+        tst.append("0. Add new Item\r\n");
+        tst.append("1. Show all items\r\n");
+        tst.append("2. Edit item\r\n");
+        tst.append("3. Delete item\r\n");
+        tst.append("4. Find item by Id\r\n");
+        tst.append("5. Find items by name\r\n");
         tst.append("6. Exit Program\r\n");
         tst.append("***EXIT***\r\n");
         assertThat(new String(out.toByteArray()), is(tst.toString()));
@@ -100,28 +100,28 @@ public class StartUITest {
      */
     @Test
     public void checkFindItemsByName() {
-        input = new StubInput(new String[] {"5", "TestName2", "6"});
+        input = new StubInput(new String[] {"5", "TestName2", "n", "6"});
         loadOut();
         new StartUI(input, tracker).init();
         backOut();
         StringBuilder tst = new StringBuilder();
-        tst.append("TRACKER MENU\n");
-        tst.append("0. Add new Item\n");
-        tst.append("1. Show all items\n");
-        tst.append("2. Edit item\n");
-        tst.append("3. Delete item\n");
-        tst.append("4. Find item by Id\n");
-        tst.append("5. Find items by name\n");
+        tst.append("TRACKER MENU\r\n");
+        tst.append("0. Add new Item\r\n");
+        tst.append("1. Show all items\r\n");
+        tst.append("2. Edit item\r\n");
+        tst.append("3. Delete item\r\n");
+        tst.append("4. Find item by Id\r\n");
+        tst.append("5. Find items by name\r\n");
         tst.append("6. Exit Program\r\n");
         tst.append("***Find items by Name Start***\r\n");
         tst.append("Item found ID=" + tracker.findAll()[1].getId() + " Name=TestName2 Description=TestDsc2\r\n");
-        tst.append("TRACKER MENU\n");
-        tst.append("0. Add new Item\n");
-        tst.append("1. Show all items\n");
-        tst.append("2. Edit item\n");
-        tst.append("3. Delete item\n");
-        tst.append("4. Find item by Id\n");
-        tst.append("5. Find items by name\n");
+        tst.append("TRACKER MENU\r\n");
+        tst.append("0. Add new Item\r\n");
+        tst.append("1. Show all items\r\n");
+        tst.append("2. Edit item\r\n");
+        tst.append("3. Delete item\r\n");
+        tst.append("4. Find item by Id\r\n");
+        tst.append("5. Find items by name\r\n");
         tst.append("6. Exit Program\r\n");
         tst.append("***EXIT***\r\n");
         assertThat(new String(out.toByteArray()), is(tst.toString()));
@@ -131,29 +131,29 @@ public class StartUITest {
      */
     @Test
     public void checkFindAllItems() {
-        input = new StubInput(new String[] {"1", "6"});
+        input = new StubInput(new String[] {"1", "n", "6"});
         loadOut();
         new StartUI(input, tracker).init();
         backOut();
         StringBuilder tst = new StringBuilder();
-        tst.append("TRACKER MENU\n");
-        tst.append("0. Add new Item\n");
-        tst.append("1. Show all items\n");
-        tst.append("2. Edit item\n");
-        tst.append("3. Delete item\n");
-        tst.append("4. Find item by Id\n");
-        tst.append("5. Find items by name\n");
+        tst.append("TRACKER MENU\r\n");
+        tst.append("0. Add new Item\r\n");
+        tst.append("1. Show all items\r\n");
+        tst.append("2. Edit item\r\n");
+        tst.append("3. Delete item\r\n");
+        tst.append("4. Find item by Id\r\n");
+        tst.append("5. Find items by name\r\n");
         tst.append("6. Exit Program\r\n");
         tst.append("***Items list:***\r\n");
         tst.append("Item ID=" + tracker.findAll()[0].getId() + " Name=TestName Description=TestDsc\r\n");
         tst.append("Item ID=" + tracker.findAll()[1].getId() + " Name=TestName2 Description=TestDsc2\r\n");
-        tst.append("TRACKER MENU\n");
-        tst.append("0. Add new Item\n");
-        tst.append("1. Show all items\n");
-        tst.append("2. Edit item\n");
-        tst.append("3. Delete item\n");
-        tst.append("4. Find item by Id\n");
-        tst.append("5. Find items by name\n");
+        tst.append("TRACKER MENU\r\n");
+        tst.append("0. Add new Item\r\n");
+        tst.append("1. Show all items\r\n");
+        tst.append("2. Edit item\r\n");
+        tst.append("3. Delete item\r\n");
+        tst.append("4. Find item by Id\r\n");
+        tst.append("5. Find items by name\r\n");
         tst.append("6. Exit Program\r\n");
         tst.append("***EXIT***\r\n");
         assertThat(new String(out.toByteArray()), is(tst.toString()));
