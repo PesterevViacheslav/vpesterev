@@ -17,12 +17,21 @@ public class StubInput implements Input {
         this.answers = answers;
     }
     /**
-     * Method StubInput. Конструктор.
+     * Method ask. Получение ответа на вопрос.
      * @param question Вопрос.
      * @return Ответ
      */
-    @Override
     public String ask(String question) {
         return answers[this.position++];
     }
+    /**
+     * Method ask. Получение ответа на вопрос.
+     * @param question Вопрос.
+     * @param range Допустимый диапазон вопросов.
+     * @return Ответ
+     */
+    public int ask(String question, int[] range) {
+        return Integer.parseInt(answers[this.position++]);
+    }
+
 }
