@@ -28,22 +28,26 @@ public class StartUI {
         do {
             int key = 0;
             menu.show();
-            key = Integer.valueOf(this.input.ask("Select:"));
-            if (key > 6) {
-                System.out.println("Wrong key");
-            } else {
+            try {
+                key = this.input.ask("Select:", menu.getAvailableRangeList());
                 menu.select(key);
+            } catch (ItemNotFoundException infe) {
+                System.out.println("Item not found");
+            } catch (MenuOutException moe) {
+                System.out.println("Wrong menu key");
+            } catch (NumberFormatException nfe) {
+                System.out.println("Wrong format menu key");
             }
             if (key == 6) {
                 break;
             }
-        } while (!"y".equals(this.input.ask("Exit? (y/n):")));
+        } while (!"6".equals(this.input.ask("Enter 6 for Exit, 7 for show menu:", menu.getAvailableRangeList())));
     }
     /**
      * Method main.
      * @param args Параметры.
      */
     public static void main(String[] args) {
-        new StartUI(new ConsoleInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(), new Tracker()).init();
     }
 }
