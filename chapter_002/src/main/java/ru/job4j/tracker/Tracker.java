@@ -72,7 +72,8 @@ public class Tracker {
      * @param id ID заявки.
      */
     public void delete(String id) {
-        if (this.position > 0) {
+        Item exists = findById(id);
+        if (this.position > 0 && exists.getId() != null) {
             int positionTmp = 0;
             Item[] itemsTmp = new Item[100];
             for (int i = 0; i < this.position; i++) {
@@ -81,8 +82,8 @@ public class Tracker {
                     positionTmp++;
                 }
             }
-            this.items = itemsTmp;
             this.position--;
+            this.items = itemsTmp;
         }
     };
     /**

@@ -20,7 +20,7 @@ class EditItem implements UserAction {
         System.out.println("***Edit item Start***");
         String id = input.ask("Input Item ID:");
         if (tracker.findById(id).equals(new Item())) {
-            throw new ItemNotFoundException("Item not found");
+            System.out.println("Item not found");
         } else {
             String name = input.ask("Input New Item Name:");
             String description = input.ask("Input New Item Description:");
@@ -57,7 +57,7 @@ class DeleteItem implements UserAction {
         System.out.println("***Delete item Start***");
         String id = input.ask("Input Item ID:");
         if (tracker.findById(id).equals(new Item())) {
-            throw new ItemNotFoundException("Item not found");
+            System.out.println("Item not found");
         } else {
             tracker.delete(id);
             System.out.println("***Item deleted successfully***");
@@ -185,10 +185,12 @@ public class MenuTracker {
             System.out.println("***Items list:***");
             Item[] items = tracker.findAll();
             if (items.length == 0) {
-                throw new ItemNotFoundException("Items not found");
+                System.out.println("Items not found");
             } else {
-                for (Item item : items) {
-                    System.out.println(String.format("%s%s %s%s %s%s", "Item ID=", item.getId(), "Name=", item.getName(), "Description=", item.getDescription()));
+                for (int i = 0; i < items.length; i++) {
+                    if(items[i] != null) {
+                        System.out.println(String.format("%s%s %s%s %s%s", "Item ID=", items[i].getId(), "Name=", items[i].getName(), "Description=", items[i].getDescription()));
+                    }
                 }
             }
         }
@@ -221,7 +223,7 @@ public class MenuTracker {
             String id = input.ask("Input Item ID:");
             Item item = tracker.findById(id);
             if (item.equals(new Item())) {
-                throw new ItemNotFoundException("Item not found");
+                System.out.println("Item not found");
             } else {
                 System.out.println(String.format("%s%s %s%s %s%s", "Item found ID=", item.getId(), "Name=", item.getName(), "Description=", item.getDescription()));
             }
@@ -255,7 +257,7 @@ public class MenuTracker {
             String name = input.ask("Input Item name:");
             Item[] items = tracker.findByName(name);
             if (items.length == 0) {
-                throw new ItemNotFoundException("Items not found");
+                System.out.println("Items not found");
             } else {
                 for (Item item : items) {
                     System.out.println(String.format("%s%s %s%s %s%s", "Item found ID=", item.getId(), "Name=", item.getName(), "Description=", item.getDescription()));

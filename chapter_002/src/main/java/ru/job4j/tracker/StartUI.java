@@ -31,8 +31,6 @@ public class StartUI {
             try {
                 key = this.input.ask("Select:", menu.getAvailableRangeList());
                 menu.select(key);
-            } catch (ItemNotFoundException infe) {
-                System.out.println("Item not found");
             } catch (MenuOutException moe) {
                 System.out.println("Wrong menu key");
             } catch (NumberFormatException nfe) {

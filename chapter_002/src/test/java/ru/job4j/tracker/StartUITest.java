@@ -186,35 +186,4 @@ public class StartUITest {
         tst.append("***EXIT***\r\n");
         assertThat(new String(out.toByteArray()), is(tst.toString()));
     }
-    /**
-     * Тест метода поиска заявки по ID (заявка не найдена).
-     */
-    @Test
-    public void checkItemNotFoundById() {
-        input = new StubInput(new String[] {"4", "1111111_not_found", "7", "6"});
-        loadOut();
-        new StartUI(input, tracker).init();
-        backOut();
-        StringBuilder tst = new StringBuilder();
-        tst.append("TRACKER MENU\r\n");
-        tst.append("0. Add new Item\r\n");
-        tst.append("1. Show all items\r\n");
-        tst.append("2. Edit item\r\n");
-        tst.append("3. Delete item\r\n");
-        tst.append("4. Find item by Id\r\n");
-        tst.append("5. Find items by name\r\n");
-        tst.append("6. Exit Program\r\n");
-        tst.append("***Find item by ID Start***\r\n");
-        tst.append("Item not found\r\n");
-        tst.append("TRACKER MENU\r\n");
-        tst.append("0. Add new Item\r\n");
-        tst.append("1. Show all items\r\n");
-        tst.append("2. Edit item\r\n");
-        tst.append("3. Delete item\r\n");
-        tst.append("4. Find item by Id\r\n");
-        tst.append("5. Find items by name\r\n");
-        tst.append("6. Exit Program\r\n");
-        tst.append("***EXIT***\r\n");
-        assertThat(new String(out.toByteArray()), is(tst.toString()));
-    }
 }

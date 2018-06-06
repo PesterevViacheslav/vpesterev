@@ -50,6 +50,21 @@ public class TrackerTest {
         assertThat(1, is(tracker.size()));
     }
     /**
+     * Тест метода повторного удаления той же самой заявки.
+     */
+    @Test
+    public void whenDeleteTwiceItemThenDeletedOnce() {
+        Tracker tracker = new Tracker();
+        Item item = new Item("test1", "dsc1");
+        tracker.add(item);
+        Item item2 = new Item("test2", "dsc1");
+        tracker.add(item2);
+        tracker.delete(item.getId());
+        tracker.delete(item.getId());
+        assertThat(new Item(), is(tracker.findById(item.getId())));
+        assertThat(1, is(tracker.size()));
+    }
+    /**
      * Тест метода поиска заявки по ID (Найдено).
      */
     @Test
