@@ -75,15 +75,14 @@ public class Tracker {
         Item exists = findById(id);
         if (this.position > 0 && exists.getId() != null) {
             int positionTmp = 0;
-            Item[] itemsTmp = new Item[100];
             for (int i = 0; i < this.position; i++) {
-                if (!this.items[i].getId().equals(id)) {
-                    itemsTmp[positionTmp] = this.items[i];
-                    positionTmp++;
+                positionTmp++;
+                if (this.items[i].getId().equals(id)) {
+                    break;
                 }
             }
             this.position--;
-            this.items = itemsTmp;
+            System.arraycopy(this.items, positionTmp, this.items, positionTmp - 1, this.position - positionTmp + 1);
         }
     };
     /**

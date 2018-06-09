@@ -188,7 +188,7 @@ public class MenuTracker {
                 System.out.println("Items not found");
             } else {
                 for (int i = 0; i < items.length; i++) {
-                    if(items[i] != null) {
+                    if (items[i] != null) {
                         System.out.println(String.format("%s%s %s%s %s%s", "Item ID=", items[i].getId(), "Name=", items[i].getName(), "Description=", items[i].getDescription()));
                     }
                 }
