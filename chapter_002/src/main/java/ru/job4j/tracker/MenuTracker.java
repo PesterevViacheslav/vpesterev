@@ -113,7 +113,7 @@ public class MenuTracker {
             }
         }
         if (!found) {
-            throw new MenuOutException("Menu out of range - check");
+            throw new MenuOutException("Menu out of range");
         }
         return key;
     }
@@ -145,12 +145,9 @@ public class MenuTracker {
      * @param key Код операции.
      */
     public void select(int key) {
-        try {
-            if (this.actions[key] != null) {
-                this.actions[key].execute(this.input, this.tracker);
-            }
-        } catch (ArrayIndexOutOfBoundsException ex) {
-            throw new MenuOutException("Wrong key");
+        int checkedKey = checkKeyInAvailableRangeList(key, new int[0]);
+        if (this.actions[checkedKey] != null) {
+            this.actions[checkedKey].execute(this.input, this.tracker);
         }
     }
     /**
