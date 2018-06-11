@@ -103,7 +103,7 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return Objects.equals(name, item.name) && Objects.equals(description, item.description);
+        return Objects.equals(name, item.name) && Objects.equals(description, item.description) && Objects.equals(id, item.id);
     }
     /**
      * Method hashCode. Переопределенный.

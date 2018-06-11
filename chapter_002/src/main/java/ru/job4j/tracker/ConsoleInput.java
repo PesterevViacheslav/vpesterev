@@ -24,7 +24,7 @@ public class ConsoleInput implements Input {
      * @return Ответ
      */
     public int ask(String question, int[] range) {
-        int key = Integer.valueOf(this.ask(question));
+        int key = MenuTracker.checkKeyInAvailableRangeList(Integer.valueOf(this.ask(question)), range);
         boolean exist = false;
         for (int value : range) {
             if (value == key) {

@@ -2,11 +2,7 @@ package ru.job4j.tracker;
 import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.After;
-import org.junit.Before;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -39,6 +35,7 @@ public class StartUITest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
         Item item = new Item("TestName", "TestDsc");
+        item.setId(tracker.findAll()[0].getId());
         assertThat(tracker.findAll()[0], is(item));
     }
     /**
@@ -49,6 +46,7 @@ public class StartUITest {
         input = new StubInput(new String[] {"2", tracker.findAll()[0].getId(), "TestName2", "TestDsc2", "7", "6"});
         new StartUI(input, tracker).init();
         Item item = new Item("TestName2", "TestDsc2");
+        item.setId(tracker.findAll()[0].getId());
         assertThat(tracker.findAll()[0], is(item));
     }
     /**

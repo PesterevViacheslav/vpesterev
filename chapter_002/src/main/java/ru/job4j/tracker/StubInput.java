@@ -31,7 +31,11 @@ public class StubInput implements Input {
      * @return Ответ
      */
     public int ask(String question, int[] range) {
-        return Integer.parseInt(answers[this.position++]);
+        int res = -1;
+        if (this.answers.length > this.position) {
+            res = Integer.parseInt(answers[this.position++]);
+            res = MenuTracker.checkKeyInAvailableRangeList(res, range);
+        }
+        return res;
     }
-
 }

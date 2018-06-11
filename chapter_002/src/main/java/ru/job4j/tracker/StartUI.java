@@ -29,7 +29,7 @@ public class StartUI {
             int key = 0;
             menu.show();
             try {
-                key = this.input.ask("Select:", menu.getAvailableRangeList());
+                key = this.input.ask("Select:", menu.AVAILABLE_RANGE_LIST);
                 menu.select(key);
             } catch (MenuOutException moe) {
                 System.out.println("Wrong menu key");
@@ -39,13 +39,13 @@ public class StartUI {
             if (key == 6) {
                 break;
             }
-        } while (!"6".equals(this.input.ask("Enter 6 for Exit, 7 for show menu:", menu.getAvailableRangeList())));
+        } while (!"6".equals(this.input.ask("Enter 6 for Exit, 7 for show menu:", menu.AVAILABLE_RANGE_LIST)));
     }
     /**
      * Method main.
      * @param args Параметры.
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
     }
 }

@@ -63,6 +63,7 @@ public class Tracker {
      */
     public void replace(String id, Item item) {
         Item result = findById(id);
+        result.setId(item.getId());
         result.setName(item.getName());
         result.setDescription(item.getDescription());
         result.setChanged(System.currentTimeMillis());

@@ -82,7 +82,7 @@ public class MenuTracker {
     private Input input;
     private Tracker tracker;
     private UserAction[] actions = new UserAction[7];
-    private int[] availableRangeList = new int[] {0, 1, 2, 3, 4, 5, 6, 7};
+    public final static int[] AVAILABLE_RANGE_LIST = new int[] {0, 1, 2, 3, 4, 5, 6, 7};
     /**
      * Method MenuTracker. Конструктор.
      * @param input Ввод-вывод.
@@ -93,11 +93,29 @@ public class MenuTracker {
         this.tracker = tracker;
     }
     /**
-     * Method getAvailableRangeList. Список допустимых кодов меню.
-     * @return Список кодов меню.
+     * Method checkKeyInAvailableRangeList. Проверка ключа на вхождение в массив.
      */
-    public int[] getAvailableRangeList() {
-        return this.availableRangeList;
+    public static int checkKeyInAvailableRangeList(int key, int[] range) {
+        boolean found = false;
+        if (range.length == 0) {
+            for (int i = 0; i < AVAILABLE_RANGE_LIST.length; i++) {
+                if (AVAILABLE_RANGE_LIST[i] == key) {
+                    found = true;
+                    break;
+                }
+            }
+        } else {
+            for (int i = 0; i < range.length; i++) {
+                if (range[i] == key) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            throw new MenuOutException("Menu out of range - check");
+        }
+        return key;
     }
     /**
      * Method fillActions. Заполнение стека операций трекера.
