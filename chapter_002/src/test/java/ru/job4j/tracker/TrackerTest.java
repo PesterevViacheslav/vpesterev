@@ -36,6 +36,19 @@ public class TrackerTest {
         assertThat(tracker.findById(prev.getId()), is(next));
     }
     /**
+     * Тест метода изменения заявки.
+     */
+    @Test
+    public void whenChangeItemThenReturnNewItem() {
+        Tracker tracker = new Tracker();
+        Item prev = new Item("test1", "dsc1");
+        tracker.add(prev);
+        Item next = new Item("test2", "dsc2");
+        tracker.change(prev.getId(), next);
+        assertThat(tracker.findById(prev.getId()).getName(), is("test2"));
+        assertThat(tracker.findById(prev.getId()).getDescription(), is("dsc2"));
+    }
+    /**
      * Тест метода удаления заявки.
      */
     @Test

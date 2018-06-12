@@ -28,12 +28,12 @@ public class ValidateInputTest {
     public void whenInvalidDataFormatInput() {
         ValidateInput input = new ValidateInput(new StubInput(new String[] {"wrong", "key"}));
         input.ask("Test question", new int[0]);
-        assertThat(this.mem.toString(), is(String.format("Wrong data format entered, try again...\r\nWrong data format entered, try again...\r\n")));
+        assertThat(this.mem.toString(), is(String.format("Wrong data format entered, try again..." + System.lineSeparator() + "Wrong data format entered, try again..." + System.lineSeparator())));
     }
     @Test
     public void whenInvalidMenuKeyInput() {
         ValidateInput input = new ValidateInput(new StubInput(new String[] {"10", "12"}));
         input.ask("Test question", new int[0]);
-        assertThat(this.mem.toString(), is("Wrong menu key entered, try again...\r\nWrong menu key entered, try again...\r\n"));
+        assertThat(this.mem.toString(), is("Wrong menu key entered, try again..." + System.lineSeparator() + "Wrong menu key entered, try again..." + System.lineSeparator()));
     }
 }

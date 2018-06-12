@@ -1,21 +1,22 @@
 package ru.job4j.tracker;
-
 /**
- * Class EditItem - Внешний класс - Редактирование заявки в трекере.
+ * Class ReplaceItem - Внешний класс - Редактирование заявки в трекере.
  */
-class EditItem implements UserAction {
+class ReplaceItem extends BaseAction {
     /**
-     * Method key. Возврат номера операции.
-     * @return Номер операции.
+     * Method ReplaceItem. Конструктор.
+     * @param key Значение ключа меню.
+     * @param name Название действия меню.
      */
-    public int key() {
-        return 2;
+    public ReplaceItem(int key, String name) {
+        super(key, name);
     }
     /**
      * Method execute. Выполнение действия.
      * @param input Ввод-вывод.
      * @param tracker Трекер.
      */
+    @Override
     public void execute(Input input, Tracker tracker) {
         System.out.println("***Edit item Start***");
         String id = input.ask("Input Item ID:");
@@ -29,24 +30,18 @@ class EditItem implements UserAction {
             System.out.println("***Item edited successfully***");
         }
     }
-    /**
-     * Method info. Отображение информации об операции.
-     * @return Информация об операции.
-     */
-    public String info() {
-        return String.format("%s%s", this.key(), ". Edit item");
-    }
 }
 /**
  * Class DeleteItem - Внешний класс - Удаление заявки из трекера.
  */
-class DeleteItem implements UserAction {
+class DeleteItem extends BaseAction {
     /**
-     * Method key. Возврат номера операции.
-     * @return Номер операции.
+     * Method DeleteItem. Конструктор.
+     * @param key Значение ключа меню.
+     * @param name Название действия меню.
      */
-    public int key() {
-        return 3;
+    public DeleteItem(int key, String name) {
+        super(key, name);
     }
     /**
      * Method execute. Выполнение действия.
@@ -63,13 +58,6 @@ class DeleteItem implements UserAction {
             System.out.println("***Item deleted successfully***");
         }
     }
-    /**
-     * Method info. Отображение информации об операции.
-     * @return Информация об операции.
-     */
-    public String info() {
-        return String.format("%s%s", this.key(), ". Delete item");
-    }
 }
 /**
  * Class MenuTracker - Меню трекера. Решение задачи Части 002. ООП. Общая задача на второй модуль.
@@ -81,8 +69,9 @@ class DeleteItem implements UserAction {
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[7];
-    public final static int[] AVAILABLE_RANGE_LIST = new int[] {0, 1, 2, 3, 4, 5, 6, 7};
+    private UserAction[] actions = new UserAction[8];
+    public final static int[] AVAILABLE_RANGE_LIST = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8};
+    private int position = 0;
     /**
      * Method MenuTracker. Конструктор.
      * @param input Ввод-вывод.
@@ -121,13 +110,19 @@ public class MenuTracker {
      * Method fillActions. Заполнение стека операций трекера.
      */
     public void fillActions() {
-        this.actions[0] = this.new AddItem();
-        this.actions[1] = this.new ShowAllItems();
-        this.actions[2] = new EditItem();
-        this.actions[3] = new DeleteItem();
-        this.actions[4] = this.new FindItemById();
-        this.actions[5] = this.new FindItemsByName();
-        this.actions[6] = this.new Exit();
+        this.actions[this.position++] = this.new AddItem(0, ". Add new Item");
+        this.actions[this.position++] = this.new ShowAllItems(1, ". Show all items");
+        this.actions[this.position++] = new ReplaceItem(2, ". Edit item");
+        this.actions[this.position++] = new DeleteItem(3, ". Delete item");
+        this.actions[this.position++] = this.new FindItemById(4, ". Find item by Id");
+        this.actions[this.position++] = this.new FindItemsByName(5, ". Find items by name");
+        this.actions[this.position++] = this.new Exit(6, ". Exit Program");
+    }
+    /**
+     * Method addAction.Добавление нового действия трекера.
+     */
+    public void addAction(UserAction userAction) {
+        this.actions[this.position++] = userAction;
     }
     /**
      * Method show. Заполнение информация об операции.
@@ -153,13 +148,14 @@ public class MenuTracker {
     /**
      * Class AddItem - Внутренний класс - Добавление заявки в трекер.
      */
-    private class AddItem implements UserAction {
+    private class AddItem extends BaseAction {
         /**
-         * Method key. Возврат номера операции.
-         * @return Номер операции.
+         * Method AddItem. Конструктор.
+         * @param key Значение ключа меню.
+         * @param name Название действия меню.
          */
-        public int key() {
-            return 0;
+        public AddItem(int key, String name) {
+            super(key, name);
         }
         /**
          * Method execute. Выполнение действия.
@@ -172,24 +168,18 @@ public class MenuTracker {
             String description = input.ask("Input Item Description:");
             tracker.add(new Item(name, description));
         }
-        /**
-         * Method info. Отображение информации об операции.
-         * @return Информация об операции.
-         */
-        public String info() {
-            return String.format("%s%s", this.key(), ". Add new Item");
-        }
     }
     /**
      * Class ShowAllItems - Внутренний класс - Отображение всех заявок трекера.
      */
-    private class ShowAllItems implements UserAction {
+    private class ShowAllItems extends BaseAction {
         /**
-         * Method key. Возврат номера операции.
-         * @return Номер операции.
+         * Method ShowAllItems. Конструктор.
+         * @param key Значение ключа меню.
+         * @param name Название действия меню.
          */
-        public int key() {
-            return 1;
+        public ShowAllItems(int key, String name) {
+            super(key, name);
         }
         /**
          * Method execute. Выполнение действия.
@@ -209,24 +199,18 @@ public class MenuTracker {
                 }
             }
         }
-        /**
-         * Method info. Отображение информации об операции.
-         * @return Информация об операции.
-         */
-        public String info() {
-            return String.format("%s%s", this.key(), ". Show all items");
-        }
     }
     /**
      * Class FindItemById - Внутренний класс - Поиск заявки по ID.
      */
-    private class FindItemById implements UserAction {
+    private class FindItemById extends BaseAction {
         /**
-         * Method key. Возврат номера операции.
-         * @return Номер операции.
+         * Method FindItemById. Конструктор.
+         * @param key Значение ключа меню.
+         * @param name Название действия меню.
          */
-        public int key() {
-            return 4;
+        public FindItemById(int key, String name) {
+            super(key, name);
         }
         /**
          * Method execute. Выполнение действия.
@@ -243,24 +227,18 @@ public class MenuTracker {
                 System.out.println(String.format("%s%s %s%s %s%s", "Item found ID=", item.getId(), "Name=", item.getName(), "Description=", item.getDescription()));
             }
         }
-        /**
-         * Method info. Отображение информации об операции.
-         * @return Информация об операции.
-         */
-        public String info() {
-            return String.format("%s%s", this.key(), ". Find item by Id");
-        }
     }
     /**
      * Class FindItemsByName - Внутренний класс - Поиск заявок по названию.
      */
-    private class FindItemsByName implements UserAction {
+    private class FindItemsByName extends BaseAction {
         /**
-         * Method key. Возврат номера операции.
-         * @return Номер операции.
+         * Method FindItemsByName. Конструктор.
+         * @param key Значение ключа меню.
+         * @param name Название действия меню.
          */
-        public int key() {
-            return 5;
+        public FindItemsByName(int key, String name) {
+            super(key, name);
         }
         /**
          * Method execute. Выполнение действия.
@@ -279,24 +257,18 @@ public class MenuTracker {
                 }
             }
         }
-        /**
-         * Method info. Отображение информации об операции.
-         * @return Информация об операции.
-         */
-        public String info() {
-            return String.format("%s%s", this.key(), ". Find items by name");
-        }
     }
     /**
      * Class Exit - Внутренний класс - Выход из трекера.
      */
-    private class Exit implements UserAction {
+    private class Exit extends BaseAction {
         /**
-         * Method key. Возврат номера операции.
-         * @return Номер операции.
+         * Method Exit. Конструктор.
+         * @param key Значение ключа меню.
+         * @param name Название действия меню.
          */
-        public int key() {
-            return 6;
+        public Exit(int key, String name) {
+            super(key, name);
         }
         /**
          * Method execute. Выполнение действия.
@@ -305,13 +277,6 @@ public class MenuTracker {
          */
         public void execute(Input input, Tracker tracker) {
             System.out.println("***EXIT***");
-        }
-        /**
-         * Method info. Отображение информации об операции.
-         * @return Информация об операции.
-         */
-        public String info() {
-            return String.format("%s%s", this.key(), ". Exit Program");
         }
     }
 }

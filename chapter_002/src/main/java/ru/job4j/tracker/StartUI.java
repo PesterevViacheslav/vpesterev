@@ -25,6 +25,31 @@ public class StartUI {
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, tracker);
         menu.fillActions();
+        UserAction changeItem = new UserAction() {
+            @Override
+            public int key() {
+                return 7;
+            }
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                System.out.println("***Change item Start***");
+                String id = input.ask("Input Item ID:");
+                if (tracker.findById(id).equals(new Item())) {
+                    System.out.println("Item not found");
+                } else {
+                    String name = input.ask("Input New Item Name:");
+                    String description = input.ask("Input New Item Description:");
+                    Item item = new Item(name, description);
+                    tracker.change(id, item);
+                    System.out.println("***Item changed successfully***");
+                }
+            }
+            @Override
+            public String info() {
+                return String.format("%s%s", this.key(), ". Change item");
+            }
+        };
+        menu.addAction(changeItem);
         do {
             int key = 0;
             menu.show();
@@ -39,7 +64,7 @@ public class StartUI {
             if (key == 6) {
                 break;
             }
-        } while (!"6".equals(this.input.ask("Enter 6 for Exit, 7 for show menu:", menu.AVAILABLE_RANGE_LIST)));
+        } while (!"6".equals(this.input.ask("Enter 6 for Exit, 8 for show menu:", menu.AVAILABLE_RANGE_LIST)));
     }
     /**
      * Method main.

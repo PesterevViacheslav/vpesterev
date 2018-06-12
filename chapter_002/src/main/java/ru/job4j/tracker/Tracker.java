@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 import java.util.Arrays;
+import java.util.Date;
+
 /**
  * Class Tracker - Обработка заявок. Решение задачи Части 002. ООП. Общая задача на второй модуль.
  *
@@ -57,13 +59,24 @@ public class Tracker {
         return Arrays.copyOf(result, length);
     }
     /**
-     * Method replace. Изменение заявки.
+     * Method replace. Замена заявки.
      * @param id ID заявки.
      * @param item Заявка.
      */
     public void replace(String id, Item item) {
         Item result = findById(id);
         result.setId(item.getId());
+        result.setName(item.getName());
+        result.setDescription(item.getDescription());
+        result.setChanged(System.currentTimeMillis());
+    }
+    /**
+     * Method change. Изменение заявки.
+     * @param id ID заявки.
+     * @param item Заявка.
+     */
+    public void change(String id, Item item) {
+        Item result = findById(id);
         result.setName(item.getName());
         result.setDescription(item.getDescription());
         result.setChanged(System.currentTimeMillis());
