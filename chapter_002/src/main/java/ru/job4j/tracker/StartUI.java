@@ -34,15 +34,13 @@ public class StartUI {
             public void execute(Input input, Tracker tracker) {
                 System.out.println("***Change item Start***");
                 String id = input.ask("Input Item ID:");
-                if (tracker.findById(id).equals(new Item())) {
-                    System.out.println("Item not found");
-                } else {
-                    String name = input.ask("Input New Item Name:");
-                    String description = input.ask("Input New Item Description:");
-                    Item item = new Item(name, description);
-                    tracker.change(id, item);
-                    System.out.println("***Item changed successfully***");
+                String name = input.ask("Input New Item Name:");
+                String description = input.ask("Input New Item Description:");
+                Item item = new Item(name, description);
+                if (!tracker.change(id, item)) {
+                    System.out.println("***Item not found***");
                 }
+                System.out.println("***Item changed successfully***");
             }
             @Override
             public String info() {

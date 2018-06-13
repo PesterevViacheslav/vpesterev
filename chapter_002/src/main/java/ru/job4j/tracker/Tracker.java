@@ -62,30 +62,44 @@ public class Tracker {
      * Method replace. Замена заявки.
      * @param id ID заявки.
      * @param item Заявка.
+     * @return Признак найдена ли заявка
      */
-    public void replace(String id, Item item) {
+    public boolean replace(String id, Item item) {
+        boolean res = false;
         Item result = findById(id);
-        result.setId(item.getId());
-        result.setName(item.getName());
-        result.setDescription(item.getDescription());
-        result.setChanged(System.currentTimeMillis());
+        if (result != null) {
+            result.setId(item.getId());
+            result.setName(item.getName());
+            result.setDescription(item.getDescription());
+            result.setChanged(System.currentTimeMillis());
+            res = true;
+        }
+        return res;
     }
     /**
      * Method change. Изменение заявки.
      * @param id ID заявки.
      * @param item Заявка.
+     * @return Признак найдена ли заявка
      */
-    public void change(String id, Item item) {
+    public boolean change(String id, Item item) {
+        boolean res = false;
         Item result = findById(id);
-        result.setName(item.getName());
-        result.setDescription(item.getDescription());
-        result.setChanged(System.currentTimeMillis());
+        if (result != null) {
+            result.setName(item.getName());
+            result.setDescription(item.getDescription());
+            result.setChanged(System.currentTimeMillis());
+            res = true;
+        }
+        return res;
     }
     /**
      * Method delete. Удаление заявки.
      * @param id ID заявки.
+     * @return Признак найдена ли заявка
      */
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean res = false;
         Item exists = findById(id);
         if (this.position > 0 && exists.getId() != null) {
             int positionTmp = 0;
@@ -97,8 +111,10 @@ public class Tracker {
             }
             this.position--;
             System.arraycopy(this.items, positionTmp, this.items, positionTmp - 1, this.position - positionTmp + 1);
+            res = true;
         }
-    };
+        return res;
+    }
     /**
      * Method findAll. Получение списка текущих заявок.
      * @return Заявки.

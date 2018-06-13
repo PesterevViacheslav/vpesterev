@@ -24,7 +24,6 @@ public class StartUITest {
     private void backOut() {
         System.setOut(this.stdout);
     }
-
     @Before
     public void runInit() {
         new StartUI(this.input, this.tracker).init();
