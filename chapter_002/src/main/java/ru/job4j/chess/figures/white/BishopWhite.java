@@ -25,7 +25,7 @@ public class BishopWhite implements Figure {
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps;
         if (Math.abs(source.y - dest.y) == Math.abs(source.x - dest.x)) {
-            steps = Chess.fillWay(source, dest);
+            steps = source.fillWay(dest);
         } else {
             throw new ImpossibleMoveException("Raise ImpossibleMoveException");
         }

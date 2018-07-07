@@ -25,7 +25,7 @@ public class KingWhite implements Figure {
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps;
         if ((Math.abs(source.y - dest.y) == 1 && Math.abs(source.x - dest.x) <= 1) || (Math.abs(source.x - dest.x) == 1 && Math.abs(source.y - dest.y) <= 1)) {
-            steps = Chess.fillWay(source, dest);
+            steps = source.fillWay(dest);
         } else {
             throw new ImpossibleMoveException("Raise ImpossibleMoveException");
         }

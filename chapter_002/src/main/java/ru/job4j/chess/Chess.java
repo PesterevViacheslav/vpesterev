@@ -134,7 +134,6 @@ public class Chess extends Application {
     private void refresh(final BorderPane border) {
         Group grid = this.buildGrid();
         this.logic.clean();
-        clearCells();
         border.setCenter(grid);
         this.buildWhiteTeam(grid);
         this.buildBlackTeam(grid);
@@ -189,7 +188,6 @@ public class Chess extends Application {
     public void add(Figure figure, Group grid) {
         this.logic.add(figure);
         Cell position = figure.position();
-        position.setIsfree(0);
         grid.getChildren().add(
                 this.buildFigure(
                         position.x * 40 + 5,
@@ -204,7 +202,7 @@ public class Chess extends Application {
      * @param graphX Координата x.
      * @param graphY Координата y.
      */
-    public static Cell findBy(double graphX, double graphY) {
+    public Cell findBy(double graphX, double graphY) {
         Cell rst = Cell.A1;
         int x = (int) graphX / 40;
         int y = (int) graphY / 40;
@@ -215,53 +213,5 @@ public class Chess extends Application {
             }
         }
         return rst;
-    }
-    /**
-     * Method fillWay. Заполнение пути фигуры.
-     * @param source Исходная клетка.
-     * @param dest Конечная клетка.
-     * @return Путь
-     */
-    public static Cell[] fillWay(Cell source, Cell dest) {
-        int counter = 0;
-        Cell[] steps = new Cell[8];
-        if (source.x == dest.x) {
-            for (int i = 0; i <= Math.abs(source.y - dest.y); i++) {
-                if (source.y > dest.y) {
-                    steps[counter++] = Chess.findBy(dest.x * 40, (source.y - i) * 40);
-                } else {
-                    steps[counter++] = Chess.findBy(dest.x * 40, (source.y + i) * 40);
-                }
-            }
-        } else if (source.y == dest.y) {
-            for (int i = 0; i <= Math.abs(source.x - dest.x); i++) {
-                if (source.x > dest.x) {
-                    steps[counter++] = Chess.findBy((source.x - i) * 40, dest.y * 40);
-                } else {
-                    steps[counter++] = Chess.findBy((source.x + i) * 40, dest.y * 40);
-                }
-            }
-        } else if (source.x != dest.x && source.y != dest.y) {
-            for (int i = 0; i <= Math.abs(source.x - dest.x); i++) {
-                if (source.x > dest.x && source.y > dest.y) {
-                    steps[counter++] = Chess.findBy((source.x - i) * 40, (source.y - i) * 40);
-                } else if (source.x > dest.x && source.y < dest.y) {
-                    steps[counter++] = Chess.findBy((source.x - i) * 40, (source.y + i) * 40);
-                } else if (source.x < dest.x && source.y > dest.y) {
-                    steps[counter++] = Chess.findBy((source.x + i) * 40, (source.y - i) * 40);
-                } else if (source.x < dest.x && source.y < dest.y) {
-                    steps[counter++] = Chess.findBy((source.x + i) * 40, (source.y + i) * 40);
-                }
-            }
-        }
-        return steps;
-    }
-    /**
-     * Method clearCells. Освобождение ячеек доски.
-     */
-    public static void clearCells() {
-        for (Cell cell : Cell.values()) {
-            cell.setIsfree(1);
-        }
     }
 }

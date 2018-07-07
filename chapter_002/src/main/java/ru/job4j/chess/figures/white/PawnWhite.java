@@ -25,7 +25,7 @@ public class PawnWhite implements Figure {
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps;
         if (((source.y == 1 && (source.y == dest.y - 1 || source.y == dest.y - 2)) || (source.y > 1 && (source.y == dest.y - 1))) && source.x == dest.x && source.y < dest.y) {
-            steps = Chess.fillWay(source, dest);
+            steps = source.fillWay(dest);
         } else {
             throw new ImpossibleMoveException("Raise ImpossibleMoveException");
         }

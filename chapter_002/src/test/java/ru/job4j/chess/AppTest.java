@@ -105,8 +105,9 @@ public class AppTest extends TestCase {
         board.add(new KnightBlack(Cell.D3));
         assertTrue(board.move(Cell.D3, Cell.F4));
         //Слон
+        board.add(new PawnBlack(Cell.G4));
         board.add(new BishopBlack(Cell.F3));
-        assertFalse(board.move(Cell.F3, Cell.D5));
+        assertFalse(board.move(Cell.F3, Cell.H5));
     }
     /**
      * Попытка сходить в запрещенном направлении

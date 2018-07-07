@@ -18,7 +18,6 @@ public enum Cell {
 
     public final int x;
     public final int y;
-    private int isFree;
     /**
      * Method Cell. Конструктор.
      * @param x Координата x.
@@ -27,20 +26,59 @@ public enum Cell {
     Cell(int x, int y) {
         this.x = x;
         this.y = y;
-        this.isFree = 1;
     }
     /**
-     * Method getIsfree. Получение признака заполненности клетки.
-     * @return Признак заполненности.
+     * Method fillWay. Заполнение пути фигуры.
+     * @param dest Конечная клетка.
+     * @return Путь
      */
-    public int getIsfree() {
-        return this.isFree;
+    public Cell[] fillWay(Cell dest) {
+        int counter = 0;
+        Cell[] steps = new Cell[8];
+        if (this.x == dest.x) {
+            for (int i = 0; i <= Math.abs(this.y - dest.y); i++) {
+                if (this.y > dest.y) {
+                    steps[counter++] = getCell(dest.x, this.y - i);
+                } else {
+                    steps[counter++] = getCell(dest.x, this.y + i);
+                }
+            }
+        } else if (this.y == dest.y) {
+            for (int i = 0; i <= Math.abs(this.x - dest.x); i++) {
+                if (this.x > dest.x) {
+                    steps[counter++] = getCell(this.x - i, dest.y);
+                } else {
+                    steps[counter++] = getCell(this.x + i, dest.y);
+                }
+            }
+        } else if (this.x != dest.x && this.y != dest.y) {
+            for (int i = 0; i <= Math.abs(this.x - dest.x); i++) {
+                if (this.x > dest.x && this.y > dest.y) {
+                    steps[counter++] = getCell(this.x - i, this.y - i);
+                } else if (this.x > dest.x && this.y < dest.y) {
+                    steps[counter++] = getCell(this.x - i, this.y + i);
+                } else if (this.x < dest.x && this.y > dest.y) {
+                    steps[counter++] = getCell(this.x + i, this.y - i);
+                } else if (this.x < dest.x && this.y < dest.y) {
+                    steps[counter++] = getCell(this.x + i, this.y + i);
+                }
+            }
+        }
+        return steps;
     }
     /**
-     * Method setIsfree. Установка признака заполненности клетки.
-     * @param isFree 0-заполнена, 1-свободна.
+     * Method getCell. Поиск ячейки по координатам.
+     * @param x Координата x.
+     * @param y Координата y.
      */
-    public void setIsfree(int isFree) {
-        this.isFree = isFree;
+    public Cell getCell(int x, int y) {
+        Cell rst = Cell.A1;
+        for (Cell cell : Cell.values()) {
+            if (cell.x == x && cell.y == y) {
+                rst = cell;
+                break;
+            }
+        }
+        return rst;
     }
 }

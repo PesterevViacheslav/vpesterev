@@ -25,7 +25,7 @@ public class QueenBlack implements Figure {
     public Cell[] way(Cell source, Cell dest) throws ImpossibleMoveException {
         Cell[] steps;
         if ((source.y == dest.y || source.x == dest.x) || (Math.abs(source.y - dest.y) == Math.abs(source.x - dest.x))) {
-            steps = Chess.fillWay(source, dest);
+            steps = source.fillWay(dest);
         } else {
             throw new ImpossibleMoveException("Raise ImpossibleMoveException");
         }

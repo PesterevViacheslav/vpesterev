@@ -19,7 +19,6 @@ public class Logic {
      */
     public void add(Figure figure) {
         this.figures[this.index++] = figure;
-        figure.position().setIsfree(0);
     }
     /**
      * Method move. Ход фигуры.
@@ -30,20 +29,18 @@ public class Logic {
     public boolean move(Cell source, Cell dest) {
         boolean rst = false;
         int index = this.findBy(source);
-        if (dest != null && index != -1 && dest.getIsfree() == 1) {
+        if (dest != null && index != -1 && this.findBy(dest) == -1) {
             try {
                 Cell[] steps = this.figures[index].way(source, dest);
                 for (int i = 0; i < steps.length; i++) {
                     if (steps[i] != null) {
-                        if (!steps[i].equals(source) && steps[i].getIsfree() == 0) {
+                        if (!steps[i].equals(source) && this.findBy(steps[i]) != -1) {
                             throw new OccupiedWayException("OccupiedWayException");
                         }
                     }
                     if (steps[i] != null && steps[i].equals(dest)) {
                         rst = true;
                         this.figures[index] = this.figures[index].copy(dest);
-                        source.setIsfree(1);
-                        dest.setIsfree(0);
                         break;
                     }
                 }
