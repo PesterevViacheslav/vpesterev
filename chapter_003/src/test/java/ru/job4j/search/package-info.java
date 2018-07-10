@@ -1,6 +1,6 @@
 package ru.job4j.search;
 /**
- * Пекет автотестов для решение задачи Части 003. Collections. Lite Задача 1.1  Телефонный справочник на базе ArrayList.
+ * Пекет автотестов для решение задачи Части 003. Collections. Lite. Часть 1 - Collections Framework.
  *
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)
  * @since 09.07.2018
