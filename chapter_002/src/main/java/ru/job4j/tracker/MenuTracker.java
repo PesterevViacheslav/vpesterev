@@ -1,4 +1,7 @@
 package ru.job4j.tracker;
+
+import java.util.ArrayList;
+
 /**
  * Class ReplaceItem - Внешний класс - Редактирование заявки в трекере.
  */
@@ -65,7 +68,8 @@ class DeleteItem extends BaseAction {
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[8];
+    //private UserAction[] actions = new UserAction[8];
+    private ArrayList<UserAction> actions = new ArrayList<>();
     public final static int[] AVAILABLE_RANGE_LIST = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8};
     private int position = 0;
     /**
@@ -106,28 +110,28 @@ public class MenuTracker {
      * Method fillActions. Заполнение стека операций трекера.
      */
     public void fillActions() {
-        this.actions[this.position++] = this.new AddItem(0, ". Add new Item");
-        this.actions[this.position++] = this.new ShowAllItems(1, ". Show all items");
-        this.actions[this.position++] = new ReplaceItem(2, ". Edit item");
-        this.actions[this.position++] = new DeleteItem(3, ". Delete item");
-        this.actions[this.position++] = this.new FindItemById(4, ". Find item by Id");
-        this.actions[this.position++] = this.new FindItemsByName(5, ". Find items by name");
-        this.actions[this.position++] = this.new Exit(6, ". Exit Program");
+        this.actions.add(this.position++, this.new AddItem(0, ". Add new Item"));
+        this.actions.add(this.position++, this.new ShowAllItems(1, ". Show all items"));
+        this.actions.add(this.position++, new ReplaceItem(2, ". Edit item"));
+        this.actions.add(this.position++, new DeleteItem(3, ". Delete item"));
+        this.actions.add(this.position++, this.new FindItemById(4, ". Find item by Id"));
+        this.actions.add(this.position++, this.new FindItemsByName(5, ". Find items by name"));
+        this.actions.add(this.position++, this.new Exit(6, ". Exit Program"));
     }
     /**
      * Method addAction.Добавление нового действия трекера.
      */
     public void addAction(UserAction userAction) {
-        this.actions[this.position++] = userAction;
+        this.actions.add(this.position++, userAction);
     }
     /**
      * Method show. Заполнение информация об операции.
      */
     public void show() {
         System.out.println("TRACKER MENU");
-        for (int i = 0; i < this.actions.length; i++) {
-            if (this.actions[i] != null) {
-                System.out.println(this.actions[i].info());
+        for (int i = 0; i < this.actions.size(); i++) {
+            if (this.actions.get(i) != null) {
+                System.out.println(this.actions.get(i).info());
             }
         }
     }
@@ -137,8 +141,8 @@ public class MenuTracker {
      */
     public void select(int key) {
         int checkedKey = checkKeyInAvailableRangeList(key, new int[0]);
-        if (this.actions[checkedKey] != null) {
-            this.actions[checkedKey].execute(this.input, this.tracker);
+        if (this.actions.get(checkedKey) != null) {
+            this.actions.get(checkedKey).execute(this.input, this.tracker);
         }
     }
     /**
