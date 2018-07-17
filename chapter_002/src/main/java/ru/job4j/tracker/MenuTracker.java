@@ -28,8 +28,9 @@ class ReplaceItem extends BaseAction {
         Item item = new Item(name, description);
         if (!tracker.replace(id, item)) {
             System.out.println("***Item not found***");
+        } else {
+            System.out.println("***Item edited successfully***");
         }
-        System.out.println("***Item edited successfully***");
     }
 }
 /**
@@ -54,8 +55,9 @@ class DeleteItem extends BaseAction {
         String id = input.ask("Input Item ID:");
         if (!tracker.delete(id)) {
             System.out.println("***Item not found***");
+        } else {
+            System.out.println("***Item deleted successfully***");
         }
-        System.out.println("***Item deleted successfully***");
     }
 }
 /**
