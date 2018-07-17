@@ -34,42 +34,42 @@ public class StartUITest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
         Item item = new Item("TestName", "TestDsc");
-        item.setId(tracker.findAll()[0].getId());
-        assertThat(tracker.findAll()[0], is(item));
+        item.setId(tracker.findAll().get(0).getId());
+        assertThat(tracker.findAll().get(0), is(item));
     }
     /**
      * Тест метода замены заявки.
      */
     @Test
     public void whenReplaceItemThenReturnNewItem() {
-        input = new StubInput(new String[] {"2", tracker.findAll()[0].getId(), "TestName2", "TestDsc2", "8", "6"});
+        input = new StubInput(new String[] {"2", tracker.findAll().get(0).getId(), "TestName2", "TestDsc2", "8", "6"});
         new StartUI(input, tracker).init();
         Item item = new Item("TestName2", "TestDsc2");
-        item.setId(tracker.findAll()[0].getId());
-        assertThat(tracker.findAll()[0], is(item));
+        item.setId(tracker.findAll().get(0).getId());
+        assertThat(tracker.findAll().get(0), is(item));
     }
     /**
      * Тест метода изменения заявки.
      */
     @Test
     public void whenChangeItemThenReturnNewItem() {
-        input = new StubInput(new String[] {"7", tracker.findAll()[0].getId(), "TestName2", "TestDsc2", "8", "6"});
+        input = new StubInput(new String[] {"7", tracker.findAll().get(0).getId(), "TestName2", "TestDsc2", "8", "6"});
         new StartUI(input, tracker).init();
         Item item = new Item("TestName2", "TestDsc2");
-        item.setId(tracker.findAll()[0].getId());
-        assertThat(tracker.findAll()[0].getName(), is("TestName2"));
-        assertThat(tracker.findAll()[0].getDescription(), is("TestDsc2"));
+        item.setId(tracker.findAll().get(0).getId());
+        assertThat(tracker.findAll().get(0).getName(), is("TestName2"));
+        assertThat(tracker.findAll().get(0).getDescription(), is("TestDsc2"));
     }
     /**
      * Тест метода удаления заявки.
      */
     @Test
     public void whenDeleteItemThenDeletedItemNotFound() {
-        assertThat(tracker.findAll()[0].getName(), is("TestName"));
-        assertThat(tracker.findAll()[0].getDescription(), is("TestDsc"));
-        assertThat(tracker.findAll()[1].getName(), is("TestName2"));
-        assertThat(tracker.findAll()[1].getDescription(), is("TestDsc2"));
-        input = new StubInput(new String[] {"3", tracker.findAll()[0].getId(), "8", "6"});
+        assertThat(tracker.findAll().get(0).getName(), is("TestName"));
+        assertThat(tracker.findAll().get(0).getDescription(), is("TestDsc"));
+        assertThat(tracker.findAll().get(1).getName(), is("TestName2"));
+        assertThat(tracker.findAll().get(1).getDescription(), is("TestDsc2"));
+        input = new StubInput(new String[] {"3", tracker.findAll().get(0).getId(), "8", "6"});
         new StartUI(input, tracker).init();
         assertThat(1, is(tracker.size()));
     }
@@ -78,7 +78,7 @@ public class StartUITest {
      */
     @Test
     public void checkFindItemById() {
-        input = new StubInput(new String[] {"4", tracker.findAll()[0].getId(), "8", "6"});
+        input = new StubInput(new String[] {"4", tracker.findAll().get(0).getId(), "8", "6"});
         loadOut();
         new StartUI(input, tracker).init();
         backOut();
@@ -103,7 +103,7 @@ public class StartUITest {
         tst.append(System.lineSeparator());
         tst.append("***Find item by ID Start***");
         tst.append(System.lineSeparator());
-        tst.append("Item found ID=" + tracker.findAll()[0].getId() + " Name=TestName Description=TestDsc");
+        tst.append("Item found ID=" + tracker.findAll().get(0).getId() + " Name=TestName Description=TestDsc");
         tst.append(System.lineSeparator());
         tst.append("TRACKER MENU");
         tst.append(System.lineSeparator());
@@ -157,7 +157,7 @@ public class StartUITest {
         tst.append(System.lineSeparator());
         tst.append("***Find items by Name Start***");
         tst.append(System.lineSeparator());
-        tst.append("Item found ID=" + tracker.findAll()[1].getId() + " Name=TestName2 Description=TestDsc2");
+        tst.append("Item found ID=" + tracker.findAll().get(1).getId() + " Name=TestName2 Description=TestDsc2");
         tst.append(System.lineSeparator());
         tst.append("TRACKER MENU");
         tst.append(System.lineSeparator());

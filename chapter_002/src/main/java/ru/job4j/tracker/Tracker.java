@@ -48,16 +48,16 @@ public class Tracker {
      * @param name Название заявки.
      * @return Заявка
      */
-    public Item[] findByName(String name) {
-        Item[] result = new Item[100];
+    public ArrayList<Item> findByName(String name) {
+        ArrayList<Item> result = new ArrayList<>();
         int length = 0;
         for (int i = 0; i < this.items.size(); i++) {
             if (this.items.get(i) != null && name.equals(this.items.get(i).getName())) {
-                result[length] = this.items.get(i);
+                result.add(length, this.items.get(i));
                 length++;
             }
         }
-        return Arrays.copyOf(result, length);
+        return result;
     }
     /**
      * Method replace. Замена заявки.
@@ -103,16 +103,12 @@ public class Tracker {
         boolean res = false;
         Item exists = findById(id);
         if (this.position > 0 && exists.getId() != null) {
-            int positionTmp = 0;
-            ArrayList<Item> itemsTmp = new ArrayList<>();
             for (int i = 0; i < this.position; i++) {
-                if (!this.items.get(i).getId().equals(id)) {
-                    itemsTmp.add(positionTmp, this.items.get(i));
-                    positionTmp++;
+                if (this.items.get(i).getId().equals(id)) {
+                    this.items.remove(i);
+                    this.position--;
                 }
             }
-            this.items.retainAll(itemsTmp);
-            this.position--;
             res = true;
         }
         return res;
@@ -121,10 +117,10 @@ public class Tracker {
      * Method findAll. Получение списка текущих заявок.
      * @return Заявки.
      */
-    public Item[] findAll() {
-        Item[] result = new Item[this.position];
+    public ArrayList<Item> findAll() {
+        ArrayList<Item> result = new ArrayList<>();
         for (int i = 0; i < this.position; i++) {
-            result[i] = this.items.get(i);
+            result.add(i, this.items.get(i));
         }
         return result;
     }

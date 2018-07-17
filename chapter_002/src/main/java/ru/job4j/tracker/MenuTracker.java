@@ -68,7 +68,6 @@ class DeleteItem extends BaseAction {
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
-    //private UserAction[] actions = new UserAction[8];
     private ArrayList<UserAction> actions = new ArrayList<>();
     public final static int[] AVAILABLE_RANGE_LIST = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8};
     private int position = 0;
@@ -188,13 +187,13 @@ public class MenuTracker {
          */
         public void execute(Input input, Tracker tracker) {
             System.out.println("***Items list:***");
-            Item[] items = tracker.findAll();
-            if (items.length == 0) {
+            ArrayList<Item> items = tracker.findAll();
+            if (items.size() == 0) {
                 System.out.println("Items not found");
             } else {
-                for (int i = 0; i < items.length; i++) {
-                    if (items[i] != null) {
-                        System.out.println(String.format("%s%s %s%s %s%s", "Item ID=", items[i].getId(), "Name=", items[i].getName(), "Description=", items[i].getDescription()));
+                for (int i = 0; i < items.size(); i++) {
+                    if (items.get(i) != null) {
+                        System.out.println(String.format("%s%s %s%s %s%s", "Item ID=", items.get(i).getId(), "Name=", items.get(i).getName(), "Description=", items.get(i).getDescription()));
                     }
                 }
             }
@@ -248,8 +247,8 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("***Find items by Name Start***");
             String name = input.ask("Input Item name:");
-            Item[] items = tracker.findByName(name);
-            if (items.length == 0) {
+            ArrayList<Item> items = tracker.findByName(name);
+            if (items.size() == 0) {
                 System.out.println("Items not found");
             } else {
                 for (Item item : items) {
