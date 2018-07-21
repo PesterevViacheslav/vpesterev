@@ -1,4 +1,6 @@
 package ru.job4j.tracker;
+import java.util.List;
+
 /**
  * Class StubInput - Эмуляция ввода данных. Решение задачи Части 002. ООП. Общая задача на второй модуль.
  *
@@ -30,11 +32,13 @@ public class StubInput implements Input {
      * @param range Допустимый диапазон вопросов.
      * @return Ответ
      */
-    public int ask(String question, int[] range) {
-        int res = -1;
+    public int ask(String question, List<Integer> range) {
+        int res = 6;
         if (this.answers.length > this.position) {
             res = Integer.parseInt(answers[this.position++]);
-            res = MenuTracker.checkKeyInAvailableRangeList(res, range);
+            if (!range.contains(res)) {
+                throw new MenuOutException("Menu out of range");
+            }
         }
         return res;
     }

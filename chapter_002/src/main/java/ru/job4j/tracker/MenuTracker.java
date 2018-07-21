@@ -1,7 +1,6 @@
 package ru.job4j.tracker;
-
 import java.util.ArrayList;
-
+import java.util.List;
 /**
  * Class ReplaceItem - Внешний класс - Редактирование заявки в трекере.
  */
@@ -71,7 +70,6 @@ public class MenuTracker {
     private Input input;
     private Tracker tracker;
     private ArrayList<UserAction> actions = new ArrayList<>();
-    public final static int[] AVAILABLE_RANGE_LIST = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8};
     private int position = 0;
     /**
      * Method MenuTracker. Конструктор.
@@ -83,41 +81,27 @@ public class MenuTracker {
         this.tracker = tracker;
     }
     /**
-     * Method checkKeyInAvailableRangeList. Проверка ключа на вхождение в массив.
+     * Method getKeyInAvailableList. Получение списка доступных ключей.
+     * @return Массив доступных ключей
      */
-    public static int checkKeyInAvailableRangeList(int key, int[] range) {
-        boolean found = false;
-        if (range.length == 0) {
-            for (int i = 0; i < AVAILABLE_RANGE_LIST.length; i++) {
-                if (AVAILABLE_RANGE_LIST[i] == key) {
-                    found = true;
-                    break;
-                }
-            }
-        } else {
-            for (int i = 0; i < range.length; i++) {
-                if (range[i] == key) {
-                    found = true;
-                    break;
-                }
-            }
+    public List<Integer> getKeyInAvailableList() {
+        ArrayList<Integer> result = new ArrayList<>();
+        for (UserAction key : this.actions) {
+            result.add(key.key());
         }
-        if (!found) {
-            throw new MenuOutException("Menu out of range");
-        }
-        return key;
+        return result;
     }
     /**
      * Method fillActions. Заполнение стека операций трекера.
      */
-    public void fillActions() {
+    public void fillActions(StartUI ui) {
         this.actions.add(this.position++, this.new AddItem(0, ". Add new Item"));
         this.actions.add(this.position++, this.new ShowAllItems(1, ". Show all items"));
         this.actions.add(this.position++, new ReplaceItem(2, ". Edit item"));
         this.actions.add(this.position++, new DeleteItem(3, ". Delete item"));
         this.actions.add(this.position++, this.new FindItemById(4, ". Find item by Id"));
         this.actions.add(this.position++, this.new FindItemsByName(5, ". Find items by name"));
-        this.actions.add(this.position++, this.new Exit(6, ". Exit Program"));
+        this.actions.add(this.position++, this.new Exit(6, ". Exit Program", ui));
     }
     /**
      * Method addAction.Добавление нового действия трекера.
@@ -141,8 +125,13 @@ public class MenuTracker {
      * @param key Код операции.
      */
     public void select(int key) {
-        int checkedKey = checkKeyInAvailableRangeList(key, new int[0]);
-        if (this.actions.get(checkedKey) != null) {
+        int checkedKey = -1;
+        if (getKeyInAvailableList().contains(key)) {
+            checkedKey = key;
+        } else {
+            System.out.println("Wrong menu key");
+        }
+        if (this.actions.get(checkedKey) != null && checkedKey != -1) {
             this.actions.get(checkedKey).execute(this.input, this.tracker);
         }
     }
@@ -263,13 +252,18 @@ public class MenuTracker {
      * Class Exit - Внутренний класс - Выход из трекера.
      */
     private class Exit extends BaseAction {
+        private final StartUI su;
+        //public Exit(StartUI su) {
+        //    this.su = su;
+        //}
         /**
          * Method Exit. Конструктор.
          * @param key Значение ключа меню.
          * @param name Название действия меню.
          */
-        public Exit(int key, String name) {
+        public Exit(int key, String name, StartUI su) {
             super(key, name);
+            this.su = su;
         }
         /**
          * Method execute. Выполнение действия.
@@ -278,6 +272,7 @@ public class MenuTracker {
          */
         public void execute(Input input, Tracker tracker) {
             System.out.println("***EXIT***");
+            this.su.stop();
         }
     }
 }

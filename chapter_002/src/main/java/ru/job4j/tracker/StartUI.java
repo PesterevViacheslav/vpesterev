@@ -9,6 +9,7 @@ package ru.job4j.tracker;
 public class StartUI {
     private Input input;
     private Tracker tracker;
+    private boolean work = true;
     /**
      * Method StartUI. Конструктор.
      * @param input Ввод с консоли.
@@ -20,11 +21,17 @@ public class StartUI {
         this.tracker = tracker;
     }
     /**
+     * Method stop. Прекращение работы.
+     */
+    public void stop() {
+        this.work = false;
+    }
+    /**
      * Method Init. Запуск на выполнение.
      */
     public void init() {
         MenuTracker menu = new MenuTracker(this.input, tracker);
-        menu.fillActions();
+        menu.fillActions(this);
         UserAction changeItem = new UserAction() {
             @Override
             public int key() {
@@ -48,21 +55,25 @@ public class StartUI {
             }
         };
         menu.addAction(changeItem);
-        do {
-            int key = 0;
-            menu.show();
-            try {
-                key = this.input.ask("Select:", menu.AVAILABLE_RANGE_LIST);
-                menu.select(key);
-            } catch (MenuOutException moe) {
-                System.out.println("Wrong menu key");
-            } catch (NumberFormatException nfe) {
-                System.out.println("Wrong format menu key");
-            }
-            if (key == 6) {
-                break;
-            }
-        } while (!"6".equals(this.input.ask("Enter 6 for Exit, 8 for show menu:", menu.AVAILABLE_RANGE_LIST)));
+        try {
+            do {
+                int key = 0;
+                menu.show();
+                try {
+                    key = this.input.ask("Select:", menu.getKeyInAvailableList());
+                    menu.select(key);
+                } catch (MenuOutException moe) {
+                    System.out.println("Wrong menu key");
+                } catch (NumberFormatException nfe) {
+                    System.out.println("Wrong format menu key");
+                }
+                if (key == 6) {
+                    break;
+                }
+            } while (this.work);
+        } catch (NumberFormatException nfe) {
+            System.out.println("Wrong format menu key");
+        }
     }
     /**
      * Method main.

@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 /**
@@ -27,13 +29,16 @@ public class ValidateInputTest {
     @Test
     public void whenInvalidDataFormatInput() {
         ValidateInput input = new ValidateInput(new StubInput(new String[] {"wrong", "key"}));
-        input.ask("Test question", new int[0]);
-        assertThat(this.mem.toString(), is(String.format("Wrong data format entered, try again..." + System.lineSeparator() + "Wrong data format entered, try again..." + System.lineSeparator())));
+        input.ask("Test question", new ArrayList<>());
+        assertThat(this.mem.toString(), is(String.format("Wrong data format entered, try again..." + System.lineSeparator())));
     }
     @Test
     public void whenInvalidMenuKeyInput() {
         ValidateInput input = new ValidateInput(new StubInput(new String[] {"10", "12"}));
-        input.ask("Test question", new int[0]);
-        assertThat(this.mem.toString(), is("Wrong menu key entered, try again..." + System.lineSeparator() + "Wrong menu key entered, try again..." + System.lineSeparator()));
+        ArrayList<Integer> range = new ArrayList<>();
+        //range.add(10);
+        //range.add(12);
+        input.ask("Test question", range);
+        assertThat(this.mem.toString(), is("Wrong menu key entered, try again..." + System.lineSeparator()));
     }
 }

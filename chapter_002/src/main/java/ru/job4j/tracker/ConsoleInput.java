@@ -1,4 +1,5 @@
 package ru.job4j.tracker;
+import java.util.List;
 import java.util.Scanner;
 /**
  * Class ConsoleInput - Консольный ввод. Решение задачи Части 002. ООП. Общая задача на второй модуль.
@@ -23,7 +24,11 @@ public class ConsoleInput implements Input {
      * @param question Вопрос.
      * @return Ответ
      */
-    public int ask(String question, int[] range) {
-        return MenuTracker.checkKeyInAvailableRangeList(Integer.valueOf(this.ask(question)), range);
+    public int ask(String question, List<Integer> range) {
+        int key = Integer.valueOf(this.ask(question));
+        if (!range.contains(key)) {
+            throw new MenuOutException("Menu out of range");
+        }
+        return key;
     }
 }
