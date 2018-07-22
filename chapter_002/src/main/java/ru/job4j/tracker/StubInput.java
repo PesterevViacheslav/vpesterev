@@ -35,11 +35,16 @@ public class StubInput implements Input {
     public int ask(String question, List<Integer> range) {
         int res = 6;
         if (this.answers.length > this.position) {
-            res = Integer.parseInt(answers[this.position++]);
-            if (!range.contains(res)) {
-                throw new MenuOutException("Menu out of range");
+            try {
+                res = Integer.parseInt(answers[this.position++]);
+                    if (!range.contains(res)) {
+                        System.out.println("Wrong menu key");
+                        res = 6;
+                    }
+                } catch (NumberFormatException nfe) {
+                    System.out.println("Wrong format menu key");
+                }
             }
-        }
         return res;
     }
 }

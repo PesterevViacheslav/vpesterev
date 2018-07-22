@@ -102,12 +102,28 @@ public class MenuTracker {
         this.actions.add(this.position++, this.new FindItemById(4, ". Find item by Id"));
         this.actions.add(this.position++, this.new FindItemsByName(5, ". Find items by name"));
         this.actions.add(this.position++, this.new Exit(6, ". Exit Program", ui));
-    }
-    /**
-     * Method addAction.Добавление нового действия трекера.
-     */
-    public void addAction(UserAction userAction) {
-        this.actions.add(this.position++, userAction);
+        this.actions.add(this.position++, new UserAction() {
+            @Override
+            public int key() {
+                return 7;
+            }
+            @Override
+            public void execute(Input input, Tracker tracker) {
+                System.out.println("***Change item Start***");
+                String id = input.ask("Input Item ID:");
+                String name = input.ask("Input New Item Name:");
+                String description = input.ask("Input New Item Description:");
+                Item item = new Item(name, description);
+                if (!tracker.change(id, item)) {
+                    System.out.println("***Item not found***");
+                }
+                System.out.println("***Item changed successfully***");
+            }
+            @Override
+            public String info() {
+                return String.format("%s%s", this.key(), ". Change item");
+            }
+        });
     }
     /**
      * Method show. Заполнение информация об операции.
