@@ -16,11 +16,7 @@ public class SortUser {
      * @return Отсортированнный список.
     */
     public Set<User> sort(List<User> list) {
-        TreeSet<User> result = new TreeSet<>();
-        for (User user : list) {
-            result.add(user);
-        }
-        return result;
+        return new TreeSet<>(list);
     }
     /**
      * Method sortNameLength. Сортировка списка по длине имени.
