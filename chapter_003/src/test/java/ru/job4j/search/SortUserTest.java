@@ -4,7 +4,7 @@ import java.util.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 /**
- * Class PriorityQueue - Очередь задач. Автотесты задачи Части 003. Collections. Lite.
+ * Class SortUserTest. Автотесты задачи Части 003. Collections. Lite.
  * Задача 3.1 Организовать сортировку User.
  * Задача 3.2. Сортировка User с использованием Comparator
  *

@@ -1,7 +1,7 @@
 package ru.job4j.search;
 import java.util.*;
 /**
- * Class PriorityQueue - Очередь задач. Решение задачи Части 003. Collections. Lite.
+ * Class SortUser - Решение задачи Части 003. Collections. Lite.
  * Задача 3.1 Организовать сортировку User.
  * Задача 3.2. Сортировка User с использованием Comparator
  *
