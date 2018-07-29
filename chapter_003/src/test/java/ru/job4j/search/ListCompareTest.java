@@ -73,4 +73,16 @@ public class ListCompareTest {
         );
         assertThat(rst, lessThan(0));
     }
+    @Test
+    /**
+     * Тест сравнения Левая строка больше Правой по второму символу слева
+     */
+    public void CompareByLengthThanShortStringMustBeTheLess() {
+        ListCompare compare = new ListCompare();
+        int rst = compare.compare(
+                "User1rrr",
+                "User1rr"
+        );
+        assertThat(rst, greaterThan(0));
+    }
 }
