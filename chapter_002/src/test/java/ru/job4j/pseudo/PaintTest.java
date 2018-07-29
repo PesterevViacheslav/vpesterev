@@ -36,7 +36,8 @@ public class PaintTest {
         StringBuilder pic = new StringBuilder();
         pic.append("+++++\n");
         pic.append("+   +\n");
-        pic.append("+++++\r\n");
+        pic.append("+++++");
+        pic.append(System.lineSeparator());
         assertThat(new String(out.toByteArray()), is(pic.toString()));
     }
     /**
@@ -49,7 +50,8 @@ public class PaintTest {
         StringBuilder pic = new StringBuilder();
         pic.append("   +   \n");
         pic.append(" +   + \n");
-        pic.append("+++++++\r\n");
+        pic.append("+++++++");
+        pic.append(System.lineSeparator());
         assertThat(new String(out.toByteArray()), is(pic.toString()));
     }
 }
