@@ -18,6 +18,6 @@ public class ListCompare implements Comparator<String> {
                 break;
             }
         }
-        return result;
+        return result != 0 ? result : o1.length() - o2.length();
     }
 }
