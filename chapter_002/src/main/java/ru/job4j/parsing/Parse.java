@@ -1,4 +1,5 @@
 package ru.job4j.parsing;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -19,11 +20,11 @@ public class Parse {
         this.availablePairs.put(value, delimiter);
     }
     /**
-     * Method parsing. Разбор строки.
+     * Method parsingWithHash. Разбор строки через хеш-таблицу.
      * @param str Строка.
      * @return Результат разбора.
      */
-    public ArrayList<ParsingResult> parsing(String str) throws WrongFormatException {
+    public ArrayList<ParsingResult> parsingWithHash(String str) throws WrongFormatException {
         ArrayList<Character> left = new ArrayList<>();
         ArrayList<Character> right = new ArrayList<>();
         Delimiter delimiter;
@@ -58,6 +59,50 @@ public class Parse {
                 } else {
                     left.add(delimiter.getValue());
                     shift++;
+                }
+            } else {
+                throw new WrongFormatException("Wrong format");
+            }
+        }
+        return result;
+    }
+    /**
+     * Method parsing. Разбор строки через стек.
+     * @param str Строка.
+     * @return Результат разбора.
+     */
+    public ArrayList<ParsingResult> parsing(String str) throws WrongFormatException {
+        ArrayDeque<Delimiter> stack = new ArrayDeque<>();
+        ArrayList<Character> left = new ArrayList<>();
+        ArrayList<Character> right = new ArrayList<>();
+        Delimiter delimiter;
+        Delimiter delimiterRight;
+        ArrayList<ParsingResult> result = new ArrayList<>();
+        int shift = 0;
+        for (int i = 0; i < str.length(); i++) {
+            delimiter = this.availablePairs.get(str.charAt(i));
+            if (delimiter != null && str.length() > 1) {
+                if (delimiter.isLeft()) {
+                    stack.push(delimiter);
+                    left.add(delimiter.getValue());
+                    shift++;
+                } else {
+                    delimiterRight = stack.poll();
+                    if (delimiterRight == null) {
+                        throw new WrongFormatException("Wrong format");
+                    } else {
+                        if (!delimiterRight.getValue().equals(delimiter.getPairValue())) {
+                            throw new WrongFormatException("Wrong format");
+                        } else {
+                            i = i + shift - 1;
+                            for (int k = 0; k < left.size(); k++) {
+                                result.add(new ParsingResult(left.get(k).charValue(), this.availablePairs.get(left.get(k).charValue()).getPairValue(), i - left.size() * 2 + k + 1, i - k));
+                            }
+                            left.clear();
+                            right.clear();
+                            shift = 0;
+                        }
+                    }
                 }
             } else {
                 throw new WrongFormatException("Wrong format");
