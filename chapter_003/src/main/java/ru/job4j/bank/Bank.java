@@ -1,7 +1,6 @@
 package ru.job4j.bank;
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
-import java.util.TreeMap;
+import java.util.HashMap;
 /**
  * Class Bank - Банк. Решение задачи Части 003. Collections. Lite.
  * Задача 5.2  Банковские переводы.
@@ -11,7 +10,7 @@ import java.util.TreeMap;
  * @version 1
  */
 public class Bank {
-    private TreeMap<User, ArrayList<Account>> userAccounts = new TreeMap<>();
+    private HashMap<User, ArrayList<Account>> userAccounts = new HashMap<>();
     /**
      * Method addUser. Добавление пользователя.
      * @param user Пользователь.
@@ -72,11 +71,10 @@ public class Bank {
      * @return  Лицевой счет пользователя
      */
     public Account getUserAccount(User user, String requisites) {
-        Account result;
-        try {
-            result = this.userAccounts.get(user).get(this.userAccounts.get(user).indexOf(new Account(0, requisites)));
-        } catch (java.lang.ArrayIndexOutOfBoundsException aie) {
-            result = null;
+        Account result = null;
+        int idx = this.userAccounts.get(user).indexOf(new Account(0, requisites));
+        if (idx >= 0) {
+            result = this.userAccounts.get(user).get(idx);
         }
         return result;
     }
@@ -89,9 +87,13 @@ public class Bank {
      * @return  Успешность транзакции
      */
     public boolean transferMoney(User srcUser, String srcRequisite, User dstUser,  String dstRequisite, double amount) {
-        return this.userAccounts.get(srcUser).contains(new Account(0, srcRequisite))
-                && this.userAccounts.get(dstUser).contains(new Account(0, dstRequisite))
-                && getUserAccount(srcUser, srcRequisite).transfer(getUserAccount(dstUser, dstRequisite), amount);
+        boolean result = false;
+        Account srcAccount = getUserAccount(srcUser, srcRequisite);
+        Account dstAccount = getUserAccount(dstUser, dstRequisite);
+        if (srcAccount != null && dstAccount != null) {
+            result = srcAccount.transfer(dstAccount, amount);
+        }
+        return result;
     }
     @Override
     public String toString() {
