@@ -51,7 +51,7 @@ public class Parse {
                     }
                     i = i + shift - 1;
                     for (int k = 0; k < left.size(); k++) {
-                        result.add(new ParsingResult(left.get(k).charValue(), this.availablePairs.get(left.get(k).charValue()).getPairValue(), i - left.size() * 2 + k + 1, i - k));
+                        result.add(new ParsingResult(left.get(k), this.availablePairs.get(left.get(k)).getPairValue(), i - left.size() * 2 + k + 1, i - k));
                     }
                     left.clear();
                     right.clear();
@@ -96,7 +96,7 @@ public class Parse {
                         } else {
                             i = i + shift - 1;
                             for (int k = 0; k < left.size(); k++) {
-                                result.add(new ParsingResult(left.get(k).charValue(), this.availablePairs.get(left.get(k).charValue()).getPairValue(), i - left.size() * 2 + k + 1, i - k));
+                                result.add(new ParsingResult(left.get(k), this.availablePairs.get(left.get(k)).getPairValue(), i - left.size() * 2 + k + 1, i - k));
                             }
                             left.clear();
                             right.clear();

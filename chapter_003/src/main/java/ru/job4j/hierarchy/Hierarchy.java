@@ -9,88 +9,64 @@ import java.util.*;
  * @version 1
  */
 public class Hierarchy {
-    private ArrayList<String> array = new ArrayList<>();
     /**
-     * Method Hierarchy. Конструктор.
-     * @param list Массив строк.
+     * Method parse. Разбор массива строк.
+     * @param str Массив строк.
      */
-    public Hierarchy(ArrayList<String> list) {
-        for (String s : list) {
-            this.array.addAll(parse(s));
-        }
-    }
-    /**
-     * Method Parse. Разбор строки.
-     * @param s Строка.
-     * @return Массив элементов.
-     */
-    public ArrayList<String> parse(String s) {
-        String tmp = "";
-        ArrayList<String> res = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            tmp += s.charAt(i);
-            if (s.charAt(i) == '\\') {
-                if (tmp.endsWith("\\")) {
-                    res.add(tmp.substring(0, tmp.length() - 1));
-                } else {
-                    res.add(tmp);
+    public String[] parse(String[] str) {
+        Set<String> res = new TreeSet<>();
+        for (String s : str) {
+            String tmp = "";
+            for (int i = 0; i < s.length(); i++) {
+                tmp += s.charAt(i);
+                if (s.charAt(i) == '\\') {
+                    if (tmp.endsWith("\\")) {
+                        res.add(tmp.substring(0, tmp.length() - 1));
+                    } else {
+                        res.add(tmp);
+                    }
                 }
             }
+            if (tmp.endsWith("\\")) {
+                tmp = tmp.substring(0, tmp.length() - 1);
+            }
+            res.add(tmp);
         }
-        if (tmp.endsWith("\\")) {
-            tmp = tmp.substring(0, tmp.length() - 1);
-        }
-        res.add(tmp);
-        return res;
+        return res.toArray(new String[0]);
     }
     /**
      * Method sortAsc. Сортировка списка по возрастанию.
+     * @params str Массив строк.
      * @return Отсортированнный список.
      */
-    public Set<String> sortAsc() {
-        TreeSet<String> tree = new TreeSet<>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return o1.compareTo(o2);
-            }
-        });
-        tree.addAll(array);
-        return tree;
+    public String[] sortAsc(String[] str) {
+        String[] res = parse(str);
+        Arrays.sort(res);
+        return res;
     }
     /**
      * Method sortDesc. Сортировка списка по убыванию.
+     * @params str Массив строк.
      * @return Отсортированнный список.
      */
-    public Set<String> sortDesc() {
-        TreeSet<String> tree = new TreeSet<>(new Comparator<String>() {
+    public String[] sortDesc(String[] str) {
+        String[] res = parse(str);
+        Arrays.sort(res, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 int res = 0;
-                ArrayList<String> array1 = parse(o1);
-                ArrayList<String> array2 = parse(o2);
-                for (int i = 0; i < Math.min(array1.size(), array2.size()); i++) {
-                    if (array1.get(i).compareTo(array2.get(i)) < 0) {
-                        res = 1;
+                for (int i = 0; i < Math.min(o1.length(), o2.length()); i++) {
+                    if (o1.charAt(i) != o2.charAt(i)) {
+                        res = Character.compare(o2.charAt(i), o1.charAt(i));
                         break;
-                    } else if (array1.get(i).compareTo(array2.get(i)) > 0) {
-                        res = -1;
-                        break;
-                    } else {
-                        res = 0;
                     }
                 }
-                if (res == 0) {
-                    if (array1.size() > array2.size()) {
-                        res = 1;
-                    }
-                    if (array1.size() < array2.size()) {
-                        res = -1;
-                    }
+                if (res == 0 && o1.length() != o2.length()) {
+                    res = Integer.compare(o1.length(), o2.length());
                 }
                 return res;
             }
         });
-        tree.addAll(array);
-        return tree;
+        return res;
     }
 }

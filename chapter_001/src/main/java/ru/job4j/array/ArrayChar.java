@@ -1,5 +1,5 @@
 package ru.job4j.array;
-import java.util.Arrays;
+
 /**
  * Class ArrayChar решение задачи Части 001. Базовый синтаксис урок 6.
  *

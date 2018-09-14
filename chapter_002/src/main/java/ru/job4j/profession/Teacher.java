@@ -19,7 +19,6 @@ public class Teacher extends Profession {
      * @param student Студент.
      */
     public Mark teach(Student student) {
-        Mark mark = new Mark(5, this.getProfession() + " " + this.getName());
-        return mark;
+        return new Mark(5, this.getProfession() + " " + this.getName());
     }
 }

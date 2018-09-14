@@ -17,7 +17,8 @@ public class Mark {
     public Mark(int mark, String note) {
         this.mark = mark;
         this.note = note;
-    };
+    }
+
     /**
      * Method getMark. Получить значение оценки.
      */

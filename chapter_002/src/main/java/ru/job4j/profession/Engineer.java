@@ -22,7 +22,6 @@ public class Engineer extends Profession {
     public Report build(Building building) {
         String note = "Ждем цемент. " + this.getProfession() + " " + this.getName();
         Date period = new Date(2018, 05, 30);
-        Report report = new Report(note, period);
-        return report;
+        return new Report(note, period);
     }
 }

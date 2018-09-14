@@ -1,5 +1,4 @@
 package ru.job4j.chess.figures.black;
-import ru.job4j.chess.Chess;
 import ru.job4j.chess.ImpossibleMoveException;
 import ru.job4j.chess.figures.*;
 /**

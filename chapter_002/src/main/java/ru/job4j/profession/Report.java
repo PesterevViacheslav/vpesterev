@@ -18,7 +18,8 @@ public class Report {
     public Report(String note, Date period) {
         this.note = note;
         this.period = period;
-    };
+    }
+
     /**
      * Method getNote. Получить состояние работ.
      */

@@ -20,7 +20,6 @@ public class Doctor extends Profession {
      */
     public Diagnose heal(Patient patient) {
         String description = patient.getName() + " Здоров. " + this.getProfession() + " " + this.getName();
-        Diagnose diagnose = new Diagnose(description, "Витамины");
-        return diagnose;
+        return new Diagnose(description, "Витамины");
     }
 }

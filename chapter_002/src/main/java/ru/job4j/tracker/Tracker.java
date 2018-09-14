@@ -1,7 +1,5 @@
 package ru.job4j.tracker;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Class Tracker - Обработка заявок. Решение задачи Части 002. ООП. Общая задача на второй модуль.

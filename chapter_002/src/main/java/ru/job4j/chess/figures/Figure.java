@@ -1,5 +1,4 @@
 package ru.job4j.chess.figures;
-import ru.job4j.chess.Chess;
 import ru.job4j.chess.ImpossibleMoveException;
 /**
  * Interface Figure - Фигура шахматной доски. Решение задачи Части 002. ООП. Задача 8.1 Каркас шахматной доски.

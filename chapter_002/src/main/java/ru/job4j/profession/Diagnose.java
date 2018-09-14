@@ -18,7 +18,8 @@ public class Diagnose {
     public Diagnose(String description, String prescription) {
         this.description = description;
         this.prescription = prescription;
-    };
+    }
+
     /**
      * Method getDescription. Получить значение диагноза.
      */

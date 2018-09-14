@@ -2,7 +2,6 @@ package ru.job4j.chess;
 import ru.job4j.chess.figures.Cell;
 import ru.job4j.chess.figures.Figure;
 
-import java.util.Arrays;
 /**
  * Class Logic - Логика реализации шахматной доски. Решение задачи Части 002. ООП. Задача 8.1 Каркас шахматной доски.
  *
@@ -44,9 +43,7 @@ public class Logic {
                         break;
                     }
                 }
-            } catch (ImpossibleMoveException ime) {
-                rst = false;
-            } catch (OccupiedWayException owe) {
+            } catch (ImpossibleMoveException | OccupiedWayException ime) {
                 rst = false;
             }
         }

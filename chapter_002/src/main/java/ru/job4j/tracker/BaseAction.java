@@ -1,5 +1,4 @@
 package ru.job4j.tracker;
-import java.util.List;
 
 /**
  * Class BaseAction - Основные действия меню трекера. Решение задачи Части 002. ООП. Общая задача на второй модуль.
