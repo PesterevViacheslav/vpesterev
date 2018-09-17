@@ -37,14 +37,11 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public Object next() {
-        int res;
         int nextEvenIndex = getNextEvenIndex(true);
-        if (this.values.length > 0 && nextEvenIndex >= 0) {
-            res = this.values[nextEvenIndex];
-        } else {
+        if (!(this.values.length > 0 && nextEvenIndex >= 0)) {
             throw new NoSuchElementException("NoSuchElementException");
         }
-        return res;
+        return this.values[nextEvenIndex];
     }
     /**
      * Method getNextEvenIndex. Получение следующего четного элемента массива.
