@@ -11,19 +11,35 @@ import java.util.NoSuchElementException;
  */
 public class MatrixIterator implements Iterator {
     private int[][] values;
-    private int indexSize = 0;
-    private int indexRow = 0;
-    private int[] rowLength;
+    private Index index = new Index(0, 0);
+    /**
+     * Class Index. Индекс двумерного массива.
+    */
+    private class Index {
+        private int indexI = 0;
+        private int indexJ = 0;
+        /**
+         * Method Index. Конструктор.
+         * @param indexI Индекс столбца.
+         * @param indexJ Индекс строки.
+         */
+        public Index(int indexI, int indexJ) {
+            this.indexI = indexI;
+            this.indexJ = indexJ;
+        }
+        /**
+         * Method checkIndex. Валидация индекса.
+         * @return Признак валидности.
+         */
+        public boolean checkIndex() {
+            return this.indexI >= 0 || this.indexJ >= 0;
+        }
+    }
     /**
      * Method MatrixIterator. Конструктор.
      * @param values Двумерный массив.
      */
     public MatrixIterator(int[][] values) {
-        int counter = 0;
-        this.rowLength = new int[values.length];
-        for (int[] i : values) {
-            this.rowLength[counter++] = i.length;
-        }
         this.values = values;
     }
     /**
@@ -32,11 +48,8 @@ public class MatrixIterator implements Iterator {
      */
     @Override
     public boolean hasNext() {
-        boolean res = false;
-        if (this.indexSize < this.values.length && this.indexRow < this.rowLength[this.indexSize]) {
-            res = true;
-        }
-        return res;
+        Index res = nextIndex(false);
+        return res.checkIndex();
     }
     /**
      * Method next. Получение следующего элемента массива.
@@ -44,15 +57,34 @@ public class MatrixIterator implements Iterator {
      */
     @Override
     public Object next() {
-        int res;
-        if (this.values.length > 0) {
-            res = this.values[this.indexSize][this.indexRow++];
-            if (this.indexRow == this.rowLength[this.indexSize]) {
-                this.indexSize++;
-                this.indexRow = 0;
-            }
-        } else {
+        Index index = nextIndex(true);
+        if (!index.checkIndex()) {
             throw new NoSuchElementException("NoSuchElementException");
+        }
+        return this.values[index.indexI][index.indexJ];
+    }
+    /**
+     * Method nextIndex. Получение следующего элемента массива.
+     * @return Индекс.
+     */
+    private Index nextIndex(boolean doFetch) {
+        Index res = new Index(-1, -1);
+        boolean doBreak = false;
+        for (int i = this.index.indexI; i < this.values.length && !doBreak; i++) {
+            for (int j = this.index.indexJ; j < this.values[i].length; j++) {
+                res.indexJ = this.index.indexJ;
+                res.indexI = this.index.indexI;
+                if (doFetch) {
+                    if (j + 1 < this.values[i].length) {
+                        this.index.indexJ++;
+                    } else {
+                        this.index.indexJ = 0;
+                        this.index.indexI++;
+                    }
+                }
+                doBreak = true;
+                break;
+            }
         }
         return res;
     }
