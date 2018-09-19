@@ -50,12 +50,14 @@ public class EvenIterator implements Iterator {
     private int getNextEvenIndex(boolean doFetch) {
         int res = -1;
         for (int i = this.index; i < this.values.length; i++) {
-            if (doFetch) {
-                this.index++;
-            }
             if (this.values[i] % 2 == 0) {
                 res = i;
+                if (doFetch) {
+                    this.index++;
+                }
                 break;
+            } else {
+                this.index++;
             }
         }
         return res;
