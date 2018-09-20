@@ -26,8 +26,12 @@ public class EvenIterator implements Iterator {
     @Override
     public boolean hasNext() {
         boolean res = false;
-        if (this.index < this.values.length && getNextEvenIndex(false) >= 0) {
-            res = true;
+        for (int i = index; i < values.length; i++) {
+            if (values[i] % 2 == 0) {
+                res = true;
+                index = i;
+                break;
+            }
         }
         return res;
     }
@@ -37,29 +41,9 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public Object next() {
-        int nextEvenIndex = getNextEvenIndex(true);
-        if (!(this.values.length > 0 && nextEvenIndex >= 0)) {
-            throw new NoSuchElementException("NoSuchElementException");
+        if (!hasNext()) {
+            throw new NoSuchElementException();
         }
-        return this.values[nextEvenIndex];
-    }
-    /**
-     * Method getNextEvenIndex. Получение следующего четного элемента массива.
-     * @return Индекс.
-     */
-    private int getNextEvenIndex(boolean doFetch) {
-        int res = -1;
-        for (int i = this.index; i < this.values.length; i++) {
-            if (this.values[i] % 2 == 0) {
-                res = i;
-                if (doFetch) {
-                    this.index++;
-                }
-                break;
-            } else {
-                this.index++;
-            }
-        }
-        return res;
+        return this.values[index++];
     }
 }
