@@ -16,23 +16,23 @@ public class MatrixIterator implements Iterator {
      * Class Index. Индекс двумерного массива.
     */
     private class Index {
-        private int indexI = 0;
-        private int indexJ = 0;
+        private int row = 0;
+        private int cell = 0;
         /**
          * Method Index. Конструктор.
-         * @param indexI Индекс столбца.
-         * @param indexJ Индекс строки.
+         * @param row Индекс столбца.
+         * @param cell Индекс строки.
          */
-        public Index(int indexI, int indexJ) {
-            this.indexI = indexI;
-            this.indexJ = indexJ;
+        public Index(int row, int cell) {
+            this.row = row;
+            this.cell = cell;
         }
         /**
          * Method checkIndex. Валидация индекса.
          * @return Признак валидности.
          */
         public boolean checkIndex() {
-            return this.indexI >= 0 || this.indexJ >= 0;
+            return this.row >= 0 || this.cell >= 0;
         }
     }
     /**
@@ -61,7 +61,7 @@ public class MatrixIterator implements Iterator {
         if (!index.checkIndex()) {
             throw new NoSuchElementException("NoSuchElementException");
         }
-        return this.values[index.indexI][index.indexJ];
+        return this.values[index.row][index.cell];
     }
     /**
      * Method nextIndex. Получение следующего элемента массива.
@@ -70,16 +70,16 @@ public class MatrixIterator implements Iterator {
     private Index nextIndex(boolean doFetch) {
         Index res = new Index(-1, -1);
         boolean doBreak = false;
-        for (int i = this.index.indexI; i < this.values.length && !doBreak; i++) {
-            for (int j = this.index.indexJ; j < this.values[i].length; j++) {
-                res.indexJ = this.index.indexJ;
-                res.indexI = this.index.indexI;
+        for (int i = this.index.row; i < this.values.length && !doBreak; i++) {
+            for (int j = this.index.cell; j < this.values[i].length; j++) {
+                res.cell = this.index.cell;
+                res.row = this.index.row;
                 if (doFetch) {
                     if (j + 1 < this.values[i].length) {
-                        this.index.indexJ++;
+                        this.index.cell++;
                     } else {
-                        this.index.indexJ = 0;
-                        this.index.indexI++;
+                        this.index.cell = 0;
+                        this.index.row++;
                     }
                 }
                 doBreak = true;
