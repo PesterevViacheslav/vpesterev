@@ -1,6 +1,8 @@
 package ru.job4j.generic;
 import org.junit.Test;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
+import org.hamcrest.core.IsNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 /**
@@ -65,8 +67,9 @@ public class SimpleArrayTest {
      */
     @Test
     public void testDeleteElement() {
-        SimpleArray<Integer> expect = new SimpleArray<>(2);
+        SimpleArray<Integer> expect = new SimpleArray<>(3);
         expect.add(1);
+        expect.add(3);
         expect.add(3);
         SimpleArray<Integer> array = new SimpleArray<>(3);
         array.add(1);
@@ -74,22 +77,25 @@ public class SimpleArrayTest {
         array.add(3);
         array.delete(1);
         assertThat(array, is(expect));
+        assertThat(array.getIndex(), is(2));
     }
     /**
      * Тест удаления последнего элемента контейнера.
      */
     @Test
     public void testDeleteLastElement() {
-        SimpleArray<Integer> expect = new SimpleArray<>(0);
+        SimpleArray<Integer> expect = new SimpleArray<>(1);
+        expect.add(1);
         SimpleArray<Integer> array = new SimpleArray<>(1);
         array.add(1);
         array.delete(0);
         assertThat(array, is(expect));
+        assertThat(array.getIndex(), is(0));
     }
     /**
-     * Тест итератора контейнера.
+     * Тест итератора контейнера Integer.
      */
-    @Test(expected = ArrayIndexOutOfBoundsException.class)
+    @Test(expected = NoSuchElementException.class)
     public void testIntegerIterator() {
         SimpleArray<Integer> array = new SimpleArray<>(3);
         array.add(1);
@@ -102,6 +108,41 @@ public class SimpleArrayTest {
         assertThat(it.next(), is(2));
         assertThat(it.hasNext(), is(true));
         assertThat(it.next(), is(3));
+        assertThat(it.hasNext(), is(false));
+        it.next();
+    }
+    /**
+     * Тест итератора контейнера String.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void testStringIterator() {
+        SimpleArray<String> array = new SimpleArray<>(2);
+        array.add("Test1");
+        array.add("Test2");
+        Iterator<String> it = array.iterator();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is("Test1"));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is("Test2"));
+        assertThat(it.hasNext(), is(false));
+        it.next();
+    }
+    /**
+     * Тест итератора контейнера со значением null.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void testIntegerIteratorWithNull() {
+        SimpleArray<Integer> array = new SimpleArray<>(3);
+        array.add(null);
+        array.add(1);
+        array.add(2);
+        Iterator<Integer> it = array.iterator();
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(IsNull.nullValue()));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(1));
+        assertThat(it.hasNext(), is(true));
+        assertThat(it.next(), is(2));
         assertThat(it.hasNext(), is(false));
         it.next();
     }

@@ -2,6 +2,7 @@ package ru.job4j.generic;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.lang.ArrayIndexOutOfBoundsException;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
@@ -21,6 +22,13 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public SimpleArray(int size) {
         this.objects = new Object[size];
+    }
+    /**
+     * Method getIndex. Получение значения индекса.
+     * @return Индекс массива.
+     */
+    public int getIndex() {
+        return this.index;
     }
     /**
      * Method add. Добавление элемента в структуру.
@@ -49,14 +57,8 @@ public class SimpleArray<T> implements Iterable<T> {
      */
     public void delete(int position) {
         if (this.index > 0) {
-            Object[] res = new Object[--this.index];
-            int j = 0;
-            for (int i = 0; i < this.objects.length; i++) {
-                if (i != position) {
-                    res[j++] = this.objects[i];
-                }
-            }
-            this.objects = res;
+            System.arraycopy(this.objects, position + 1, this.objects, position, this.objects.length - position - 1);
+            this.index--;
         }
     }
     /**
@@ -75,11 +77,15 @@ public class SimpleArray<T> implements Iterable<T> {
             private int currentIndex = 0;
             @Override
             public boolean hasNext() {
-                return currentIndex < index && objects[currentIndex] != null;
+                return this.currentIndex < index;
+                        //&& objects[this.currentIndex] != null;
             }
             @Override
             public T next() {
-                return (T) objects[currentIndex++];
+                if (this.currentIndex == index) {
+                    throw new NoSuchElementException();
+                }
+                return (T) objects[this.currentIndex++];
             }
             @Override
             public void remove() {
@@ -97,17 +103,14 @@ public class SimpleArray<T> implements Iterable<T> {
             return false;
         }
         SimpleArray<?> that = (SimpleArray<?>) o;
-        return index == that.index && Arrays.equals(objects, that.objects);
+        return Arrays.equals(objects, that.objects);
     }
     @Override
     public String toString() {
         return "SimpleArray{" + "objects=" + Arrays.toString(objects) + ", index=" + index + '}';
     }
-
     @Override
     public int hashCode() {
-        int result = Objects.hash(index);
-        result = 31 * result + Arrays.hashCode(objects);
-        return result;
+        return Arrays.hashCode(objects);
     }
 }
