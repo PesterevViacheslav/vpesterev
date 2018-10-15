@@ -21,7 +21,7 @@ public class StoreTest {
         UserStore array = new UserStore(10);
         User user = new User("User0");
         array.add(user);
-        assertThat(array.get("User0", array.getUsers()), is(user));
+        assertThat(array.get("User0"), is(user));
     }
     /**
      * Тест наполнения контейнера значениями Role.
@@ -31,27 +31,7 @@ public class StoreTest {
         RoleStore array = new RoleStore(10);
         Role role = new Role("Role0");
         array.add(role);
-        assertThat(array.get("Role0", array.getRoles()), is(role));
-    }
-    /**
-     * Тест наполнения контейнера User значениями Role.
-     */
-    @Test(expected = java.lang.ClassCastException.class)
-    public void whenCreateUserToRoleThenException() {
-        UserStore array = new UserStore(10);
-        Role user = new Role("User0");
-        array.add(user);
-        assertThat(array.get("User0", array.getUsers()), is(user));
-    }
-    /**
-     * Тест наполнения контейнера Role значениями User.
-     */
-    @Test(expected = java.lang.ClassCastException.class)
-    public void whenCreateRoleToUserThenException() {
-        RoleStore array = new RoleStore(10);
-        User role = new User("Role0");
-        array.add(role);
-        assertThat(array.get("Role0", array.getRoles()), is(role));
+        assertThat(array.get("Role0"), is(role));
     }
     /**
      * Тест переполнения контейнера User.
@@ -75,7 +55,6 @@ public class StoreTest {
         array.add(new Role("Role2"));
         array.add(new Role("Role3"));
     }
-
     /**
      * Тест изменения элемента контейнера User.
      */
