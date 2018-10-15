@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.*;
 /**
  * Class StoreTest. Автотесты для задач уровня Junior. Части 001. Collections. Pro.
  * 5.2.2. Реализовать Store<T extends Base>.
@@ -63,7 +64,8 @@ public class StoreTest {
         UserStore array = new UserStore(3);
         array.add(new User("User0"));
         User user = new User("User2");
-        array.replace("User0", user);
+        assertFalse(array.replace("-1", user));
+        assertTrue(array.replace("User0", user));
         assertThat(array.findById("User2"), is(user));
     }
     /**
@@ -74,7 +76,8 @@ public class StoreTest {
         RoleStore array = new RoleStore(3);
         array.add(new Role("Role0"));
         Role role = new Role("Role2");
-        array.replace("Role0", role);
+        assertFalse(array.replace("-1", role));
+        assertTrue(array.replace("Role0", role));
         assertThat(array.findById("Role2"), is(role));
     }
     /**
@@ -90,7 +93,8 @@ public class StoreTest {
         array.add(new User("User0"));
         array.add(new User("User1"));
         array.add(new User("User2"));
-        array.delete("User1");
+        assertFalse(array.delete("-1"));
+        assertTrue(array.delete("User1"));
         assertThat(array, is(expect));
     }
     /**
@@ -106,7 +110,8 @@ public class StoreTest {
         array.add(new Role("Role0"));
         array.add(new Role("Role1"));
         array.add(new Role("Role2"));
-        array.delete("Role1");
+        assertFalse(array.delete("-1"));
+        assertTrue(array.delete("Role1"));
         assertThat(array, is(expect));
     }
     /**
