@@ -21,7 +21,7 @@ public class StoreTest {
         UserStore array = new UserStore(10);
         User user = new User("User0");
         array.add(user);
-        assertThat(array.get("User0"), is(user));
+        assertThat(array.findById("User0"), is(user));
     }
     /**
      * Тест наполнения контейнера значениями Role.
@@ -31,7 +31,7 @@ public class StoreTest {
         RoleStore array = new RoleStore(10);
         Role role = new Role("Role0");
         array.add(role);
-        assertThat(array.get("Role0"), is(role));
+        assertThat(array.findById("Role0"), is(role));
     }
     /**
      * Тест переполнения контейнера User.
@@ -64,7 +64,7 @@ public class StoreTest {
         array.add(new User("User0"));
         User user = new User("User2");
         array.replace("User0", user);
-        assertThat(array.get("User2"), is(user));
+        assertThat(array.findById("User2"), is(user));
     }
     /**
      * Тест изменения элемента контейнера Role.
@@ -75,7 +75,7 @@ public class StoreTest {
         array.add(new Role("Role0"));
         Role role = new Role("Role2");
         array.replace("Role0", role);
-        assertThat(array.get("Role2"), is(role));
+        assertThat(array.findById("Role2"), is(role));
     }
     /**
      * Тест удаления элемента контейнера User.

@@ -1,8 +1,6 @@
 package ru.job4j.generic;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import java.util.Objects;
-
 /**
  * Class AbstractStore - Абстрактный контейнер. Решение задач уровня Junior. Части 001. Collections. Pro.
  * 5.2.2. Реализовать Store<T extends Base>.
@@ -24,6 +22,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
      * Method add. Добавление элемента в контейнер.
      * @param model Добавляемый объект.
      */
+    @Override
     public void add(T model) {
         this.array.add(model);
     }
@@ -32,22 +31,27 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
      * @param id ID объекта.
      * @param model Добавляемый объект.
      */
+    @Override
     public boolean replace(String id, T model) {
-        return this.array.set(findPosition(id), model);
+        boolean res = false;
+        int pos = findPosition(id);
+        if (pos != -1) {
+            res = this.array.set(pos, model);
+        }
+        return res;
     }
     /**
      * Method delete. Удаление элемента в контейнере.
      * @param id Добавляемый объект.
      */
+    @Override
     public boolean delete(String id) {
-        return this.array.delete(findPosition(id));
-    }
-    /**
-     * Method get. Получение значения элемента из структуры.
-     * @param id Индекс.
-     */
-    public T get(String id) {
-        return array.get(findPosition(id));
+        boolean res = false;
+        int pos = findPosition(id);
+        if (pos != -1) {
+            this.array.delete(findPosition(id));
+        }
+        return res;
     }
     /**
      * Method iterator. Итератор.
@@ -61,6 +65,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
      * @param id ID.
      * @return ID
      */
+    @Override
     public T findById(String id) {
         T result = null;
         for (int i = 0; i < this.array.getIndex(); i++) {
@@ -83,9 +88,6 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
                 result = i;
                 break;
             }
-        }
-        if (result == -1) {
-            throw new NoSuchElementException();
         }
         return result;
     }
