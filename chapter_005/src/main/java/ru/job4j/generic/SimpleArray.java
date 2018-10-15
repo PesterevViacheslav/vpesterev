@@ -3,8 +3,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.lang.ArrayIndexOutOfBoundsException;
 import java.util.NoSuchElementException;
-import java.util.Objects;
-
 /**
  * Class SimpleArray. Решение задач уровня Junior. Части 001. Collections. Pro.
  * Задача 5.2.1. Реализовать SimpleArray<T>.
@@ -45,21 +43,27 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param position Индекс.
      * @param model Элемент.
      */
-    public void set(int position, T model) {
+    public boolean set(int position, T model) {
+        boolean res = false;
         if (position >= this.objects.length && position < 0) {
             throw new ArrayIndexOutOfBoundsException();
         }
         this.objects[position] = model;
+        res = true;
+        return res;
     }
     /**
      * Method delete. Удаление значения элемента из структуры.
      * @param position Индекс.
      */
-    public void delete(int position) {
+    public boolean delete(int position) {
+        boolean res = false;
         if (this.index > 0) {
             System.arraycopy(this.objects, position + 1, this.objects, position, this.objects.length - position - 1);
             this.index--;
+            res = true;
         }
+        return res;
     }
     /**
      * Method get. Получение значения элемента из структуры.
@@ -82,7 +86,7 @@ public class SimpleArray<T> implements Iterable<T> {
             }
             @Override
             public T next() {
-                if (this.currentIndex == index) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 return (T) objects[this.currentIndex++];

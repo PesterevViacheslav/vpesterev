@@ -6,7 +6,7 @@ import org.hamcrest.core.IsNull;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 /**
- * Class MatrixIteratorTest. Автотесты для задач уровня Junior. Части 001. Collections. Pro.
+ * Class SimpleArrayTest. Автотесты для задач уровня Junior. Части 001. Collections. Pro.
  * Задача 5.2.1. Реализовать SimpleArray<T>.
  *
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)
