@@ -49,7 +49,7 @@ public abstract class AbstractStore<T extends Base> implements Store<T> {
         boolean res = false;
         int pos = findPosition(id);
         if (pos != -1) {
-            res = this.array.delete(findPosition(id));
+            res = this.array.delete(pos);
         }
         return res;
     }
