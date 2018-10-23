@@ -71,7 +71,7 @@ public class SimpleArrayListTest {
         it.next();
     }
     /**
-     * Тест последовательного прохода по массиву.
+     * Тест последовательного прохода по массиву с модификацией.
      */
     @Test(expected = ConcurrentModificationException.class)
     public void testIteratorConcurrentModificationException() {
