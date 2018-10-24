@@ -3,7 +3,6 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.core.IsNull;
 import org.junit.Test;
 import org.junit.Before;
-
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;

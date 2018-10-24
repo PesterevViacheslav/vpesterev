@@ -18,7 +18,7 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
     private int modCount = 0;
     /**
      * Method add. Добавление в список.
-     * @param date Размер контейнера.
+     * @param date Значение.
      */
     public void add(E date) {
         Node<E> lst = this.last;
@@ -28,6 +28,22 @@ public class SimpleLinkedList<E> implements SimpleContainer<E> {
             this.first = newNode;
         } else {
             lst.next = newNode;
+        }
+        this.size++;
+        this.modCount++;
+    }
+    /**
+     * Method addFirst. Добавление в начало списка.
+     * @param date Значение.
+     */
+    public void addFirst(E date) {
+        Node<E> f = this.first;
+        Node<E> newNode = new Node<>(null, date, f);
+        this.first = newNode;
+        if (f == null) {
+            this.last = newNode;
+        } else {
+            f.prev = newNode;
         }
         this.size++;
         this.modCount++;
