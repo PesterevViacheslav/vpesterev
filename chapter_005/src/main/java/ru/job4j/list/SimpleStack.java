@@ -7,8 +7,14 @@ package ru.job4j.list;
  * @since 23.10.2018
  * @version 1
  */
-public class SimpleStack<E> {
-    private SimpleLinkedList<E> list = new SimpleLinkedList<>();
+public class SimpleStack<E> implements SimpleStackContainer<E> {
+    private SimpleLinkedList<E> list;
+    /**
+     * Method SimpleQueue. Конструктор.
+     */
+    public SimpleStack() {
+        this.list = new SimpleLinkedList<>();
+    }
     /**
      * Method poll. Получение первого элемента стека с удалением.
      * @return Элемент.
@@ -30,5 +36,12 @@ public class SimpleStack<E> {
      */
     public void push(E value) {
         list.addFirst(value);
+    }
+    /**
+     * Method isEmpty. Проверка на пустоту контейнера.
+     * @return Признак пустого контейнера.
+     */
+    public boolean isEmpty() {
+        return list.getSize() == 0;
     }
 }
