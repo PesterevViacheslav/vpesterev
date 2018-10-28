@@ -1,7 +1,6 @@
 package ru.job4j.list;
 import org.hamcrest.core.IsNull;
 import org.junit.Test;
-import java.util.NoSuchElementException;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 /**
@@ -40,6 +39,21 @@ public class SimpleQueueTest {
         q.push(null);
         assertThat(q.poll(), is(1));
         assertThat(q.poll(), is(2));
+        assertThat(q.poll(), is(3));
+        assertThat(q.poll(), is(IsNull.nullValue()));
+    }
+    /**
+     * Тест извлечения из очереди.
+     */
+    @Test
+    public void testEnqueueDequeueSimpleQueue() {
+        SimpleQueue<Integer> q = new SimpleQueue<>();
+        q.push(1);
+        q.push(2);
+        assertThat(q.poll(), is(1));
+        q.push(3);
+        assertThat(q.poll(), is(2));
+        q.push(null);
         assertThat(q.poll(), is(3));
         assertThat(q.poll(), is(IsNull.nullValue()));
     }
