@@ -1,5 +1,7 @@
 package ru.job4j.list;
 import java.util.NoSuchElementException;
+import java.util.Objects;
+
 /**
  * Class SimpleArrayList - Односвязный список. Решение задач уровня Junior. Части 001. Collections. Pro.
  * 5.3.0 Создать метод delete для односвязного списка.
@@ -55,6 +57,50 @@ public class SimpleList<E> {
      */
     public int getSize() {
         return this.size;
+    }
+    /**
+     * Method hasCycle. Проверка на зацикленность коллекции.
+     */
+    public boolean hasCycle() {
+        boolean res = false;
+        Node<E> current = this.first;
+        Node<E> check;
+        for (int i = 0; i < this.size && current.next != null; i++) {
+            check = current.next;
+            for (int j = i; j < this.size && check != null; j++) {
+                if (current.next == check.next) {
+                    res = true;
+                    break;
+                }
+                check = check.next;
+            }
+            current = current.next;
+        }
+        return res;
+    }
+    /**
+     * Method getNodeNext. Получение ссылки на следующий узел.
+     * @param index Индекс.
+     * @return Значение элемента.
+     */
+    public Node<E> getNodeNext(int index) {
+        Node<E> result = this.first;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
+        }
+        return result.next;
+    }
+    /**
+     * Method setNodeNext. Установка ссылки на следующий узел.
+     * @param index Индекс.
+     * @param next Значение элемента.
+     */
+    public void setNodeNext(int index, Node<E> next) {
+        Node<E> result = this.first;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
+        }
+        result.next = next;
     }
     /**
      * Class Node. Структура хранения данных.
