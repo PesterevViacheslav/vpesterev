@@ -56,6 +56,7 @@ public class SimpleListTest {
     @Test
     public void whenNoCyclingThenHasCycleFalse() {
         assertThat(list.hasCycle(), is(false));
+        assertThat(list.hasCycle(list.getNode(0)), is(false));
     }
     /**
      * Тест проверки на зацикленность (присутствует - первый элемент ссылается на последний).
@@ -65,6 +66,7 @@ public class SimpleListTest {
         list.add(4);
         list.setNodeNext(3, list.getNodeNext(0));
         assertThat(list.hasCycle(), is(true));
+        assertThat(list.hasCycle(list.getNode(0)), is(true));
     }
     /**
      * Тест проверки на зацикленность (присутствует - третий элемент ссылается на второй).
@@ -74,5 +76,6 @@ public class SimpleListTest {
         list.add(4);
         list.setNodeNext(2, list.getNodeNext(1));
         assertThat(list.hasCycle(), is(true));
+        assertThat(list.hasCycle(list.getNode(0)), is(true));
     }
 }

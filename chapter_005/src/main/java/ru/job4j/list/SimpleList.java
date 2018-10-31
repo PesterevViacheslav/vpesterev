@@ -53,6 +53,18 @@ public class SimpleList<E> {
         return result.date;
     }
     /**
+     * Method getNode. Получение значения узла по индексу.
+     * @param index Индекс.
+     * @return Значение узла.
+     */
+    public Node<E> getNode(int index) {
+        Node<E> result = this.first;
+        for (int i = 0; i < index; i++) {
+            result = result.next;
+        }
+        return result;
+    }
+    /**
      * Method getSize. Получение размера коллекции.
      */
     public int getSize() {
@@ -75,6 +87,32 @@ public class SimpleList<E> {
                 check = check.next;
             }
             current = current.next;
+        }
+        return res;
+    }
+    /**
+     * Method hasCycle. Проверка на зацикленность коллекции (Алгоритм Флойда).
+     */
+    public boolean hasCycle(Node<E> first) {
+        boolean res = false;
+        if (first != null) {
+            Node<E> slow = first;
+            Node<E> fast = first;
+            while (true) {
+                slow = slow.next;
+                if (fast.next == null) {
+                    fast = null;
+                } else {
+                    fast = fast.next.next;
+                }
+                if (fast == null) {
+                    break;
+                }
+                if (slow == fast) {
+                    res = true;
+                    break;
+                }
+            }
         }
         return res;
     }
