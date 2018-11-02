@@ -1,7 +1,6 @@
 package ru.job4j.list;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
-
 /**
  * Class SimpleArrayList - Односвязный список. Решение задач уровня Junior. Части 001. Collections. Pro.
  * 5.3.0 Создать метод delete для односвязного списка.
@@ -10,7 +9,7 @@ import java.util.Objects;
  * @since 18.10.2018
  * @version 1
  */
-public class SimpleList<E> {
+public class SimpleList<E> implements Iterable<E> {
     private int size;
     private Node<E> first;
     /**
@@ -63,6 +62,23 @@ public class SimpleList<E> {
             result = result.next;
         }
         return result;
+    }
+    /**
+     * Method getNodeByData. Получение узла по значению.
+     * @param data Значение.
+     * @return Узел.
+     */
+    public Node<E> getNodeByData(E data) {
+        Node<E> search = this.first;
+        Node<E> res = null;
+        for (int i = 0; i < this.size; i++) {
+            if (search.date.equals(data)) {
+                res = search;
+                break;
+            }
+            search = search.next;
+        }
+        return res;
     }
     /**
      * Method getSize. Получение размера коллекции.
@@ -139,6 +155,36 @@ public class SimpleList<E> {
             result = result.next;
         }
         result.next = next;
+    }
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private Node<E> lastReturned;
+            private Node<E> next = first;
+            private int nextIndex = 0;
+            /**
+             * Method hasNext. Проверка наличия следующего элемента.
+             * @return Наличие элемента.
+             */
+            @Override
+            public boolean hasNext() {
+                return this.nextIndex < size;
+            }
+            /**
+             * Method next. Получение следующего элемента массива.
+             * @return Элемент.
+             */
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                this.lastReturned = this.next;
+                this.next = this.next.next;
+                this.nextIndex++;
+                return this.lastReturned.date;
+            }
+        };
     }
     /**
      * Class Node. Структура хранения данных.
