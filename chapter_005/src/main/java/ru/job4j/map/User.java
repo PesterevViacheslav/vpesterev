@@ -1,5 +1,7 @@
 package ru.job4j.map;
 import java.util.Calendar;
+import java.util.Objects;
+
 /**
  * Class User - Пользователь. Решение задач уровня Junior. Части 001. Collections. Pro.
  * 5.5.1. Создать модель User.
@@ -38,15 +40,15 @@ public class User {
         this.name = name;
     }
     /**
-     * Method getChildren. Метод получения ребенка.
-     * @return Ребенок.
+     * Method getChildren. Метод получения признака ребенка.
+     * @return Признак.
      */
     public int getChildren() {
         return this.children;
     }
     /**
-     * Method setChildren. Метод установки ребенка.
-     * @param children Ребенок.
+     * Method setChildren. Метод установки признака ребенка.
+     * @param children Признак.
      */
     public void setChildren(int children) {
         this.children = children;
@@ -67,6 +69,6 @@ public class User {
     }
     @Override
     public String toString() {
-        return "User{" + "name='" + name + '\'' + ", children=" + children + ", birthday=" + birthday + '}';
+        return "User{" + "name='" + name + '\'' + ", children=" + children + " HashCode=" + this.hashCode() + '}';
     }
 }
