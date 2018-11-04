@@ -1,7 +1,6 @@
 package ru.job4j.set;
 import ru.job4j.list.SimpleList;
 import java.util.Iterator;
-
 /**
  * Class SimpleSet - Множество. Решение задач уровня Junior. Части 001. Collections. Pro.
  * 5.4.1. Реализовать коллекцию Set на массиве.
