@@ -71,4 +71,8 @@ public class User {
     public String toString() {
         return "User{" + "name='" + name + '\'' + ", children=" + children + " HashCode=" + this.hashCode() + '}';
     }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, children, birthday);
+    }
 }

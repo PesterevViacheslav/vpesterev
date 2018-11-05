@@ -14,6 +14,7 @@ import static org.junit.Assert.assertTrue;
  * Class MapTest - Отображения. Автотесты для решения задач уровня Junior. Части 001. Collections. Pro.
  * 5.5.1. Создать модель User.
  * 5.5.2. Не перекрывать equals hashCode.
+ * 5.5.3. Переопределить только hashCode.
  *
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)
  * @since 04.11.2018
@@ -34,7 +35,7 @@ public class MapTest {
         map.put(user2, "user2");
         System.out.println("Первый вызов-----------------------------");
         System.out.println(map);
-        System.out.println("Второй вызов, HashCode не изменился------");
+        System.out.println("Второй вызов, HashCode совпадает------");
         System.out.println(map);
         assertThat(map.size(), is(2));
     }
