@@ -71,8 +71,20 @@ public class User {
     public String toString() {
         return "User{" + "name='" + name + '\'' + ", children=" + children + " HashCode=" + this.hashCode() + '}';
     }
-    @Override
+    /*@Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
+    }*/
+    @Override
+    public boolean equals(Object o) {
+        System.out.println("equals entered");
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return children == user.children && Objects.equals(name, user.name) && Objects.equals(birthday, user.birthday);
     }
 }

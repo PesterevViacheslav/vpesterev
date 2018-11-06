@@ -26,8 +26,8 @@ public class MapTest {
      */
     @Test
     public void testNotOverrideEqualsAndHashCode() {
-        Calendar cal = new GregorianCalendar(1990, 3 , 25);
-        Calendar cal2 = new GregorianCalendar(1990, 3 , 25);
+        Calendar cal = new GregorianCalendar(1990, 3, 25);
+        Calendar cal2 = new GregorianCalendar(1990, 3, 25);
         User user1 = new User("User1", 0, cal);
         User user2 = new User("User1", 0, cal2);
         Map<User, Object> map = new HashMap<>();
@@ -35,7 +35,7 @@ public class MapTest {
         map.put(user2, "user2");
         System.out.println("Первый вызов-----------------------------");
         System.out.println(map);
-        System.out.println("Второй вызов, HashCode совпадает------");
+        System.out.println("Второй вызов, HashCode различен----------");
         System.out.println(map);
         assertThat(map.size(), is(2));
     }
