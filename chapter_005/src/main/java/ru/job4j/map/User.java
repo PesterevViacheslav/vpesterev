@@ -71,10 +71,10 @@ public class User {
     public String toString() {
         return "User{" + "name='" + name + '\'' + ", children=" + children + " HashCode=" + this.hashCode() + '}';
     }
-    /*@Override
+    @Override
     public int hashCode() {
         return Objects.hash(name, children, birthday);
-    }*/
+    }
     @Override
     public boolean equals(Object o) {
         System.out.println("equals entered");

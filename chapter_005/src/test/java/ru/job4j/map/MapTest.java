@@ -35,8 +35,8 @@ public class MapTest {
         map.put(user2, "user2");
         System.out.println("Первый вызов-----------------------------");
         System.out.println(map);
-        System.out.println("Второй вызов, HashCode различен----------");
+        System.out.println("Второй вызов, HashCode совпадают---------");
         System.out.println(map);
-        assertThat(map.size(), is(2));
+        assertThat(map.size(), is(1));
     }
 }
