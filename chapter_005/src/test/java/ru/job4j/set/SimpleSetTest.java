@@ -35,7 +35,7 @@ public class SimpleSetTest {
         assertThat(set.getSize(), is(6));
     }
     /**
-     * Тест последовательного прохода по массиву.
+     * Тест последовательного прохода по коллекции.
      */
     @Test(expected = NoSuchElementException.class)
     public void testIteratorSequentiallyFetch() {
@@ -53,6 +53,47 @@ public class SimpleSetTest {
         MatcherAssert.assertThat(it.next(), is(2));
         MatcherAssert.assertThat(it.hasNext(), is(true));
         MatcherAssert.assertThat(it.next(), is(1));
+        MatcherAssert.assertThat(it.hasNext(), is(false));
+        it.next();
+    }
+    /**
+     * Тест добавления элементов в множество на основе массива.
+     */
+    @Test
+    public void testAddNewElementsOnArray() {
+        SimpleSetOnArray<Integer> set = new SimpleSetOnArray<>(100);
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        assertThat(set.getSize(), is(3));
+        set.add(2);
+        set.add(3);
+        assertThat(set.getSize(), is(3));
+        set.add(4);
+        set.add(5);
+        assertThat(set.getSize(), is(5));
+        set.add(null);
+        assertThat(set.getSize(), is(6));
+    }
+    /**
+     * Тест последовательного прохода по коллекции на основе массива.
+     */
+    @Test(expected = NoSuchElementException.class)
+    public void testIteratorSequentiallyFetchOnArray() {
+        SimpleSetOnArray<Integer> set = new SimpleSetOnArray<>(100);
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        set.add(null);
+        Iterator<Integer> it = set.iterator();
+        MatcherAssert.assertThat(it.hasNext(), is(true));
+        MatcherAssert.assertThat(it.next(), is(1));
+        MatcherAssert.assertThat(it.hasNext(), is(true));
+        MatcherAssert.assertThat(it.next(), is(2));
+        MatcherAssert.assertThat(it.hasNext(), is(true));
+        MatcherAssert.assertThat(it.next(), is(3));
+        MatcherAssert.assertThat(it.hasNext(), is(true));
+        MatcherAssert.assertThat(it.next(), is(IsNull.nullValue()));
         MatcherAssert.assertThat(it.hasNext(), is(false));
         it.next();
     }

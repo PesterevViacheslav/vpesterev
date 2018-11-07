@@ -73,6 +73,22 @@ public class SimpleArray<T> implements Iterable<T> {
         return (T) this.objects[position];
     }
     /**
+     * Method getPositionByData. Получение позиции элемента из структуры.
+     * @param data Элемент.
+     */
+    public int getPositionByData(T data) {
+        int res = -1;
+        T val;
+        for (int i = 0; i < this.index; i++) {
+            val = (T) this.objects[i];
+            if (val.equals(data)) {
+                res = i;
+                break;
+            }
+        }
+        return res;
+    }
+    /**
      * Method iterator. Итератор.
      */
     @Override
@@ -82,7 +98,6 @@ public class SimpleArray<T> implements Iterable<T> {
             @Override
             public boolean hasNext() {
                 return this.currentIndex < index;
-                        //&& objects[this.currentIndex] != null;
             }
             @Override
             public T next() {
