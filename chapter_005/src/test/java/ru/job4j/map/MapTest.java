@@ -1,6 +1,4 @@
 package ru.job4j.map;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.core.IsNull;
 import org.junit.Test;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8,8 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
-
 /**
  * Class MapTest - Отображения. Автотесты для решения задач уровня Junior. Части 001. Collections. Pro.
  * 5.5.1. Создать модель User.
