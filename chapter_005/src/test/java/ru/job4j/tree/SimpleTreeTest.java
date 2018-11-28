@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 /**
- * Class SimpleHashMapTest - Отображения. Автотесты для решения задач уровня Junior. Части 001. Collections. Pro.
+ * Class SimpleTreeTest - Дерево. Автотесты для решения задач уровня Junior. Части 001. Collections. Pro.
  * 5.6.1. Создать элементарную структуру дерева.
  *
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)

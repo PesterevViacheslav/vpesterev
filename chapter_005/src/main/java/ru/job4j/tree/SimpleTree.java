@@ -25,6 +25,13 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
         this.size++;
     }
     /**
+     * Метод getIter. Получение коллекции для итератора.
+     * @return Коллекция.
+     */
+    public Queue<Node<E>> getIter() {
+        return this.iter;
+    }
+    /**
      * Метод add. Добавление элемента child в parent.
      * Parent может иметь список child.
      * @param parent parent.
