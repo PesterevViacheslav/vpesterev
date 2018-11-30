@@ -84,8 +84,7 @@ public class SimpleHashMap<K, V> implements Iterable {
         boolean res = false;
         this.modCount++;
         if ((float) this.currentCapacity / this.currentMaxCapacity >= DEFAULT_LOAD_FACTOR) {
-            this.container = Arrays.copyOf(this.container, this.currentMaxCapacity * 2);
-            this.currentMaxCapacity = this.currentMaxCapacity * 2;
+            resize();
         }
         if (this.container[hash(key)] == null) {
             this.container[hash(key)] = new Node(key, value);
@@ -93,6 +92,20 @@ public class SimpleHashMap<K, V> implements Iterable {
             res = true;
         }
         return res;
+    }
+    /**
+     * Method resize. Расширение контейнера.
+     * @return Признак успеха.
+     */
+    private void resize() {
+        this.currentMaxCapacity = this.currentMaxCapacity * 2;
+        Node<K, V>[] tmp = new Node[this.currentMaxCapacity * 2];
+        for (Node node : this.container) {
+            if (node != null) {
+                tmp[hash((K) node.key)] = new Node(node.key, node.value);
+            }
+        }
+        this.container = tmp;
     }
     @Override
     public Iterator<K> iterator() {
