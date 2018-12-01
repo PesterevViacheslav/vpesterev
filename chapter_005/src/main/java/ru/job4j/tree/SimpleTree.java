@@ -13,7 +13,6 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
     private int size = 0;
     private int modCount = 0;
     private Queue<Node<E>> tree = new LinkedList<>();
-    private Queue<Node<E>> iter = new LinkedList<>();
     /**
      * Метод SimpleTree. Конструктор.
      * @param root Корневой элемент.
@@ -21,15 +20,7 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
     public SimpleTree(Node<E> root) {
         this.root = root;
         this.tree.add(root);
-        this.iter.add(root);
         this.size++;
-    }
-    /**
-     * Метод getIter. Получение коллекции для итератора.
-     * @return Коллекция.
-     */
-    public Queue<Node<E>> getIter() {
-        return this.iter;
     }
     /**
      * Метод add. Добавление элемента child в parent.
@@ -50,10 +41,7 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
                 res = true;
                 this.size++;
                 modCount++;
-                this.iter.add(node);
             }
-        } else {
-            this.iter.add(op.get());
         }
         return res;
     }
@@ -79,9 +67,22 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
         }
         return rsl;
     }
-
     @Override
     public Iterator<E> iterator() {
+        Queue<Node<E>> tmp = new LinkedList<>();
+        List<Node<E>> array;
+        for (Node node : tree) {
+            if (!tmp.contains(node)) {
+                tmp.add(node);
+            } else {
+                array = node.leaves();
+                for (Node n : array) {
+                    if (!tmp.contains(n)) {
+                        tmp.add(n);
+                    }
+                }
+            }
+        }
         return new Iterator<E>() {
             private int nextIndex = 0;
             int expectedModCount = modCount;
@@ -106,7 +107,7 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
                     throw new NoSuchElementException();
                 }
                 this.nextIndex++;
-                return iter.poll().getValue();
+                return tmp.poll().getValue();
             }
         };
     }
