@@ -10,17 +10,13 @@ import java.util.*;
  */
 public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<E> {
     private Node<E> root;
-    private int size = 0;
     private int modCount = 0;
-    private Queue<Node<E>> tree = new LinkedList<>();
     /**
      * Метод SimpleTree. Конструктор.
      * @param root Корневой элемент.
      */
     public SimpleTree(Node<E> root) {
         this.root = root;
-        this.tree.add(root);
-        this.size++;
     }
     /**
      * Метод add. Добавление элемента child в parent.
@@ -33,13 +29,13 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
     public boolean add(E parent, E child) {
         boolean res = false;
         Optional<Node<E>> op;
+        Optional<Node<E>> ch;
         op = findBy(parent);
-        if (op.isPresent()) {
-            this.tree.add(op.get());
+        ch = findBy(child);
+        if (op.isPresent() && !ch.isPresent()) {
             Node<E> node = new Node<>(child);
             if (op.get().add(node)) {
                 res = true;
-                this.size++;
                 modCount++;
             }
         }
@@ -67,23 +63,18 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
         }
         return rsl;
     }
+    /**
+     * Метод getRoot. Получение корневого элемента.
+     * @return Элемент.
+     */
+    public Node<E> getRoot() {
+        return this.root;
+    }
     @Override
     public Iterator<E> iterator() {
-        Queue<Node<E>> tmp = new LinkedList<>();
-        List<Node<E>> array;
-        for (Node node : tree) {
-            if (!tmp.contains(node)) {
-                tmp.add(node);
-            } else {
-                array = node.leaves();
-                for (Node n : array) {
-                    if (!tmp.contains(n)) {
-                        tmp.add(n);
-                    }
-                }
-            }
-        }
         return new Iterator<E>() {
+            private Queue<Node<E>> queue = new LinkedList<>(Collections.singletonList(root));
+            private int size = queue.size();
             private int nextIndex = 0;
             int expectedModCount = modCount;
             /**
@@ -92,7 +83,7 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
              */
             @Override
             public boolean hasNext() {
-                return this.nextIndex < size;
+                return this.nextIndex < this.size;
             }
             /**
              * Method next. Получение следующего элемента массива.
@@ -107,7 +98,9 @@ public class SimpleTree<E extends Comparable<E>> implements SimpleTreeContainer<
                     throw new NoSuchElementException();
                 }
                 this.nextIndex++;
-                return tmp.poll().getValue();
+                this.size += this.queue.element().leaves().size();
+                this.queue.addAll(this.queue.element().leaves());
+                return this.queue.poll().getValue();
             }
         };
     }

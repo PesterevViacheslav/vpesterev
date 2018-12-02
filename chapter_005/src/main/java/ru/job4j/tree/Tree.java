@@ -1,6 +1,9 @@
 package ru.job4j.tree;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Optional;
+import java.util.Queue;
 
 /**
  * Class Tree - Дерево. Решение задач уровня Junior. Части 001. Collections. Pro.
@@ -19,17 +22,21 @@ public class Tree<E extends Comparable<E>> extends SimpleTree<E> {
         super(root);
     }
     /**
-     * Метод isBinary. Проверка дерева на бинарность.
+     * Метод isBinary. Проверка дерева на бинарность (поиск в ширину).
      * @return root Корневой элемент.
      */
     public boolean isBinary() {
         boolean res = true;
-        Iterator<E> it = this.iterator();
-        while (it.hasNext()) {
-            E value = it.next();
-            if (this.findBy(value).get().leaves().size() > 2) {
+        Queue<Node<E>> data = new LinkedList<>();
+        data.offer(this.getRoot());
+        while (!data.isEmpty()) {
+            Node<E> el = data.poll();
+            if (el.leaves().size() > 2) {
                 res = false;
                 break;
+            }
+            for (Node<E> child : el.leaves()) {
+                data.offer(child);
             }
         }
         return res;
