@@ -3,6 +3,7 @@ import java.util.*;
 /**
  * Class Diff - Сравнение слов. Решение задач уровня Junior. Части 001. Collections. Pro.
  * 5.7.3 Дополнительная задача - Сравнить два слова на совпадение набора символов.
+ * 5.7.4 Дополнительная задача - Сравнить два слова, проверить на то, что они отличаются только одной перестановкой символов
  *
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)
  * @since 11.12.2018
@@ -40,6 +41,38 @@ public class Diff {
         }
         if (map.size() == 0 && !exit) {
             res = true;
+        }
+        return res;
+    }
+    /**
+     * Метод hasOneShift. Проверка на наличие одной перестановки символов.
+     * @param first Первое слово.
+     * @param second Второе слово.
+     */
+    public boolean hasOneShift(String first, String second) {
+        boolean res = false;
+        Queue<Character> qFirst = new ArrayDeque<>();
+        Queue<Character> qSecond = new ArrayDeque<>();
+        Character tmpFirst = null;
+        Character tmpSecond = null;
+        int counter = 0;
+        for (int i = 0; i < first.length(); i++) {
+            qFirst.add(first.charAt(i));
+        }
+        for (int i = 0; i < second.length(); i++) {
+            qSecond.add(second.charAt(i));
+        }
+        for (int i = 0; i < Math.min(first.length(), second.length()); i++) {
+            if (tmpFirst != null && tmpFirst.equals(qSecond.peek()) && tmpSecond.equals(qFirst.peek())) {
+                res = true;
+                counter++;
+            }
+            if (counter > 1 || first.length() != second.length()) {
+                res = false;
+                break;
+            }
+            tmpFirst = qFirst.poll();
+            tmpSecond = qSecond.poll();
         }
         return res;
     }
