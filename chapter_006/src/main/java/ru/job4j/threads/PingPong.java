@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 /**
  * Class PingPong - Компонент отображающия мяч. Решение задач уровня Junior. Части 002. Multithreading.
  * 6.1.1. Пинг-понг.
+ * 6.1.2. Реализовать механизм программной остановки потока.
  *
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)
  * @since 14.12.2018
@@ -38,8 +39,10 @@ public class PingPong extends Application {
         Group group = new Group();
         Rectangle rect = new Rectangle(50, 100, 10, 10);
         group.getChildren().add(rect);
-        new Thread(new RectangleMove(rect)).start();
+        Thread thread = new Thread(new RectangleMove(rect));
+        thread.start();
         stage.setScene(new Scene(group, LIMIT_X, LIMIT_Y));
+        stage.setOnCloseRequest(event -> thread.interrupt());
         stage.setTitle(JOB4J);
         stage.setResizable(false);
         stage.show();
