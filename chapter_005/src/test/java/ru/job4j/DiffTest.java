@@ -49,6 +49,7 @@ public class DiffTest {
         Diff tst = new Diff();
         assertThat(tst.hasOneShift("acbdef", "abcdef"), is(true));
         assertThat(tst.hasOneShift("abcdefh", "abcdehf"), is(true));
+        assertThat(tst.hasOneShift("123", "321"), is(true));
     }
     /**
      * Тест поиска одной перестановки - Более одной перестановки.
@@ -56,8 +57,7 @@ public class DiffTest {
     @Test
     public void whenMoreThenOneShiftThenFalse() {
         Diff tst = new Diff();
-        assertThat(tst.hasOneShift("acbdefhi", "abcdefih"), is(false));
-        assertThat(tst.hasOneShift("acbdefhi", "abcdefih"), is(false));
+        assertThat(tst.hasOneShift("123456", "213465"), is(false));
     }
     /**
      * Тест поиска одной перестановки - Слова разной длины, тоже считаем FALSE.

@@ -71,8 +71,13 @@ public class Diff {
                 res = false;
                 break;
             }
-            tmpFirst = qFirst.poll();
-            tmpSecond = qSecond.poll();
+            if (qFirst.peek().equals(qSecond.peek())) {
+                qFirst.poll();
+                qSecond.poll();
+            } else {
+                tmpFirst = qFirst.poll();
+                tmpSecond = qSecond.poll();
+            }
         }
         return res;
     }
