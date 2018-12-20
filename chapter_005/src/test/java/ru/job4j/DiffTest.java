@@ -50,6 +50,7 @@ public class DiffTest {
         assertThat(tst.hasOneShift("acbdef", "abcdef"), is(true));
         assertThat(tst.hasOneShift("abcdefh", "abcdehf"), is(true));
         assertThat(tst.hasOneShift("123", "321"), is(true));
+        assertThat(tst.hasOneShift("1234", "4231"), is(true));
     }
     /**
      * Тест поиска одной перестановки - Более одной перестановки.
