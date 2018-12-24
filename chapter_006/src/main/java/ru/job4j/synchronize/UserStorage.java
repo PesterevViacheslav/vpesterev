@@ -14,7 +14,9 @@ import java.util.Objects;
 public class UserStorage {
     @GuardedBy("this")
     private User[] array;
+    @GuardedBy("this")
     private int size = 0;
+    @GuardedBy("this")
     private int count = 0;
     /**
      * Метод UserStorage. Конструктор.
@@ -32,9 +34,9 @@ public class UserStorage {
         if (id < 0) {
             synchronized (this) {
                 this.array[this.size] = user;
-            }
             res = true;
             size++;
+            }
         }
         return res;
     }
@@ -42,7 +44,7 @@ public class UserStorage {
      * Метод getSize. Получение размера коллеции.
      * @return Размер.
      */
-    public int getSize() {
+    public synchronized int getSize() {
         return this.size;
     }
     /**
@@ -64,18 +66,16 @@ public class UserStorage {
      * Метод delete. Удаление пользователя.
      * @param user Пользователь.
      */
-    public boolean delete(User user) {
+    public synchronized boolean delete(User user) {
         boolean res = false;
         int id = getIDByUser(user);
         if (this.size > 0 && id >= 0) {
             int positionTmp = 0;
             for (int i = 0; i < this.size; i++) {
                 positionTmp++;
-                synchronized (this) {
-                    if (this.array[i].equals(user)) {
-                        res = true;
-                        break;
-                    }
+                if (this.array[i].equals(user)) {
+                    res = true;
+                    break;
                 }
             }
             if (res) {
