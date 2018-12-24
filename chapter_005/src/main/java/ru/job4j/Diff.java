@@ -1,5 +1,10 @@
 package ru.job4j;
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 /**
  * Class Diff - Сравнение слов. Решение задач уровня Junior. Части 001. Collections. Pro.
  * 5.7.3 Дополнительная задача - Сравнить два слова на совпадение набора символов.
@@ -16,33 +21,7 @@ public class Diff {
      * @param second Второе слово.
      */
     public boolean isDiff(String first, String second) {
-        boolean res = false;
-        Map<Character, Obj> map = new HashMap<>();
-        Obj tmp;
-        for (int i = 0; i < first.length(); i++) {
-            tmp = map.get(first.charAt(i));
-            if (tmp == null) {
-                map.put(first.charAt(i), new Obj(0, first.charAt(i)));
-            } else {
-                tmp.counter++;
-            }
-        }
-        boolean exit = false;
-        for (int i = 0; i < second.length(); i++) {
-            tmp = map.get(second.charAt(i));
-            if (tmp == null) {
-                exit = true;
-                break;
-            } else if (tmp.counter > 0) {
-              tmp.counter--;
-            } else {
-                map.remove(tmp.value);
-            }
-        }
-        if (map.size() == 0 && !exit) {
-            res = true;
-        }
-        return res;
+        return first.chars().mapToObj(i -> (char) i).sorted().collect(Collectors.toList()).equals(second.chars().mapToObj(i -> (char) i).sorted().collect(Collectors.toList()));
     }
     /**
      * Метод hasOneShift. Проверка на наличие одной перестановки символов.
