@@ -21,7 +21,14 @@ public class Diff {
      * @param second Второе слово.
      */
     public boolean isDiff(String first, String second) {
-        return first.chars().mapToObj(i -> (char) i).sorted().collect(Collectors.toList()).equals(second.chars().mapToObj(i -> (char) i).sorted().collect(Collectors.toList()));
+        return first.chars().
+                mapToObj(i -> (char) i).
+                sorted().
+                collect(Collectors.toList()).
+                equals(second.chars().
+                        mapToObj(i -> (char) i).
+                        sorted().
+                        collect(Collectors.toList()));
     }
     /**
      * Метод hasOneShift. Проверка на наличие одной перестановки символов.

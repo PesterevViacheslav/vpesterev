@@ -2,6 +2,7 @@ package ru.job4j.synchronize;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 import java.util.Objects;
+import java.util.Optional;
 /**
  * Class UserStorage - Хранилище пользователей. Решение задач уровня Junior. Части 002. Multithreading.
  * 6.3.2 Класс хранилища пользователей UserStorage.
@@ -28,15 +29,12 @@ public class UserStorage {
      * Метод add. Добавление пользователя.
      * @param user Пользователь.
      */
-    public boolean add(User user) {
+    public synchronized boolean add(User user) {
         boolean res = false;
-        int id = getIDByUser(user);
-        if (id < 0) {
-            synchronized (this) {
-                this.array[this.size] = user;
+        if (!getIDByUser(user).isPresent()) {
+            this.array[this.size] = user;
             res = true;
             size++;
-            }
         }
         return res;
     }
@@ -51,13 +49,10 @@ public class UserStorage {
      * Метод update. Изменение пользователя.
      * @param user Пользователь.
      */
-    public boolean update(User user) {
+    public synchronized boolean update(User user) {
         boolean res = false;
-        int id = getIDByUser(user);
-        if (id >= 0) {
-            synchronized (this) {
-                this.array[id] = user;
-            }
+        if (getIDByUser(user).isPresent()) {
+            this.array[getIDByUser(user).get()] = user;
             res = true;
         }
         return res;
@@ -68,8 +63,7 @@ public class UserStorage {
      */
     public synchronized boolean delete(User user) {
         boolean res = false;
-        int id = getIDByUser(user);
-        if (this.size > 0 && id >= 0) {
+        if (this.size > 0 && getIDByUser(user).isPresent()) {
             int positionTmp = 0;
             for (int i = 0; i < this.size; i++) {
                 positionTmp++;
@@ -80,9 +74,7 @@ public class UserStorage {
             }
             if (res) {
                 this.size--;
-                synchronized (this) {
-                    System.arraycopy(this.array, positionTmp, this.array, positionTmp - 1, this.size - positionTmp + 1);
-                }
+                System.arraycopy(this.array, positionTmp, this.array, positionTmp - 1, this.size - positionTmp + 1);
             }
         }
         return res;
@@ -91,11 +83,11 @@ public class UserStorage {
      * Метод getIDByUser. Получение ID пользователя.
      * @return Пользователь.
      */
-    public synchronized int getIDByUser(User user) {
-        int id = -1;
+    public synchronized Optional<Integer> getIDByUser(User user) {
+        Optional<Integer> id = Optional.empty();
         for (User u : this.array) {
             if (u != null && u.equals(user)) {
-                id = u.id;
+                id = Optional.of(u.id);
             }
         }
         return id;
