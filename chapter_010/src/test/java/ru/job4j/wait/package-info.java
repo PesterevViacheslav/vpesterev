@@ -1,8 +1,8 @@
-package ru.job4j.jmm;
+package ru.job4j.wait;
 /**
  * Пакет автотестов для решения задач уровня Middle. Части 001. Multithreading.
- * Раздел 2. JMM.
+ * Раздел 4. Wait.
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)
- * @since 14.12.2018
+ * @since 03.01.2019
  * @version 1
  */
