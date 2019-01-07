@@ -66,4 +66,45 @@ public class SimpleBlockingQueueTest {
         }
         assertThat(queue.size(), is(0));
     }
+    /**
+     * Тест Producer - Consumer.
+     */
+    @Test
+    public void whenFetchAllThenGetIt() throws InterruptedException {
+        final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
+        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        Thread producer = new Thread(
+                () -> {
+                    IntStream.range(0, 5).forEach(
+                            queue::offer
+                    );
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        System.out.println("Producer interruption");
+                        Thread.currentThread().interrupt();
+                    }
+                }
+        );
+        producer.start();
+        Thread consumer = new Thread(
+                () -> {
+                    while (!queue.isEmpty() || !Thread.currentThread().isInterrupted()) {
+                        System.out.println("EMPTY=" + queue.isEmpty() + " INTERRUPTED=" + Thread.currentThread().isInterrupted());
+                        try {
+                            buffer.add(queue.poll());
+                        } catch (InterruptedException e) {
+                            System.out.println("Consumer interruption");
+                            Thread.currentThread().interrupt();
+                        }
+                    }
+                    System.out.println("End EMPTY=" + queue.isEmpty() + " INTERRUPTED=" + Thread.currentThread().isInterrupted());
+                }
+        );
+        consumer.start();
+        producer.join();
+        consumer.interrupt();
+        consumer.join();
+        assertThat(buffer, is(Arrays.asList(0, 1, 2, 3, 4)));
+    }
 }
