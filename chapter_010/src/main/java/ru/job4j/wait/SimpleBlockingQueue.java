@@ -58,7 +58,9 @@ public class SimpleBlockingQueue<T> {
      * Method isEmpty. Получение признака пустой очереди.
      * @return Размер очереди.
      */
-    public synchronized boolean isEmpty() {
-        return this.queue.isEmpty();
+    public boolean isEmpty() {
+        synchronized (this.lock) {
+            return this.queue.isEmpty();
+        }
     }
 }
