@@ -1,5 +1,6 @@
 package ru.job4j.nonblocking;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 /**
  * Class NonBlocking - Неблокирующий кеш. Решение задач уровня Middle. Части 001. Multithreading.
@@ -10,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1
  */
 public class NonBlocking {
-    private ConcurrentHashMap<Integer, Base> cache = new ConcurrentHashMap<>();
+    final private ConcurrentHashMap<Integer, Base> cache = new ConcurrentHashMap<>();
     /**
      * Метод size. Размер коллекции.
      * @return model Элемент.
@@ -23,13 +24,11 @@ public class NonBlocking {
      * @return Элемент.
      */
     public Base get(int id) {
-        Base res = null;
-        if (this.cache.containsKey(id)) {
-            res = this.cache.get(id);
-        }
-        return res;
+        Optional<Base> res = Optional.of(this.cache.get(id));
+        return res.orElseGet(null);
     }
     /**
+     *
      * Метод add. Добавление элемента в коллекцию.
      * @param model Элемент.
      */
