@@ -11,12 +11,13 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version 1
  */
 public class NonBlocking {
-    final private ConcurrentHashMap<Integer, Base> cache = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Integer, Base> cache = new ConcurrentHashMap<>();
     /**
      * Метод size. Размер коллекции.
      * @return model Элемент.
      */
     public int size() {
+        System.out.println("array=" + cache.toString());
         return this.cache.size();
     }
     /**
@@ -24,6 +25,7 @@ public class NonBlocking {
      * @return Элемент.
      */
     public Base get(int id) {
+        System.out.println("get id=" + id);
         Optional<Base> res = Optional.of(this.cache.get(id));
         return res.orElseGet(null);
     }
@@ -41,14 +43,14 @@ public class NonBlocking {
      */
     public void update(Base model) {
         if (this.cache.computeIfPresent(model.id, (Integer k, Base v) -> {
-               Base res = null;
-               if (this.cache.get(model.id).version == model.version) {
-                   res = new Base(model.id, ++model.version);
-                   this.cache.put(model.id, res);
-               }
-               System.out.println("update");
-               return res;
-            }) == null) {
+            Base res = model;
+            if (model.equals(v)) {
+                res = new Base(model.id, ++model.version);
+                this.cache.put(model.id, res);
+            }
+            System.out.println("update " + v.id + " " + Thread.currentThread().getName());
+            return res;
+        }).equals(model)) {
             throw new OptimisticException("updateOptimisticException");
         }
     }
@@ -58,15 +60,14 @@ public class NonBlocking {
      */
     public void delete(Base model) {
         if (this.cache.computeIfPresent(model.id, (Integer k, Base v) -> {
-            Base res = null;
-            if (this.cache.get(model.id).version == model.version) {
+            Base res = model;
+            if (model.equals(v)) {
                 res = new Base(model.id, ++model.version);
-                this.cache.put(model.id, res);
                 this.cache.remove(model.id);
             }
-            System.out.println("delete");
+            System.out.println("delete " + v.id + " " + Thread.currentThread().getName());
             return res;
-        }) == null) {
+        }) != null) {
             throw new OptimisticException("deleteOptimisticException");
         }
     }

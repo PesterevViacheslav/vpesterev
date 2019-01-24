@@ -13,7 +13,7 @@ import java.util.List;
 public class ThreadPool {
     private final List<Thread> threads = new LinkedList<>();
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
-    private volatile boolean processing = true;
+    private static volatile boolean processing = true;
     /**
      * Метод ThreadPool. Конструктор.
      */
