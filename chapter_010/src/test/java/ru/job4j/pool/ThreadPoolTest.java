@@ -42,7 +42,15 @@ public class ThreadPoolTest {
         pool.work(new Job());
         pool.work(new Job());
         Thread.currentThread().join(1000);
-        pool.shutdown();
         assertThat(pool.size(), is(0));
+
+        pool.shutdown();
+        Thread.currentThread().join(1000);
+
+        for (Thread t: pool.getThreads()) {
+            System.out.println(t.getName() + " " + t.getState());
+        }
+        Thread.currentThread().join(1000);
+
     }
 }

@@ -12,8 +12,13 @@ import java.util.List;
  */
 public class ThreadPool {
     private final List<Thread> threads = new LinkedList<>();
+
+    public List<Thread> getThreads() {
+        return this.threads;
+    }
+
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
-    private static volatile boolean processing = true;
+    private volatile boolean processing = true;
     /**
      * Метод ThreadPool. Конструктор.
      */
@@ -50,6 +55,9 @@ public class ThreadPool {
     public void shutdown() {
         System.out.println("Shutdown " + Thread.currentThread().getName());
         this.processing = false;
+        for (Thread t: this.threads) {
+            t.interrupt();
+        }
     }
     /**
      * Метод size. Получение числа заданий.
