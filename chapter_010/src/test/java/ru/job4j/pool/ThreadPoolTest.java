@@ -1,11 +1,7 @@
 package ru.job4j.pool;
-
 import org.junit.Test;
-import ru.job4j.wait.SimpleBlockingQueue;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-
 /**
  * Class ThreadPoolTest - Пул потоков. Автотесты для решения задач уровня Middle. Части 001. Multithreading.
  * 10.6.1. Реализовать ThreadPool.
@@ -51,6 +47,5 @@ public class ThreadPoolTest {
             System.out.println(t.getName() + " " + t.getState());
         }
         Thread.currentThread().join(1000);
-
     }
 }
