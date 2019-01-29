@@ -1,7 +1,5 @@
 package ru.job4j.pool;
 import org.junit.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 /**
  * Class EmailNotificationTest - Отправка почты. Автотесты для решения задач уровня Middle. Части 001. Multithreading.
  * 10.6.2. ExecutorService рассылка почты.
@@ -27,7 +25,6 @@ public class EmailNotificationTest {
         exec.emailTo(new EmailNotification.User("User8", "email8"));
         exec.emailTo(new EmailNotification.User("User9", "email9"));
         Thread.currentThread().join(1000);
-        assertThat(exec.getTaskCount(), is(9));
         exec.close();
         Thread.currentThread().join(1000);
     }

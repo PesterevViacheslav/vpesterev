@@ -11,8 +11,7 @@ import java.util.concurrent.Executors;
  * @version 1
  */
 public class EmailNotification {
-    private ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-    private volatile int taskCount = 0;
+    private final ExecutorService pool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     /**
      * Метод emailTo. Постановка задания на отправку емейл.
      * @param user Пользователь.
@@ -24,7 +23,6 @@ public class EmailNotification {
             System.out.println("Execute " + Thread.currentThread().getName());
             send(subject, body, user.email);
         });
-        this.taskCount++;
     }
     /**
      * Метод send. Отправка емейл.
@@ -34,9 +32,6 @@ public class EmailNotification {
      */
     private void send(String subject, String body, String email) {
         System.out.println("SEND Email: " + subject);
-    }
-    public int getTaskCount() {
-        return this.taskCount;
     }
     /**
      * Метод close. Остановка пула.
@@ -59,8 +54,8 @@ public class EmailNotification {
      * Class Пользователь.
      */
     public static class User {
-        String username;
-        String email;
+        final String username;
+        final String email;
         public User(String username, String email) {
             this.username = username;
             this.email = email;
