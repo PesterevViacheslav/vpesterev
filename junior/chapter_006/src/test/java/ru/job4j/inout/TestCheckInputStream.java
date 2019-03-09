@@ -1,8 +1,8 @@
 package ru.job4j.inout;
 import org.junit.Test;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.io.*;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 /**
@@ -47,6 +47,21 @@ public class TestCheckInputStream {
         byte[] test3 = new byte[] {0, 2, 4, 7, 8, 10, 12};
         try (InputStream stream = new ByteArrayInputStream(test3)) {
             assertThat(this.check.isEvenNumber(stream), is(false));
+        }
+    }
+    /**
+     * Тест проверки символьного потока на вырезание запрещенных слов.
+     * @return Индекс массива.
+     */
+    @Test
+    public void testDropAbusedWords() throws IOException {
+        String test = "my test abuse1 string abuse2";
+        String[] array = new String[] {"abuse1", "abuse2"};
+        try (Reader in = new StringReader(test);
+             Writer out = new StringWriter()
+             ) {
+            this.check.dropAbuses(in, out, array);
+            assertThat(out.toString(), is("my test string "));
         }
     }
 }
