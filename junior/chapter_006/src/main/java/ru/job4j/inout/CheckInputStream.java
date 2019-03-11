@@ -20,11 +20,16 @@ public class CheckInputStream {
     public boolean isEvenNumber(InputStream in) throws IOException {
         boolean res = true;
         int check;
+        int last = -1;
         while ((check = in.read()) >= 0) {
-            if (!(check % 2 == 0 && (Character.getType(check) == 9 || Character.getType(check) == 15))) {
+            last = check;
+            if (!(Character.getType(check) == 9)) {
                 res = false;
                 break;
             }
+        }
+        if (!(last % 2 == 0)) {
+            res = false;
         }
         return res;
     }
