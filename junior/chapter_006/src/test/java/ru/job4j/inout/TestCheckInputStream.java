@@ -16,7 +16,6 @@ public class TestCheckInputStream {
     CheckInputStream check = new CheckInputStream();
     /**
      * Тест проверки байтового потока, в потоке только четные числа.
-     * @return Индекс массива.
      */
     @Test
     public void whenOnlyEvenStreamThenTrue() throws IOException {
@@ -34,7 +33,6 @@ public class TestCheckInputStream {
     }
     /**
      * Тест проверки байтового потока, в потоке не только четные числа.
-     * @return Индекс массива.
      */
     @Test
     public void whenNotOnlyEvenStreamThenFalse() throws IOException {
@@ -53,7 +51,6 @@ public class TestCheckInputStream {
     }
     /**
      * Тест проверки символьного потока на вырезание запрещенных слов.
-     * @return Индекс массива.
      */
     @Test
     public void testDropAbusedWords() throws IOException {

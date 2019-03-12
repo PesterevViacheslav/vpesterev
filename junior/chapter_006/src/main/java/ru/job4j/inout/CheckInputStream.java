@@ -60,5 +60,4 @@ public class CheckInputStream {
             out.write(str);
         }
     }
-
 }
