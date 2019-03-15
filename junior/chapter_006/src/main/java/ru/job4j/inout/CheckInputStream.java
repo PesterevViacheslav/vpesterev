@@ -1,7 +1,13 @@
 package ru.job4j.inout;
 import java.io.*;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 /**
  * Class CheckInputStream - Проверка байтового потока. Решение задач уровня Junior. Части 002. Ввод-Вывод.
  * 6.1.1. Проверить байтовый поток.
@@ -44,20 +50,16 @@ public class CheckInputStream {
         for (String s : abuse) {
             abuseList.add(s);
         }
-        int i;
-        String str = "";
-        while ((i = in.read()) >= 0) {
-            if (Character.valueOf((char) i).equals(' ')) {
-                if (!abuseList.contains(str)) {
-                    out.write(str + " ");
-                }
-                str = "";
-            } else {
-                str += (char) i;
-            }
-        }
-        if (!abuseList.contains(str)) {
-            out.write(str);
-        }
+        Stream.of(new BufferedReader(in).readLine())
+                .flatMap((p) -> Arrays.asList(p.split(" ")).stream())
+                .filter(s -> !abuseList.contains(s))
+                .peek(s -> {
+                    try {
+                        out.write(s + " ");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .forEach(String::new);
     }
 }
