@@ -62,5 +62,11 @@ public class TestCheckInputStream {
             this.check.dropAbuses(in, out, array);
             assertThat(out.toString(), is("my test string "));
         }
+        try (InputStream in = new ByteArrayInputStream(test.getBytes());
+             OutputStream out = new ByteArrayOutputStream()
+        ) {
+            this.check.dropAbuses2(in, out, array);
+            assertThat(out.toString(), is("my test  string "));
+        }
     }
 }

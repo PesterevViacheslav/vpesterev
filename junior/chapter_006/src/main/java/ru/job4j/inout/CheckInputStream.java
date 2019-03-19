@@ -62,4 +62,19 @@ public class CheckInputStream {
                 })
                 .forEach(String::new);
     }
+    /**
+     * Method dropAbuses2. Удаление запрещенных слов.
+     * @param in Входной поток.
+     * @param out Выходной поток.
+     * @param abuse Запрещенные слова
+     */
+    void dropAbuses2(final InputStream in, final OutputStream out, final String[] abuse) throws IOException {
+        try (final PrintStream writer = new PrintStream(out);
+             final BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+            reader.lines()
+                    .map(s -> Arrays.stream(abuse)
+                            .reduce(s, (s1, s2) -> s1.replaceAll(s2, "")))
+                    .forEach(writer::print);
+        }
+    }
 }
