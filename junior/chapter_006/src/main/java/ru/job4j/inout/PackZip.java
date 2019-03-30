@@ -23,11 +23,9 @@ public class PackZip {
         File in = arguments.directory();
         File out = arguments.output();
         ArrayList<String> exclude = arguments.exclude();
-        try {
-            FileOutputStream dest = new FileOutputStream(new File(out, in.getName() + ".zip"));
-            ZipOutputStream zipOut = new ZipOutputStream(dest);
+        try (FileOutputStream dest = new FileOutputStream(new File(out, in.getName() + ".zip"));
+             ZipOutputStream zipOut = new ZipOutputStream(dest)) {
             zipDirTree(in, in, zipOut, exclude);
-            zipOut.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,18 +56,16 @@ public class PackZip {
                     }
                     zipDirTree(root, file, out, exclude);
                 } else {
-                    try {
+                    try (FileInputStream fi = new FileInputStream(file);
+                         BufferedInputStream origin = new BufferedInputStream(fi, 2048)) {
                         if (!exclude.contains(file.getName().substring(file.getName().indexOf(".")))) {
-                            FileInputStream fi = new FileInputStream(file);
                             String name = file.getAbsolutePath().replace(root.getAbsolutePath() + "\\", "");
                             ZipEntry entry = new ZipEntry(name);
                             out.putNextEntry(entry);
                             int count;
-                            BufferedInputStream origin = new BufferedInputStream(fi, 2048);
                             while ((count = origin.read(data, 0, 2048)) != -1) {
                                 out.write(data, 0, count);
                             }
-                            origin.close();
                         }
                     } catch (java.lang.StringIndexOutOfBoundsException e) {
                         System.out.println(file.getName());
