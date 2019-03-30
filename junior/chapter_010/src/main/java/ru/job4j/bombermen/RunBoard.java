@@ -9,12 +9,19 @@ package ru.job4j.bombermen;
  */
 public class RunBoard {
     public static void main(String[] args) {
-        Board board = new Board(5, 5, 2, 100);
+        Board board = new Board(5, 100);
+        board.init(5);
+        board.addMonster("MONSTER1");
+        board.addMonster("MONSTER2");
+        board.addMonster("MONSTER3");
+        board.addMonster("MONSTER4");
+        board.addMonster("MONSTER5");
+        board.runHero();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        board.runHero();
+        board.print();
     }
 }

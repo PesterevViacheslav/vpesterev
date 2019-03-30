@@ -1,5 +1,4 @@
 package ru.job4j.bombermen;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -16,13 +15,20 @@ public class Board {
     private final Cell[][] board;
     private static final String WRECK = "XXXXXXXX";
     private static final String BLANK = "--------";
+    private int stopCount;
     /**
      * Method Board. Конструктор.
      * @param size Размер поля.
+     */
+    public Board(int size, int stopCount) {
+        this.board = new Cell[size][size];
+        this.stopCount = stopCount;
+    }
+    /**
+     * Method init. Первоначальное заполнение доски.
      * @param blocksCount Число препятствий.
      */
-    public Board(int size, int blocksCount, int monstersCount, int stopCount) {
-        this.board = new Cell[size][size];
+    public void init(int blocksCount) {
         for (int i = 0; i < this.board.length; i++) {
             for (int j = 0; j < this.board.length; j++) {
                 this.board[i][j] = new Cell(i, j, new ReentrantLock(), BLANK);
@@ -37,18 +43,6 @@ public class Board {
                 this.board[x][y].lock.lock();
                 this.board[x][y].blockType = WRECK;
             }
-        }
-        for (int i = 0; i < monstersCount; i++) {
-            Thread t = new Thread(() -> {
-                try {
-                    this.move(this.getFreeCell(), null, stopCount);
-                } catch (InterruptedException e) {
-                    System.out.println(Thread.currentThread().getName() + " interrupt");
-                    Thread.currentThread().interrupt();
-                }
-            });
-            t.setName("MONSTER" + i);
-            t.start();
         }
     }
     /**
@@ -85,13 +79,64 @@ public class Board {
         System.out.println(result.toString());
     }
     /**
+     * Method addMonster. Добавление монстра на доску.
+     * @param name Имя.
+     */
+    public void addMonster(String name) {
+        int tryCount = 0;
+        while (tryCount <= 10) {
+            Thread t = new Thread(() -> {
+                try {
+                    this.move(this.getFreeCell(), null);
+                } catch (InterruptedException e) {
+                    System.out.println(Thread.currentThread().getName() + " interrupt");
+                    Thread.currentThread().interrupt();
+                }
+            });
+            if (!t.isInterrupted()) {
+                t.setName(name);
+                t.start();
+                break;
+            } else {
+                tryCount++;
+            }
+        }
+    }
+    /**
+     * Method calcFreeCell. Поиск свободной клетки.
+     * @param src Исходная клетка.
+     * @param dest Клетка назначения.
+     * @return Свободная клетка.
+     */
+    private Cell calcFreeCell(Cell src, Cell dest) throws InterruptedException {
+        int rnd = (int) Math.ceil(Math.random() * 4);
+        dest = null;
+        if (rnd == 1 && src.x + 1 < this.board.length) {
+            if (this.board[src.x + 1][src.y].lock.tryLock(500, TimeUnit.MILLISECONDS)) {
+                dest = this.board[src.x + 1][src.y];
+            }
+        } else if (rnd == 2 && src.x - 1 >= 0) {
+            if (this.board[src.x - 1][src.y].lock.tryLock(500, TimeUnit.MILLISECONDS)) {
+                dest = this.board[src.x - 1][src.y];
+            }
+        } else if (rnd == 3 && src.y + 1 < this.board.length) {
+            if (this.board[src.x][src.y + 1].lock.tryLock(500, TimeUnit.MILLISECONDS)) {
+                dest = this.board[src.x][src.y + 1];
+            }
+        } else if (rnd == 4 && src.y - 1 >= 0) {
+            if (this.board[src.x][src.y - 1].lock.tryLock(500, TimeUnit.MILLISECONDS)) {
+                dest = this.board[src.x][src.y - 1];
+            }
+        }
+        return dest;
+    }
+    /**
      * Method move. Перемещение по игровому полю.
      * @param source Исходная клетка.
      * @param destination Клетка назначения.
-     * @param stopCount Максимальное число шагов.
      * @return Удалось ли сделать ход.
      */
-    public boolean move(Cell source, Cell destination, int stopCount) throws InterruptedException {
+    public boolean move(Cell source, Cell destination) throws InterruptedException {
         boolean res = false;
         Cell src = source;
         Cell dest = destination;
@@ -103,40 +148,16 @@ public class Board {
                 this.board[src.x][src.y].blockType = BLANK;
                 this.board[src.x][src.y].lock.unlock();
                 this.board[dest.x][dest.y].blockType = Thread.currentThread().getName();
-                //System.out.println("================moved from " + src + " to " + dest + "================");
-                //this.print();
-                //System.out.println("=============================================================================" + stopCnt);
             }
         } else {
-            while ((dest != null || tryCount <= 10) && stopCnt <= stopCount) {
-                int rnd = (int) Math.ceil(Math.random() * 4);
-                dest = null;
-                if (rnd == 1 && src.x + 1 < this.board.length) {
-                    if (this.board[src.x + 1][src.y].lock.tryLock(500, TimeUnit.MILLISECONDS)) {
-                        dest = this.board[src.x + 1][src.y];
-                    }
-                } else if (rnd == 2 && src.x - 1 >= 0) {
-                    if (this.board[src.x - 1][src.y].lock.tryLock(500, TimeUnit.MILLISECONDS)) {
-                        dest = this.board[src.x - 1][src.y];
-                    }
-                } else if (rnd == 3 && src.y + 1 < this.board.length) {
-                    if (this.board[src.x][src.y + 1].lock.tryLock(500, TimeUnit.MILLISECONDS)) {
-                        dest = this.board[src.x][src.y + 1];
-                    }
-                } else if (rnd == 4 && src.y - 1 >= 0) {
-                    if (this.board[src.x][src.y - 1].lock.tryLock(500, TimeUnit.MILLISECONDS)) {
-                        dest = this.board[src.x][src.y - 1];
-                    }
-                }
+            while ((dest != null || tryCount <= 10) && stopCnt <= this.stopCount) {
+                dest = calcFreeCell(src, dest);
                 if (dest != null) {
                     this.board[src.x][src.y].blockType = BLANK;
                     this.board[src.x][src.y].lock.unlock();
                     this.board[dest.x][dest.y].blockType = Thread.currentThread().getName();
-                    //System.out.println("================moved from " + src + " to " + dest + "================");
                     src = dest;
                     tryCount = 0;
-                    //this.print();
-                    //System.out.println("=============================================================================" + stopCnt);
                 } else {
                     tryCount++;
                 }
@@ -146,6 +167,9 @@ public class Board {
         }
         return res;
     }
+    /**
+     * Method addHero. Добавление героя на доску.
+     */
     public void runHero() {
         Thread t = new Thread(() -> {
             try {
@@ -170,7 +194,7 @@ public class Board {
                         destCell = null;
                     }
                     if (destCell != null) {
-                        if (!this.move(startCell, destCell, 999999999)) {
+                        if (!this.move(startCell, destCell)) {
                             System.out.println("Cell blocked");
                         } else {
                             startCell = destCell;
@@ -198,39 +222,5 @@ public class Board {
         });
         t.setName("IM_HERO");
         t.start();
-    }
-    /**
-     * Class Cell - Ячейка.
-    */
-    public static class Cell {
-        final int x;
-        final int y;
-        volatile ReentrantLock lock;
-        volatile String blockType;
-        public Cell(int x, int y, ReentrantLock lock, String blockType) {
-            this.x = x;
-            this.y = y;
-            this.lock = lock;
-            this.blockType = blockType;
-        }
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Cell cell = (Cell) o;
-            return x == cell.x && y == cell.y;
-        }
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
-        }
-        @Override
-        public String toString() {
-            return "Cell{" + "x=" + x + ", y=" + y + ", type=" + blockType + ", locked=" + lock.isLocked() + '}';
-        }
     }
 }
