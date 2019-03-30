@@ -54,6 +54,6 @@ public class Args {
     }
     @Override
     public String toString() {
-        return String.join("","Args{", "directory=", directory, ", exclude=", exclude.toString(), ", output=", output, "}");
+        return String.join("", "Args{", "directory=", directory, ", exclude=", exclude.toString(), ", output=", output, "}");
     }
 }

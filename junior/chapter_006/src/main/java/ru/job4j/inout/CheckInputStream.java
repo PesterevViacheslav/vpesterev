@@ -1,13 +1,9 @@
 package ru.job4j.inout;
 import java.io.*;
-import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 /**
  * Class CheckInputStream - Проверка байтового потока. Решение задач уровня Junior. Части 002. Ввод-Вывод.
  * 6.1.1. Проверить байтовый поток.
