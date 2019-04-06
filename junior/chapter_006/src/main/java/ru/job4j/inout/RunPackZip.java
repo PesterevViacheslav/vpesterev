@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @version 1
  */
 public class RunPackZip {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String directory = "";
         ArrayList<String> exclude = new ArrayList<>();
         String output = "";
