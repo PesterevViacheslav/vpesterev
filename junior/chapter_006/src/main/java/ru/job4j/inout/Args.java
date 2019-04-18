@@ -13,7 +13,6 @@ public class Args {
     private String directory;
     private ArrayList<String> exclude;
     private String output;
-
     /**
      * Method Args. Конструктор.
      *
