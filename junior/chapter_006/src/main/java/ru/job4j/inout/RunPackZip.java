@@ -25,8 +25,8 @@ public class RunPackZip {
             prev = s;
         }
         Args arguments = new Args(directory, exclude, output);
-        PackZip pack = new PackZip();
-        pack.zipDir(arguments);
+        PackZip pack = new PackZip(arguments);
+        pack.zipDir();
         //java -jar pack.jar -d C:\projects\vpesterev\junior\chapter_006 -e .java -o C:\Temp
     }
 }

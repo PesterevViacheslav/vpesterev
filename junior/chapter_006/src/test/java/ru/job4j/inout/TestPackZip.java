@@ -49,13 +49,13 @@ public class TestPackZip {
         ArrayList<String> exclude = new ArrayList<>();
         exclude.add(".xml");
         exclude.add(".java");
-        PackZip packZip = new PackZip();
         Args args = new Args(dir + this.fileSeparator + "search_root", exclude, dir);
-        packZip.zipDir(args);
+        PackZip packZip = new PackZip(args);
+        packZip.zipDir();
         File checkZip = new File(dir + this.fileSeparator + "search_root.zip");
         assertThat(checkZip.getName(), is("search_root.zip"));
         deleteFile(checkZip);
-        packZip.zipProject(args);
+        packZip.zipProject();
         File checkZipProject = new File(dir + this.fileSeparator + "search_root.zip");
         assertThat(checkZipProject.getName(), is("search_root.zip"));
         deleteFile(rootDir);
