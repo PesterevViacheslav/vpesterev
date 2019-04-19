@@ -15,6 +15,7 @@ import static org.junit.Assert.assertThat;
  */
 public class TestPackZip {
     private String fileSeparator = System.getProperty("file.separator");
+    private String dir = System.getProperty("java.io.tmpdir");
     /**
      * Method deleteFile. Удаление дерева каталогов с файлами.
      * @param root Корневой каталог
@@ -32,7 +33,6 @@ public class TestPackZip {
      */
     @Test
     public void testZipDir() throws IOException {
-        String dir = System.getProperty("java.io.tmpdir");
         System.out.println(dir);
         File rootDir = new File(dir + this.fileSeparator + "search_root");
         rootDir.mkdirs();
@@ -42,6 +42,10 @@ public class TestPackZip {
         file011.createNewFile();
         File file012 = new File(folder01 + this.fileSeparator + "file012.java");
         file012.createNewFile();
+        File folder013 = new File(folder01 + this.fileSeparator + "folder013");
+        folder013.mkdirs();
+        File file021 = new File(folder013 + this.fileSeparator + "file021.txt");
+        file021.createNewFile();
         ArrayList<String> exclude = new ArrayList<>();
         exclude.add(".xml");
         exclude.add(".java");
@@ -50,7 +54,11 @@ public class TestPackZip {
         packZip.zipDir(args);
         File checkZip = new File(dir + this.fileSeparator + "search_root.zip");
         assertThat(checkZip.getName(), is("search_root.zip"));
-        deleteFile(rootDir);
         deleteFile(checkZip);
+        packZip.zipProject(args);
+        File checkZipProject = new File(dir + this.fileSeparator + "search_root.zip");
+        assertThat(checkZipProject.getName(), is("search_root.zip"));
+        deleteFile(rootDir);
+        deleteFile(checkZipProject);
     }
 }
