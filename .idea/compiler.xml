@@ -11,6 +11,7 @@
         <module name="chapter_003" />
         <module name="chapter_005" />
         <module name="chapter_006" />
+        <module name="chapter_007" />
         <module name="chapter_010" />
       </profile>
     </annotationProcessing>
@@ -20,6 +21,7 @@
       <module name="chapter_003" target="1.8" />
       <module name="chapter_005" target="1.8" />
       <module name="chapter_006" target="1.8" />
+      <module name="chapter_007" target="1.8" />
       <module name="chapter_010" target="1.8" />
       <module name="junior" target="1.8" />
     </bytecodeTargetLevel>
