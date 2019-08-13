@@ -19,7 +19,7 @@ class ReplaceItem extends BaseAction {
      * @param tracker Трекер.
      */
     @Override
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, ITracker tracker) {
         System.out.println("***Edit item Start***");
         String id = input.ask("Input Item ID:");
         String name = input.ask("Input New Item Name:");
@@ -49,7 +49,7 @@ class DeleteItem extends BaseAction {
      * @param input Ввод-вывод.
      * @param tracker Трекер.
      */
-    public void execute(Input input, Tracker tracker) {
+    public void execute(Input input, ITracker tracker) {
         System.out.println("***Delete item Start***");
         String id = input.ask("Input Item ID:");
         if (!tracker.delete(id)) {
@@ -68,7 +68,7 @@ class DeleteItem extends BaseAction {
  */
 public class MenuTracker {
     private Input input;
-    private Tracker tracker;
+    private ITracker tracker;
     private ArrayList<UserAction> actions = new ArrayList<>();
     private int position = 0;
     /**
@@ -76,7 +76,7 @@ public class MenuTracker {
      * @param input Ввод-вывод.
      * @param tracker Трекер.
      */
-    public MenuTracker(Input input, Tracker tracker) {
+    public MenuTracker(Input input, ITracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
@@ -108,7 +108,7 @@ public class MenuTracker {
                 return 7;
             }
             @Override
-            public void execute(Input input, Tracker tracker) {
+            public void execute(Input input, ITracker tracker) {
                 System.out.println("***Change item Start***");
                 String id = input.ask("Input Item ID:");
                 String name = input.ask("Input New Item Name:");
@@ -168,7 +168,7 @@ public class MenuTracker {
          * @param input Ввод-вывод.
          * @param tracker Трекер.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             System.out.println("***Add new item Start***");
             String name = input.ask("Input Item Name:");
             String description = input.ask("Input Item Description:");
@@ -192,7 +192,7 @@ public class MenuTracker {
          * @param input Ввод-вывод.
          * @param tracker Трекер.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             System.out.println("***Items list:***");
             ArrayList<Item> items = tracker.findAll();
             if (items.size() == 0) {
@@ -223,7 +223,7 @@ public class MenuTracker {
          * @param input Ввод-вывод.
          * @param tracker Трекер.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             System.out.println("***Find item by ID Start***");
             String id = input.ask("Input Item ID:");
             Item item = tracker.findById(id);
@@ -251,7 +251,7 @@ public class MenuTracker {
          * @param input Ввод-вывод.
          * @param tracker Трекер.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             System.out.println("***Find items by Name Start***");
             String name = input.ask("Input Item name:");
             ArrayList<Item> items = tracker.findByName(name);
@@ -286,7 +286,7 @@ public class MenuTracker {
          * @param input Ввод-вывод.
          * @param tracker Трекер.
          */
-        public void execute(Input input, Tracker tracker) {
+        public void execute(Input input, ITracker tracker) {
             System.out.println("***EXIT***");
             this.su.stop();
         }

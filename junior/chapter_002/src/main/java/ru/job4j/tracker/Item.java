@@ -31,6 +31,21 @@ public class Item {
         this.description = description;
         this.created = System.currentTimeMillis();
     }
+    /**
+     * Method Item. Конструктор.
+     * @param id ID заявки.
+     * @param name Названия заявки.
+     * @param description Описание заявки.
+     * @param created Описание заявки.
+     * @param changed Названия заявки.
+     */
+    public Item(String id, String name, String description, long created, long changed) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.created = created;
+        this.changed = changed;
+    }
     private String generateId() {
         return new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis()) + "_" + Math.round(Math.random() * 1000);
     }
