@@ -8,7 +8,7 @@ package ru.job4j.tracker;
  */
 public class StartUI {
     private Input input;
-    private Tracker tracker;
+    private final ITracker tracker;
     private boolean work = true;
     /**
      * Method StartUI. Конструктор.
@@ -16,7 +16,7 @@ public class StartUI {
      * @param tracker Стек заявок.
      * @return ID заявки
      */
-    public StartUI(Input input, Tracker tracker) {
+    public StartUI(Input input, ITracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
