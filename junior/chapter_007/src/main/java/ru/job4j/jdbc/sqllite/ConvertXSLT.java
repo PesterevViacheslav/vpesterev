@@ -14,14 +14,11 @@ import java.io.*;
  * @version 1
  */
 public class ConvertXSLT {
-    private ByteArrayOutputStream baos;
     private File file;
-
     /**
      * Method ConvertXSLT. Конструктор.
      */
-    public ConvertXSLT(ByteArrayOutputStream baos, File file) {
-        this.baos = baos;
+    public ConvertXSLT(File file) {
         this.file = file;
     }
     /**
@@ -46,7 +43,7 @@ public class ConvertXSLT {
                 + "</xsl:stylesheet>\n";
         TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = factory.newTransformer(new StreamSource(new ByteArrayInputStream(xsl.getBytes())));
-        transformer.transform(new StreamSource(new ByteArrayInputStream(this.baos.toByteArray())), new StreamResult(/*System.out*/res));
+        transformer.transform(new StreamSource(new FileInputStream(new File(StoreXML.STORE_FILE_PATH))), new StreamResult(res));
         try (FileOutputStream outputStream = new FileOutputStream(this.file)) {
             res.writeTo(outputStream);
         }

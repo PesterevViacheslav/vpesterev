@@ -51,6 +51,7 @@ public class StoreSQL implements AutoCloseable {
     public void connect() {
         try {
             this.connect = DriverManager.getConnection(this.url);
+            this.connect.setAutoCommit(false);
             System.out.println("Connection to SQLite has been established.");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,15 +69,23 @@ public class StoreSQL implements AutoCloseable {
             e.printStackTrace();
             throw new TrackerSQLException(e.getSQLState());
         }
-        for (int i = 0; i < size; i++) {
-            try (PreparedStatement sql = this.connect.prepareStatement("INSERT INTO ENTRY VALUES(?,?)")) {
+        try (PreparedStatement sql = this.connect.prepareStatement("INSERT INTO ENTRY VALUES(?,?)")) {
+            for (int i = 0; i < size; i++) {
                 sql.setInt(1, i);
                 sql.setString(2, String.join("", "VAL_", Integer.toString(i)));
-                sql.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                sql.addBatch();
+            }
+            sql.executeBatch();
+            this.connect.commit();
+        } catch (SQLException e) {
+            try {
+                this.connect.rollback();
+            } catch (SQLException er) {
+                er.printStackTrace();
                 throw new TrackerSQLException(e.getSQLState());
             }
+            e.printStackTrace();
+            throw new TrackerSQLException(e.getSQLState());
         }
     }
     /**

@@ -37,9 +37,10 @@ public class TestSQLLite {
             db.createNewDatabase();
             db.connect();
             db.generate(10);
-            StoreXML storeXML = new StoreXML(new File(String.join("", StoreSQL.PATH, File.separator, "StoreXML.xml")));
+            StoreXML storeXML = new StoreXML(new File(StoreXML.STORE_FILE_PATH));
             File file = new File(String.join("", StoreSQL.PATH, File.separator, "parserXML.xml"));
-            ConvertXSLT convertXSLT = new ConvertXSLT(storeXML.save(db.load()), file);
+            storeXML.save(db.load());
+            ConvertXSLT convertXSLT = new ConvertXSLT(file);
             String convertRes = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><entries><entry field=\"0\"/><entry field=\"1\"/><entry field=\"2\"/><entry field=\"3\"/><entry field=\"4\"/><entry field=\"5\"/><entry field=\"6\"/><entry field=\"7\"/><entry field=\"8\"/><entry field=\"9\"/></entries>";
             assertThat(convertXSLT.convert().toString(), is(convertRes));
             ParserXML parserXML = new ParserXML(file);

@@ -12,6 +12,7 @@ import java.util.Map;
  */
 public class StoreXML {
     private File target;
+    public static final String STORE_FILE_PATH = String.join("", StoreSQL.PATH, File.separator, "StoreXML.xml");
     /**
      * Method StoreXML. Конструктор.
      * @param target Файл для вывода.
@@ -23,13 +24,12 @@ public class StoreXML {
      * Method save. Метод сохранения в файл.
      * @param list Данные из БД.
      */
-    public ByteArrayOutputStream save(List<Map.Entry<Integer, String>> list) throws IOException {
+    public void save(List<Map.Entry<Integer, String>> list) throws IOException {
         ByteArrayOutputStream res;
         XmlUsage xmlUsage = new XmlUsage();
         try (FileOutputStream outputStream = new FileOutputStream(this.target)) {
             res = xmlUsage.toXML(list);
             res.writeTo(outputStream);
         }
-        return res;
     }
 }
