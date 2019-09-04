@@ -1,7 +1,10 @@
 package ru.job4j.jdbc;
 import org.junit.Test;
 import ru.job4j.tracker.Item;
-
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Properties;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 /**
@@ -14,22 +17,38 @@ import static org.junit.Assert.*;
  */
 public class TrackerSQLTest {
     /**
+     * Method init. Инициализация коннекта к БД.
+     */
+    public Connection init() {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+            Properties config = new Properties();
+            config.load(in);
+            Class.forName(config.getProperty("driver-class-name"));
+            return DriverManager.getConnection(
+                    config.getProperty("url"),
+                    config.getProperty("username"),
+                    config.getProperty("password")
+            );
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
+    /**
      * Тест коннекта к БД
      */
-    /*@Test
+    @Test
     public void checkConnection() throws Exception {
         try (TrackerSQL sql = new TrackerSQL()) {
             assertThat(sql.init(), is(true));
         }
-    }*/
+    }
     /**
      * Тест DML операций в БД
      */
-    /*@Test
+    @Test
     public void testDML() throws Exception {
-        try (TrackerSQL sql = new TrackerSQL()) {
+        try (TrackerSQL sql = new TrackerSQL(ConnectionRollback.create(this.init()))) {
             assertTrue(sql.init());
-            sql.createTableIfNotExists();
             assertTrue(sql.tableExist("ITEM"));
             sql.truncate();
             assertThat(sql.size(), is(0));
@@ -53,5 +72,5 @@ public class TrackerSQLTest {
             assertNull(sql.findById(item4.getId()));
             assertThat(sql.size(), is(2));
         }
-    }*/
+    }
 }
