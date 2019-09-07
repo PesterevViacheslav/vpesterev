@@ -1,1 +1,0 @@
-CREATE DATABASE job4jDB;
