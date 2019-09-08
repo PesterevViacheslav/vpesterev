@@ -40,6 +40,7 @@ public class TestSearchFiles {
     /**
      * Тест поиска.
      */
+/*
     @Test
     public void testFileSearch() throws Exception {
         System.out.println(dir);
@@ -73,4 +74,5 @@ public class TestSearchFiles {
         assertThat(Arrays.asList(result), is(Arrays.asList(getSearchResult())));
         deleteFile(rootDir);
     }
+*/
 }
