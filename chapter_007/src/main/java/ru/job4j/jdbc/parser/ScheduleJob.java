@@ -38,7 +38,6 @@ public class ScheduleJob {
             config.load(in);
             cronSchedule = config.getProperty("parser-cron-time");
         } catch (Exception e) {
-            LOG.error(e.getMessage());
             throw new IllegalStateException(e);
         }
         JobDetail job = JobBuilder.newJob(ParseJob.class)

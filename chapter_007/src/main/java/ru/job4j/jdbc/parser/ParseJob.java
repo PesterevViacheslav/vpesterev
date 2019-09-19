@@ -27,8 +27,6 @@ public class ParseJob implements Job {
             Parser parser = new Parser();
             parser.saveToDB(storeDB);
         } catch (SQLException e) {
-            LOG.error("job execute {}", e.getMessage());
-            e.printStackTrace();
             throw new TrackerSQLException(e.getSQLState());
         }
     }

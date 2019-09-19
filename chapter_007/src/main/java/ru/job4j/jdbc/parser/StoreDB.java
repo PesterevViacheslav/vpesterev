@@ -30,7 +30,6 @@ public class StoreDB implements AutoCloseable {
                     config.getProperty("parser-password")
             );
         } catch (Exception e) {
-            LOG.error(e.getMessage());
             throw new IllegalStateException(e);
         }
         return this.connection != null;
@@ -89,7 +88,6 @@ public class StoreDB implements AutoCloseable {
                 }
             }
         } catch (SQLException e) {
-            LOG.error(e.getMessage());
             throw new TrackerSQLException(e.getSQLState());
         }
         LOG.debug("findByName res={}", res);
@@ -109,7 +107,6 @@ public class StoreDB implements AutoCloseable {
                 sql.executeUpdate();
                 vacancy.setId(getCurrentValue());
             } catch (SQLException e) {
-                LOG.error(e.getMessage());
                 throw new TrackerSQLException(e.getSQLState());
             }
         }
@@ -130,7 +127,6 @@ public class StoreDB implements AutoCloseable {
                 res = true;
             }
         } catch (SQLException e) {
-            LOG.error(e.getMessage());
             throw new TrackerSQLException(e.getSQLState());
         }
         LOG.debug("delete res={}", res);

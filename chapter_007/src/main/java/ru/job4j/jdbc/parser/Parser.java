@@ -39,7 +39,7 @@ public class Parser {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage());
         }
         LOG.debug("getVacancyFromSite res size={}", res.size());
         return res;
