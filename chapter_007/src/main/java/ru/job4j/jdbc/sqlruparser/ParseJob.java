@@ -1,4 +1,4 @@
-package ru.job4j.jdbc.sql_ru_parser;
+package ru.job4j.jdbc.sqlruparser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quartz.Job;

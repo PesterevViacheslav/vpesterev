@@ -1,4 +1,4 @@
-package ru.job4j.jdbc.sql_ru_parser;
+package ru.job4j.jdbc.sqlruparser;
 /**
  * Class Vacancy - Вакансия SQL.ru. Решение задач уровня Junior. Части 003. SQL, JDBC
  * 7.5.2. Парсер вакансий на sql.ru.

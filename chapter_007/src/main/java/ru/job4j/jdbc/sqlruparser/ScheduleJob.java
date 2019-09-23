@@ -1,4 +1,4 @@
-package ru.job4j.jdbc.sql_ru_parser;
+package ru.job4j.jdbc.sqlruparser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.quartz.*;
@@ -33,7 +33,7 @@ public class ScheduleJob {
      */
     public static void main(String[] args) throws SchedulerException {
         String cronSchedule;
-        try (InputStream in = ru.job4j.jdbc.sql_ru_parser.StoreDB.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = ru.job4j.jdbc.sqlruparser.StoreDB.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             cronSchedule = config.getProperty("parser-cron-time");

@@ -1,4 +1,4 @@
-package ru.job4j.jdbc.sql_ru_parser;
+package ru.job4j.jdbc.sqlruparser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ru.job4j.sql.TrackerSQLException;
@@ -20,7 +20,7 @@ public class StoreDB implements AutoCloseable {
      * Method init. Инициализация коннекта к БД.
      */
     public boolean init() {
-        try (InputStream in = ru.job4j.jdbc.sql_ru_parser.StoreDB.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = ru.job4j.jdbc.sqlruparser.StoreDB.class.getClassLoader().getResourceAsStream("app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("parser-driver-class-name"));
