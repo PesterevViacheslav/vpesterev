@@ -12,8 +12,8 @@ import java.util.Scanner;
 public class MenuCalculator {
     private Calculator calculator;
     private Scanner in;
-    private Double number;
-    private HashMap<String, UserAction> actions = new HashMap<>();
+    protected Double number;
+    protected HashMap<String, UserAction> actions = new HashMap<>();
     /**
      * Method MenuCalculator. Конструктор
      * @param in
@@ -46,119 +46,23 @@ public class MenuCalculator {
         return this.number;
     }
     /**
-     * Method fillActions. Заполнение стека операций.
+     * Method getNumber Получение результата
+     * @return Текущий результат
      */
-    public void fillActions(InteractCalc ui) {
-        this.actions.put("+", new UserAction() {
-            @Override
-            public String key() {
-                return "+";
-            }
-            @Override
-            public void execute(Scanner in, Calculator calculator) {
-                System.out.println("Input digit");
-                Double d = in.nextDouble();
-                calculator.add(number, d);
-                number = calculator.getResult();
-            }
-            @Override
-            public String info() {
-                return String.format("%s%s", this.key(), " => Add");
-            }
-        });
-        this.actions.put("-", new UserAction() {
-            @Override
-            public String key() {
-                return "-";
-            }
-            @Override
-            public void execute(Scanner in, Calculator calculator) {
-                System.out.println("Input digit");
-                Double d = in.nextDouble();
-                calculator.minus(number, d);
-                number = calculator.getResult();
-            }
-            @Override
-            public String info() {
-                return String.format("%s%s", this.key(), " => Minus");
-            }
-        });
-        this.actions.put("*", new UserAction() {
-            @Override
-            public String key() {
-                return "*";
-            }
-            @Override
-            public void execute(Scanner in, Calculator calculator) {
-                System.out.println("Input digit");
-                Double d = in.nextDouble();
-                calculator.multiply(number, d);
-                number = calculator.getResult();
-            }
-            @Override
-            public String info() {
-                return String.format("%s%s", this.key(), " => Multiply");
-            }
-        });
-        this.actions.put("/", new UserAction() {
-            @Override
-            public String key() {
-                return "/";
-            }
-            @Override
-            public void execute(Scanner in, Calculator calculator) {
-                System.out.println("Input digit");
-                Double d = in.nextDouble();
-                calculator.divide(number, d);
-                number = calculator.getResult();
-            }
-            @Override
-            public String info() {
-                return String.format("%s%s", this.key(), " => Divide");
-            }
-        });
-        this.actions.put("=", new UserAction() {
-            @Override
-            public String key() {
-                return "=";
-            }
-            @Override
-            public void execute(Scanner in, Calculator calculator) {
-                System.out.println(String.format("%s%s", "=", number.toString()));
-            }
-            @Override
-            public String info() {
-                return String.format("%s%s", this.key(), " => Result");
-            }
-        });
-        this.actions.put("exit", new Exit("exit", ui));
+    public Double getNumber() {
+        return number;
     }
     /**
-     * Class Exit - Выход из программы.
+     * Method setNumber Установка результата
+     * @param number Значение.
      */
-    private class Exit extends BaseUserAction {
-        private final InteractCalc calc;
-        /**
-         * Method Exit. Конструктор.
-         * @param key Значение ключа меню.
-         */
-        public Exit(String key, InteractCalc calc) {
-            super(key);
-            this.calc = calc;
-        }
-        /**
-         * Method execute. Выполнение действия.
-         * @param in Ввод-вывод.
-         * @param calculator Калькулятор.
-         */
-        @Override
-        public void execute(Scanner in, Calculator calculator) {
-            System.out.println("EXIT");
-            this.calc.stop();
-        }
-        @Override
-        public String info() {
-            return String.format("%s%s", this.key(), " => Exit");
-        }
+    public void setNumber(Double number) {
+        this.number = number;
+    }
+    /**
+     * Method addActions. Добавление действия.
+     */
+    public void addActions(UserAction userAction) {
+        this.actions.put(userAction.key(), userAction);
     }
 }

@@ -9,6 +9,7 @@ import java.util.Scanner;
  * @version 1
  */
 public class InteractCalc {
+
     private Calculator calculator;
     private Scanner in;
     private boolean work = true;
@@ -29,6 +30,14 @@ public class InteractCalc {
         this.calculator = calculator;
         this.in = in;
     }
+
+    /**
+     * Method getIn. Получение потока ввода/вывода
+     * @return Поток ввода/вывода.
+     */
+    public Scanner getIn() {
+        return in;
+    }
     /**
      * Method stop. Прекращение работы.
      */
@@ -38,11 +47,10 @@ public class InteractCalc {
     /**
      * Method start. Запуск интерфейса калькулятора
      */
-    public void start() {
-        MenuCalculator menu = new MenuCalculator(this.in, this.calculator);
+    public void start(MenuCalculator menu) {
         String key;
         Double n;
-        menu.fillActions(this);
+        //menu.fillActions(this);
         menu.show();
         System.out.println("Enter digit:");
         n = in.nextDouble();
@@ -56,6 +64,67 @@ public class InteractCalc {
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
         InteractCalc interactCalc = new InteractCalc(calculator);
-        interactCalc.start();
+        MenuCalculator menu = new MenuCalculator(interactCalc.getIn(), calculator);
+        menu.addActions(new UserAction() {
+            @Override
+            public String key() {
+                return "+";
+            }
+            @Override
+            public void execute(Scanner in, Calculator calculator) {
+                System.out.println("Input digit");
+                Double d = in.nextDouble();
+                calculator.add(menu.number, d);
+                menu.number = calculator.getResult();
+            }
+            @Override
+            public String info() {
+                return String.format("%s%s", this.key(), " => Add");
+            }
+        });
+        menu.addActions(new UserAction() {
+            @Override
+            public String key() {
+                return "=";
+            }
+            @Override
+            public void execute(Scanner in, Calculator calculator) {
+                System.out.println(String.format("%s%s", "=", menu.number.toString()));
+            }
+            @Override
+            public String info() {
+                return String.format("%s%s", this.key(), " => Result");
+            }
+        });
+        menu.addActions(new Exit("exit", interactCalc));
+        interactCalc.start(menu);
+    }
+    /**
+     * Class Exit - Выход из программы.
+     */
+    private static class Exit extends BaseUserAction {
+        private final InteractCalc calc;
+        /**
+         * Method Exit. Конструктор.
+         * @param key Значение ключа меню.
+         */
+        public Exit(String key, InteractCalc calc) {
+            super(key);
+            this.calc = calc;
+        }
+        /**
+         * Method execute. Выполнение действия.
+         * @param in Ввод-вывод.
+         * @param calculator Калькулятор.
+         */
+        @Override
+        public void execute(Scanner in, Calculator calculator) {
+            System.out.println("EXIT");
+            this.calc.stop();
+        }
+        @Override
+        public String info() {
+            return String.format("%s%s", this.key(), " => Exit");
+        }
     }
 }
