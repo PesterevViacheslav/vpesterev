@@ -3,6 +3,8 @@ import com.google.common.base.Joiner;
 import org.junit.Test;
 import ru.job4j.calculator.Calculator;
 import ru.job4j.srp.InteractCalc;
+import ru.job4j.srp.MenuCalculator;
+
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 import static org.hamcrest.core.Is.is;
@@ -26,7 +28,8 @@ public class TestInteractCalc {
         try (Scanner scanner = new Scanner(new ByteArrayInputStream(inList.getBytes()))) {
             Calculator calculator = new Calculator();
             InteractCalc interactCalc = new InteractCalc(calculator, scanner);
-            interactCalc.start();
+            MenuCalculator menu = new MenuCalculator(interactCalc.getIn(), calculator);
+            interactCalc.start(menu);
             double result = calculator.getResult();
             double expected = 10D;
             assertThat(result, is(expected));

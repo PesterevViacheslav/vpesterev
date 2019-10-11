@@ -13,7 +13,7 @@ public class MenuCalculator {
     private Calculator calculator;
     private Scanner in;
     private Double number;
-    private HashMap<String, UserAction> actions = new HashMap<>();
+    protected HashMap<String, UserAction> actions = new HashMap<>();
     /**
      * Method MenuCalculator. Конструктор
      * @param in

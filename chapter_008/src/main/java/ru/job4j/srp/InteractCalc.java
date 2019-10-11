@@ -30,6 +30,13 @@ public class InteractCalc {
         this.in = in;
     }
     /**
+     * Method getIn Получение потока ввода/вывода
+     * @return Поток ввода/вывода
+     */
+    public Scanner getIn() {
+        return in;
+    }
+    /**
      * Method stop. Прекращение работы.
      */
     public void stop() {
@@ -38,8 +45,7 @@ public class InteractCalc {
     /**
      * Method start. Запуск интерфейса калькулятора
      */
-    public void start() {
-        MenuCalculator menu = new MenuCalculator(this.in, this.calculator);
+    public void start(MenuCalculator menu) {
         String key;
         Double n;
         menu.fillActions(this);
@@ -56,6 +62,7 @@ public class InteractCalc {
     public static void main(String[] args) {
         Calculator calculator = new Calculator();
         InteractCalc interactCalc = new InteractCalc(calculator);
-        interactCalc.start();
+        MenuCalculator menu = new MenuCalculator(interactCalc.in, interactCalc.calculator);
+        interactCalc.start(menu);
     }
 }
