@@ -2,7 +2,7 @@ package ru.job4j;
 import com.google.common.base.Joiner;
 import org.junit.Test;
 import ru.job4j.calculator.Calculator;
-import ru.job4j.srp.InteractCalc;
+import ru.job4j.srp.*;
 import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 import static org.hamcrest.core.Is.is;
@@ -26,10 +26,233 @@ public class TestInteractCalc {
         try (Scanner scanner = new Scanner(new ByteArrayInputStream(inList.getBytes()))) {
             Calculator calculator = new Calculator();
             InteractCalc interactCalc = new InteractCalc(calculator, scanner);
-            interactCalc.start();
+            MenuCalculator menu = new MenuCalculator(interactCalc.getIn(), calculator);
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "+";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    System.out.println("Input digit");
+                    Double d = in.nextDouble();
+                    calculator.add(menu.getNumber(), d);
+                    menu.setNumber(calculator.getResult());
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Add");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "-";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    System.out.println("Input digit");
+                    Double d = in.nextDouble();
+                    calculator.minus(menu.getNumber(), d);
+                    menu.setNumber(calculator.getResult());
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Minus");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "/";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    System.out.println("Input digit");
+                    Double d = in.nextDouble();
+                    calculator.divide(menu.getNumber(), d);
+                    menu.setNumber(calculator.getResult());
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Divide");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "*";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    System.out.println("Input digit");
+                    Double d = in.nextDouble();
+                    calculator.multiply(menu.getNumber(), d);
+                    menu.setNumber(calculator.getResult());
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Multiply");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "=";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    System.out.println(String.format("%s%s", "=", menu.getNumber().toString()));
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Result");
+                }
+            });
+            menu.addActions(new Exit("exit", interactCalc));
+            interactCalc.start(menu);
             double result = calculator.getResult();
             double expected = 10D;
             assertThat(result, is(expected));
+        }
+    }
+    /**
+     * Тест инженерного калькулятора.
+     */
+    @Test
+    public void testEngineerCalculator() {
+        String[] in = new String[] {"1", "+", "5", "-", "2", "sin", "cos", "tan", "=", "exit"};
+        String inList = Joiner.on(SEPARATOR).join(in);
+        try (Scanner scanner = new Scanner(new ByteArrayInputStream(inList.getBytes()))) {
+            EngineerCalculator calculator = new EngineerCalculator();
+            InteractCalc interactCalc = new InteractCalc(calculator, scanner);
+            MenuCalculator menu = new MenuCalculator(interactCalc.getIn(), calculator);
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "+";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    System.out.println("Input digit");
+                    Double d = in.nextDouble();
+                    calculator.add(menu.getNumber(), d);
+                    menu.setNumber(calculator.getResult());
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Add");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "-";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    System.out.println("Input digit");
+                    Double d = in.nextDouble();
+                    calculator.minus(menu.getNumber(), d);
+                    menu.setNumber(calculator.getResult());
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Minus");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "sin";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    EngineerCalculator engineerCalculator = (EngineerCalculator) calculator;
+                    engineerCalculator.sin();
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Sin");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "cos";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    EngineerCalculator engineerCalculator = (EngineerCalculator) calculator;
+                    engineerCalculator.cos();
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Cos");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "tan";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    EngineerCalculator engineerCalculator = (EngineerCalculator) calculator;
+                    engineerCalculator.tan();
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Tan");
+                }
+            });
+            menu.addActions(new UserAction() {
+                @Override
+                public String key() {
+                    return "=";
+                }
+                @Override
+                public void execute(Scanner in, Calculator calculator) {
+                    System.out.println(String.format("%s%s", "=", menu.getNumber().toString()));
+                }
+                @Override
+                public String info() {
+                    return String.format("%s%s", this.key(), " => Result");
+                }
+            });
+            menu.addActions(new Exit("exit", interactCalc));
+            interactCalc.start(menu);
+            double result = calculator.getResult();
+            double expected = 0.8895922779758607D;
+            assertThat(result, is(expected));
+        }
+    }
+    /**
+     * Class Exit - Выход из программы.
+     */
+    private static class Exit extends BaseUserAction {
+        private final InteractCalc calc;
+        /**
+         * Method Exit. Конструктор.
+         * @param key Значение ключа меню.
+         */
+        public Exit(String key, InteractCalc calc) {
+            super(key);
+            this.calc = calc;
+        }
+        /**
+         * Method execute. Выполнение действия.
+         * @param in Ввод-вывод.
+         * @param calculator Калькулятор.
+         */
+        @Override
+        public void execute(Scanner in, Calculator calculator) {
+            System.out.println("EXIT");
+            this.calc.stop();
+        }
+        @Override
+        public String info() {
+            return String.format("%s%s", this.key(), " => Exit");
         }
     }
 }
