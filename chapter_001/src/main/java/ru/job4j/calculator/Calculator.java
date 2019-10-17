@@ -7,7 +7,7 @@ package ru.job4j.calculator;
  * @version 1
  */
 public class Calculator {
-    private double result;
+    protected double result;
     /**
      * Method add. Сумма двух элементов.
      * @param  first - Первое слагаемое.
