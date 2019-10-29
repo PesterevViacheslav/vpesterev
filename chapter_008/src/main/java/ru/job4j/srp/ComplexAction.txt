@@ -1,0 +1,56 @@
+1) Создаем абстрактный класс сложного действия
+
+public abstract class ComplexUserAction implements UserAction {
+    private final String key;
+    protected final ArrayList<String> operations;
+    public ComplexUserAction(final String key, ArrayList<String> operations) {
+        this.key = key;
+        this.operations = operations;
+    }
+    @Override
+    public String key() {
+        return this.key;
+    }
+}
+
+2) Создаем внутренний класс конкретного сложного действия для автотеста
+
+    private static class PlusMinusMultiply extends ComplexUserAction {
+        private final InteractCalc calc;
+        public PlusMinusMultiply(String key, InteractCalc calc, ArrayList operations) {
+            super(key, operations);
+            this.calc = calc;
+        }
+        /**
+         * Method execute. Выполнение действия.
+         * @param in Ввод-вывод.
+         * @param calculator Калькулятор.
+         */
+        @Override
+        public void execute(Scanner in, Calculator calculator) {
+            for (String oper : operations) {
+                System.out.println("Input digit");
+                Double d = in.nextDouble();
+                if ("+".equals(oper)) {
+                    calculator.multiply(menu.getNumber(), d);
+                } else if ("-".equals(oper)) {
+                    calculator.minus(menu.getNumber(), d);
+                } else if ("*".equals(oper)) {
+                    calculator.multiply(menu.getNumber(), d);
+                }
+                menu.setNumber(calculator.getResult());
+            }
+        }
+        @Override
+        public String info() {
+            return String.format("%s%s", this.key(), " => Complex Action");
+        }
+    }
+
+3) Добавляем действие в автотест
+
+    ArrayList<String> arrayList = new ArrayList<>();
+    arrayList.add("+");
+    arrayList.add("-");
+    arrayList.add("*");
+    menu.addActions(new PlusMinusMultiply("PlusMinusMultiply", interactCalc, arrayList));
