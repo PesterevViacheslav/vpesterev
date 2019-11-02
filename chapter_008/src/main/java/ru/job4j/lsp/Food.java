@@ -42,4 +42,11 @@ public class Food {
     public LocalDate getCreateDate() {
         return this.createDate;
     }
+    /**
+     * Method setDiscount. Установка скидки.
+     * @param discount Скидка
+     */
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
 }

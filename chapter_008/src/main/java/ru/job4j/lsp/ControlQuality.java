@@ -20,6 +20,9 @@ public class ControlQuality {
                 warehouse.add(food);
             } else if (expirePercent <= 0.75 && expirePercent > 0.25) {
                 shop.add(food);
+            } else if (expirePercent >= 0.25 && expirePercent > 0.01) {
+                food.setDiscount(1);
+                shop.add(food);
             } else {
                 trash.add(food);
             }
