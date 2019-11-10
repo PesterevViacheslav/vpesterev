@@ -6,7 +6,7 @@ package ru.job4j.lsp;
  * @since 31.10.2019
  * @version 1
  */
-public class Warehouse extends Storage {
+public class Warehouse extends Storage implements Store {
     private String address;
     /**
      * Method Warehouse. Конструктор
@@ -15,5 +15,19 @@ public class Warehouse extends Storage {
     public Warehouse(String address) {
         super();
         this.address = address;
+    }
+    /**
+     * Method accept. Контроль качества продукта
+     * @param food Продукт.
+     * @param expirePercent Срок годности
+     * @return
+     */
+    @Override
+    public boolean accept(Food food, double expirePercent) {
+        boolean res = false;
+        if (expirePercent > 0.75) {
+            res = true;
+        }
+        return res;
     }
 }

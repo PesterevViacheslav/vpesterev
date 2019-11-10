@@ -28,8 +28,12 @@ public class TestControlQuality {
         Warehouse warehouse = new Warehouse("Москва");
         Shop shop = new Shop("Серпухов", "Дисконт");
         Trash trash = new Trash(LocalDate.now().plusDays(30));
+        ArrayList<Store> stores = new ArrayList<>();
+        stores.add(warehouse);
+        stores.add(shop);
+        stores.add(trash);
         ControlQuality controlQuality = new ControlQuality();
-        controlQuality.check(foods, warehouse, shop, trash);
+        controlQuality.check(foods, stores);
         assertThat(warehouse.size(), is(2));
         assertThat(shop.size(), is(3));
         assertThat(trash.size(), is(1));

@@ -10,22 +10,30 @@ import java.util.ArrayList;
  * @version 1
  */
 public class ControlQuality {
-    public void check(ArrayList<Food> foods, Warehouse warehouse, Shop shop, Trash trash) {
-        LocalDate now = LocalDate.now();
+    /**
+     * Method check. Сортировка продуктов
+     * @param foods Продукты.
+     * @param stores Хранилища.
+     */
+    public void check(ArrayList<Food> foods, ArrayList<Store> stores) {
         for (Food food : foods) {
-            long daysToExpire = ChronoUnit.DAYS.between(now, food.getExpireDate());
-            long daysFromCreateToExpire = ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpireDate());
-            double expirePercent = (double) daysToExpire / daysFromCreateToExpire;
-            if (expirePercent > 0.75) {
-                warehouse.add(food);
-            } else if (expirePercent <= 0.75 && expirePercent > 0.25) {
-                shop.add(food);
-            } else if (expirePercent >= 0.25 && expirePercent > 0.01) {
-                food.setDiscount(1);
-                shop.add(food);
-            } else {
-                trash.add(food);
+            for (Store store: stores) {
+                if (store.accept(food, getExpirePercent(food))) {
+                    store.add(food);
+                    break;
+                }
             }
         }
+    }
+    /**
+     * Method getExpirePercent Получение срока годности.
+     * @param food Продукт.
+     * @return
+     */
+    private double getExpirePercent(Food food) {
+        LocalDate now = LocalDate.now();
+        long daysToExpire = ChronoUnit.DAYS.between(now, food.getExpireDate());
+        long daysFromCreateToExpire = ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpireDate());
+        return (double) daysToExpire / daysFromCreateToExpire;
     }
 }
