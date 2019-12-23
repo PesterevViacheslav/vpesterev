@@ -8,8 +8,9 @@
      <url>http://job4j.ru/</url>
 
     <properties>
-       <maven.compiler.source>1.8</maven.compiler.source>
-       <maven.compiler.target>1.8</maven.compiler.target>
+       <maven.compiler.source>13</maven.compiler.source>
+       <maven.compiler.target>13</maven.compiler.target>
+		<maven.compiler.release>13</maven.compiler.release>
        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
      </properties>
 
@@ -142,6 +143,12 @@
 			<artifactId>quartz</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-failsafe-plugin</artifactId>
+			<version>3.0.0-M4</version>
+			<!--<scope>test</scope>-->
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -190,6 +197,19 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>13</release>
+					<compilerArgs>--enable-preview</compilerArgs>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>--enable-preview</argLine>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
