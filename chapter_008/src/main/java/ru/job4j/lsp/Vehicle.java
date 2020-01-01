@@ -8,5 +8,5 @@ package ru.job4j.lsp;
  */
 public interface Vehicle {
   String getNumber();
-  float getLength();
+  float getSizeForCell();
 }

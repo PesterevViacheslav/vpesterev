@@ -8,7 +8,7 @@ package ru.job4j.lsp;
  */
 public class Car implements Vehicle {
     private String number;
-    private float length;
+    private int sizeForCell;
     /**
      * Method Car. Конструктор
      */
@@ -17,11 +17,10 @@ public class Car implements Vehicle {
     /**
      * Method Car. Конструктор
      * @param number Номер
-     * @param length Длина
      */
-    public Car(String number, float length) {
+    public Car(String number) {
         this.number = number;
-        this.length = length;
+        this.sizeForCell = 1;
     }
     /**
      * Method getNumber. Получение номера машины.
@@ -35,8 +34,8 @@ public class Car implements Vehicle {
      * Method drive. Движение.
      */
     @Override
-    public float getLength() {
-        return this.length;
+    public float getSizeForCell() {
+        return this.sizeForCell;
     }
     @Override
     public String toString() {

@@ -20,12 +20,12 @@ public class TestParking {
     @Test
     public void testParkAllTrucks() {
         ArrayList<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(new Truck("г555гг99", 5, (float) 5.5));
-        vehicles.add(new Truck("г555гг100", 7, (float) 7.5));
-        vehicles.add(new Truck("г555гг101", 8, (float) 8.5));
-        vehicles.add(new Truck("г555гг102", 8, (float) 8.5));
-        vehicles.add(new Truck("г555гг103", 9, (float) 9.5));
-        Parking parking = new Parking(2, 5, 3);
+        vehicles.add(new Truck("truck_1_2", 5, 2));
+        vehicles.add(new Truck("truck_2_3", 7, 3));
+        vehicles.add(new Truck("truck_3_2", 8, 2));
+        vehicles.add(new Truck("truck_4_4", 8, 4));
+        vehicles.add(new Truck("truck_5_2", 9, 2));
+        Parking parking = new Parking(2, 10);
         parking.init();
         assertTrue(parking.parkAll(vehicles));
     }
@@ -35,13 +35,13 @@ public class TestParking {
     @Test
     public void testParkAllCars() {
         ArrayList<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(new Car("л555лл99", (float) 3.5));
-        vehicles.add(new Car("л555лл100", (float) 4.5));
-        vehicles.add(new Car("л555лл101", (float) 3.5));
-        vehicles.add(new Car("л555лл102", (float) 4.2));
-        vehicles.add(new Car("л555лл103", (float) 4.3));
-        vehicles.add(new Car("л555лл104", (float) 4.0));
-        Parking parking = new Parking(2, 3, 3);
+        vehicles.add(new Car("car_1"));
+        vehicles.add(new Car("car_2"));
+        vehicles.add(new Car("car_3"));
+        vehicles.add(new Car("car_4"));
+        vehicles.add(new Car("car_5"));
+        vehicles.add(new Car("car_6"));
+        Parking parking = new Parking(2, 3);
         parking.init();
         assertTrue(parking.parkAll(vehicles));
     }
@@ -51,15 +51,15 @@ public class TestParking {
     @Test
     public void testParkAllTrucksAndCars() {
         ArrayList<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(new Truck("г555гг99", 5, (float) 5.5));
-        vehicles.add(new Truck("г555гг100", 7, (float) 7.5));
-        vehicles.add(new Truck("г555гг101", 8, (float) 8.5));
-        vehicles.add(new Truck("г555гг102", 8, (float) 8.5));
-        vehicles.add(new Car("л555лл99", (float) 3.5));
-        vehicles.add(new Car("л555лл100", (float) 4.5));
-        vehicles.add(new Car("л555лл101", (float) 3.5));
-        vehicles.add(new Car("л555лл102", (float) 4.5));
-        Parking parking = new Parking(2, 7, 3);
+        vehicles.add(new Truck("truck_1_2", 5, 2));
+        vehicles.add(new Truck("truck_2_3", 7, 3));
+        vehicles.add(new Truck("truck_3_2", 8, 2));
+        vehicles.add(new Truck("truck_4_4", 8, 4));
+        vehicles.add(new Car("car_1"));
+        vehicles.add(new Car("car_2"));
+        vehicles.add(new Car("car_3"));
+        vehicles.add(new Car("car_4"));
+        Parking parking = new Parking(3, 10);
         parking.init();
         assertTrue(parking.parkAll(vehicles));
     }
@@ -69,13 +69,13 @@ public class TestParking {
     @Test
     public void testParkNotAllTrucksAndCars() {
         ArrayList<Vehicle> vehicles = new ArrayList<>();
-        vehicles.add(new Car("л555лл99", (float) 3.5));
-        vehicles.add(new Truck("г555гг99", 5, (float) 5.5));
-        vehicles.add(new Truck("г555гг100", 7, (float) 7.5));
-        vehicles.add(new Car("л555лл102", (float) 3.5));
-        vehicles.add(new Truck("г555гг101", 8, (float) 8.5));
-        vehicles.add(new Truck("г555гг102", 8, (float) 8.5));
-        Parking parking = new Parking(2, 3, 3);
+        vehicles.add(new Car("car_1"));
+        vehicles.add(new Truck("truck_1_2", 5, 2));
+        vehicles.add(new Truck("truck_2_3", 7, 3));
+        vehicles.add(new Car("car_2"));
+        vehicles.add(new Truck("truck_3_5", 8, 5));
+        vehicles.add(new Truck("truck_4_5", 8, 5));
+        Parking parking = new Parking(2, 3);
         parking.init();
         assertFalse(parking.parkAll(vehicles));
     }

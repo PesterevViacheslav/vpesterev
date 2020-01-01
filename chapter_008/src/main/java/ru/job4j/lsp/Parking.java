@@ -10,45 +10,32 @@ import java.util.ArrayList;
 public class Parking {
     private int rowsNumber;
     private int rowSize;
-    private int truckCellsNumber;
-    private int allCellsNumber;
     private ArrayList<ParkingCell> cellList;
-    private ArrayList<ParkingCell> freeCarCellList;
-    private ArrayList<ParkingCell> freeTruckCellList;
     /**
      * Method Parking. Конструктор
      * @param rowsNumber
      * @param rowSize
-     * @param truckCellsNumber
      */
-    public Parking(int rowsNumber, int rowSize, int truckCellsNumber) {
+    public Parking(int rowsNumber, int rowSize) {
         this.rowsNumber = rowsNumber;
         this.rowSize = rowSize;
-        this.truckCellsNumber = truckCellsNumber;
-        this.allCellsNumber = rowsNumber * rowSize;
         this.cellList = new ArrayList<>();
-        this.freeCarCellList = new ArrayList<>();
-        this.freeTruckCellList = new ArrayList<>();
     }
     /**
      * Method init. Построение парковки
      */
     public void init() {
-        int truckCellCount = 0;
-        int count = 0;
         ParkingCell parkingCell;
         for (int i = 0; i < this.rowsNumber; i++) {
             for (int j = 0; j < this.rowSize; j++) {
-                if (Math.random() > 0.5 && truckCellCount < this.truckCellsNumber || this.allCellsNumber - count <= this.truckCellsNumber - truckCellCount) {
-                    parkingCell = new ParkingCell( "Truck", i, j, null);
-                    this.freeTruckCellList.add(parkingCell);
-                    truckCellCount++;
-                } else {
-                    parkingCell = new ParkingCell("Car", i, j,null);
-                    this.freeCarCellList.add(parkingCell);
+                parkingCell = new ParkingCell(i, j, "");
+                if (j >= 0) {
+                    parkingCell.setRightCellsCount(this.rowSize - j - 1);
+                }
+                if (j <= this.rowSize - 1) {
+                    parkingCell.setLeftCellsCount(j);
                 }
                 this.cellList.add(parkingCell);
-                count++;
             }
         }
     }
@@ -59,38 +46,29 @@ public class Parking {
      */
     private boolean doPark(Vehicle vehicle) {
         boolean res = false;
-        if (vehicle.getLength() < 5 && (!this.freeCarCellList.isEmpty())) {
-            int id = this.cellList.indexOf(this.freeCarCellList.get(this.freeCarCellList.size() - 1));
-            ParkingCell cell = this.cellList.get(id);
-            cell.setNumber(vehicle.getNumber());
-            this.cellList.set(id, cell);
-            this.freeCarCellList.remove(this.freeCarCellList.size() - 1);
-            res = true;
-        } else if ((!this.freeTruckCellList.isEmpty() || this.freeCarCellList.size() > 1)) {
-            if (!this.freeTruckCellList.isEmpty()) {
-                int id = this.cellList.indexOf(this.freeTruckCellList.get(this.freeTruckCellList.size() - 1));
-                ParkingCell cell = this.cellList.get(id);
-                cell.setNumber(vehicle.getNumber());
-                this.cellList.set(id, cell);
-                this.freeTruckCellList.remove(this.freeTruckCellList.size() - 1);
-                res = true;
-            } else {
-                for (int id = 0; id < this.freeCarCellList.size(); id++) {
-                    if (id + 1 < this.freeCarCellList.size() && this.freeCarCellList.get(id).getNumber() == null && this.freeCarCellList.get(id + 1).getNumber() == null &&
-                        this.freeCarCellList.get(id + 1).getCellRow() == this.freeCarCellList.get(id).getCellRow() &&
-                        this.freeCarCellList.get(id + 1).getCellNumber() - this.freeCarCellList.get(id).getCellNumber() == 1) {
-                        ParkingCell cell = this.freeCarCellList.get(id);
-                        cell.setNumber(vehicle.getNumber());
-                        int cellId1 = this.cellList.indexOf(this.freeCarCellList.get(id));
-                        int cellId2 = this.cellList.indexOf(this.freeCarCellList.get(id + 1));
-                        this.cellList.set(cellId1, cell);
-                        this.cellList.set(cellId2, cell);
-                        this.freeCarCellList.remove(id);
-                        this.freeCarCellList.remove(id);
-                        res = true;
-                        break;
+        int length = 0;
+        for (ParkingCell cell : this.cellList) {
+            if ("".equals(cell.getNumber()) && cell.getLeftCellsCount() + cell.getRightCellsCount() == vehicle.getSizeForCell() - 1
+                || "".equals(cell.getNumber()) && cell.getLeftCellsCount() + cell.getRightCellsCount() >= vehicle.getSizeForCell() - 1) {
+                for (int i = cell.getCellNumber() - 1; i >= 0; i--) {
+                    if ("".equals(this.cellList.get(this.cellList.indexOf(new ParkingCell(cell.getCellRow(), i, ""))).getNumber())) {
+                        this.cellList.get(this.cellList.indexOf(new ParkingCell(cell.getCellRow(), i, ""))).setRightCellsCount(-1);
                     }
                 }
+                for (int i = cell.getCellNumber(); i < this.rowSize; i++) {
+                    if ("".equals(this.cellList.get(this.cellList.indexOf(new ParkingCell(cell.getCellRow(), i, ""))).getNumber())) {
+                        if (length < vehicle.getSizeForCell()) {
+                            this.cellList.get(this.cellList.indexOf(new ParkingCell(cell.getCellRow(), i, ""))).setLeftCellsCount(0);
+                            this.cellList.get(this.cellList.indexOf(new ParkingCell(cell.getCellRow(), i, ""))).setRightCellsCount(0);
+                            this.cellList.get(this.cellList.indexOf(new ParkingCell(cell.getCellRow(), i, ""))).setNumber(vehicle.getNumber());
+                        } else {
+                            this.cellList.get(this.cellList.indexOf(new ParkingCell(cell.getCellRow(), i, ""))).setLeftCellsCount(-1);
+                        }
+                    }
+                    length++;
+                }
+                res = true;
+                break;
             }
         }
         return res;
@@ -115,7 +93,7 @@ public class Parking {
      * @return Список ячеек
      */
     public ArrayList<ParkingCell> getCellList() {
-        for(ParkingCell cell : this.cellList) {
+        for (ParkingCell cell : this.cellList) {
             System.out.println(cell);
         }
         return this.cellList;

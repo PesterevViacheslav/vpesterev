@@ -8,21 +8,22 @@ import java.util.Objects;
  * @version 1
  */
 public class ParkingCell {
-    private String cellType;
     private int cellRow;
     private int cellNumber;
     private String number;
+    private int leftCellsCount;
+    private int rightCellsCount;
     /**
      * Method ParkingCell. Конструктор
-     * @param cellType Тип ячейки
      * @param cellRow Ряд
      * @param cellNumber Номер в ряду
      */
-    public ParkingCell(String cellType, int cellRow, int cellNumber, String number) {
-        this.cellType = cellType;
+    public ParkingCell(int cellRow, int cellNumber, String number) {
         this.cellRow = cellRow;
         this.cellNumber = cellNumber;
         this.number = number;
+        this.leftCellsCount = 0;
+        this.rightCellsCount = 0;
     }
     /**
      * Method getCellRow. Получение номера ряда ячейки
@@ -53,10 +54,38 @@ public class ParkingCell {
         this.number = number;
     }
 
+    public void setLeftCellsCount(int leftCellsCount) {
+        if (leftCellsCount == -1) {
+            this.leftCellsCount--;
+        } else {
+            this.leftCellsCount = leftCellsCount;
+        }
+    }
+
+    public void setRightCellsCount(int rightCellsCount) {
+        if (rightCellsCount == -1) {
+            this.rightCellsCount--;
+        } else {
+            this.rightCellsCount = rightCellsCount;
+        }
+    }
+
+    public int getLeftCellsCount() {
+        return leftCellsCount;
+    }
+
+    public int getRightCellsCount() {
+        return rightCellsCount;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ParkingCell that = (ParkingCell) o;
         return cellRow == that.cellRow && cellNumber == that.cellNumber;
     }
@@ -64,8 +93,15 @@ public class ParkingCell {
     public int hashCode() {
         return Objects.hash(cellRow, cellNumber);
     }
+
     @Override
     public String toString() {
-        return "ParkingCell{" + "cellType='" + cellType + '\'' + ", cellRow=" + cellRow + ", cellNumber=" + cellNumber + ", number=" + number + '}';
+        return "ParkingCell{"
+                + "cellRow=" + cellRow
+                + ", cellNumber=" + cellNumber
+                + ", number='" + number + '\''
+                + ", leftCellsCount=" + leftCellsCount
+                + ", rightCellsCount=" + rightCellsCount
+                + '}';
     }
 }

@@ -9,7 +9,7 @@ package ru.job4j.lsp;
 public class Truck implements Vehicle {
     private String number;
     private int tonnage;
-    private float length;
+    private int sizeForCell;
     /**
      * Method Truck. Конструктор
     */
@@ -19,12 +19,12 @@ public class Truck implements Vehicle {
      * Method Truck. Конструктор
      * @param number Номер
      * @param tonnage Грузоподъемность
-     * @param length Длина
+     * @param sizeForCell Число занимаемых ячеек
      */
-    public Truck(String number, int tonnage, float length) {
+    public Truck(String number, int tonnage, int sizeForCell) {
         this.number = number;
         this.tonnage = tonnage;
-        this.length = length;
+        this.sizeForCell = sizeForCell;
     }
     /**
      * Method getNumber. Получение номера машины.
@@ -38,8 +38,8 @@ public class Truck implements Vehicle {
      * Method drive. Движение.
      */
     @Override
-    public float getLength() {
-        return this.length;
+    public float getSizeForCell() {
+        return this.sizeForCell;
     }
     @Override
     public String toString() {
