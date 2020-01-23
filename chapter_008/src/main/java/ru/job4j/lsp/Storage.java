@@ -16,6 +16,13 @@ public class Storage {
         this.foodList = new ArrayList<>();
     }
     /**
+     * Method del. Удаление продукта по индексу.
+     * @param index Продукт
+     */
+    public void del(int index) {
+        this.foodList.remove(index);
+    }
+    /**
      * Method add. Добавление продукта.
      * @param food Продукт
      */
@@ -28,5 +35,18 @@ public class Storage {
      */
     public int size() {
         return this.foodList.size();
+    }
+    /**
+     * Method getFoodList. Получение списка продуктов
+     * @return Продукты.
+     */
+    public ArrayList<Food> getFoodList() {
+        return this.foodList;
+    }
+    /**
+     * Method clear. Очистка списка продуктов
+     */
+    public void clear() {
+        this.foodList.clear();
     }
 }

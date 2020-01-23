@@ -36,4 +36,17 @@ public class ControlQuality {
         long daysFromCreateToExpire = ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpireDate());
         return (double) daysToExpire / daysFromCreateToExpire;
     }
+    /**
+     * Method resort. Перераспределение продуктов
+     * @param storages Хранилища.
+     * @param stores Магазины
+     */
+    public void resort(ArrayList<Storage> storages, ArrayList<Store> stores) {
+        for (Storage s : storages) {
+                ArrayList<Food> foodList = new ArrayList<>();
+                foodList.addAll(s.getFoodList());
+                s.clear();
+                check(foodList, stores);
+            }
+    }
 }

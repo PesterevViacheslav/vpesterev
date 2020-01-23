@@ -37,5 +37,15 @@ public class TestControlQuality {
         assertThat(warehouse.size(), is(2));
         assertThat(shop.size(), is(3));
         assertThat(trash.size(), is(1));
+        ArrayList<Storage> storages = new ArrayList<>();
+        warehouse.del(0);
+        shop.del(0);
+        storages.add(warehouse);
+        storages.add(shop);
+        storages.add(trash);
+        controlQuality.resort(storages, stores);
+        assertThat(warehouse.size(), is(1));
+        assertThat(shop.size(), is(2));
+        assertThat(trash.size(), is(1));
     }
 }
