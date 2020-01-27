@@ -1,5 +1,7 @@
 package ru.job4j.lsp;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class Storage - Хранилище. Решение задач уровня Junior. Части 004. ООД.
  *
@@ -40,7 +42,7 @@ public class Storage {
      * Method getFoodList. Получение списка продуктов
      * @return Продукты.
      */
-    public ArrayList<Food> getFoodList() {
+    public List<Food> getFoodList() {
         return this.foodList;
     }
     /**

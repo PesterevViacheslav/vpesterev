@@ -2,6 +2,8 @@ package ru.job4j.lsp;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class ControlQuality - Контроль качества продуктов. Решение задач уровня Junior. Части 004. ООД.
  *
@@ -15,7 +17,7 @@ public class ControlQuality {
      * @param foods Продукты.
      * @param stores Хранилища.
      */
-    public void check(ArrayList<Food> foods, ArrayList<Store> stores) {
+    public void check(List<Food> foods, List<Store> stores) {
         for (Food food : foods) {
             for (Store store: stores) {
                 if (store.accept(food, getExpirePercent(food))) {
@@ -41,7 +43,7 @@ public class ControlQuality {
      * @param storages Хранилища.
      * @param stores Магазины
      */
-    public void resort(ArrayList<Storage> storages, ArrayList<Store> stores) {
+    public void resort(List<Storage> storages, List<Store> stores) {
         for (Storage s : storages) {
                 ArrayList<Food> foodList = new ArrayList<>();
                 foodList.addAll(s.getFoodList());
