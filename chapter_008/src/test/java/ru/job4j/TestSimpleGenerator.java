@@ -15,7 +15,8 @@ import static org.junit.Assert.assertThat;
  * @version 1
  */
 public class TestSimpleGenerator {
-     /**
+    SimpleGenerator simpleGenerator = new SimpleGenerator();
+    /**
      * Тест генератора строки - все ключи использованы, лишних нет.
      */
     @Test
@@ -23,12 +24,10 @@ public class TestSimpleGenerator {
         Map<String, String> keyMap = new HashMap<>();
         keyMap.put("name", "Viacheslav");
         keyMap.put("subject", "you");
-        SimpleGenerator simpleGenerator = new SimpleGenerator("I am a ${name}, Who are ${subject}?", keyMap);
-        assertThat(simpleGenerator.generate(), is("I am a Viacheslav, Who are you?"));
-        //keyMap.clear();
-        //keyMap.put("sos", "Ааа");
-        //SimpleGenerator simpleGenerator2 = new SimpleGenerator("Help, ${sos}, ${sos}, ${sos}", keyMap);
-        //assertThat(simpleGenerator2.generate(), is("Help, Ааа, Ааа, Ааа"));
+        assertThat(this.simpleGenerator.generate("I am a ${name}, Who are ${subject}?", keyMap), is("I am a Viacheslav, Who are you?"));
+        keyMap.clear();
+        keyMap.put("sos", "Ааа");
+        assertThat(this.simpleGenerator.generate("Help, ${sos}, ${sos}, ${sos}", keyMap), is("Help, Ааа, Ааа, Ааа"));
     }
     /**
      * Тест генератора строки - все ключи использованы, лишних нет.
@@ -39,8 +38,7 @@ public class TestSimpleGenerator {
         keyMap.put("name", "Viacheslav");
         keyMap.put("subject", "you");
         keyMap.put("sos", "Ааа");
-        SimpleGenerator simpleGenerator = new SimpleGenerator("I am a ${name}, Who are ${subject}?", keyMap);
-        assertThat(simpleGenerator.generate(), is("I am a Viacheslav, Who are you?"));
+        assertThat(simpleGenerator.generate("I am a ${name}, Who are ${subject}?", keyMap), is("I am a Viacheslav, Who are you?"));
     }
     /**
      * Тест генератора строки - все ключи использованы, лишних нет.
@@ -49,7 +47,6 @@ public class TestSimpleGenerator {
     public void whenKeysRemainedThenException() {
         Map<String, String> keyMap = new HashMap<>();
         keyMap.put("name", "Viacheslav");
-        SimpleGenerator simpleGenerator = new SimpleGenerator("I am a ${name}, Who are ${subject}?", keyMap);
-        assertThat(simpleGenerator.generate(), is("I am a Viacheslav, Who are you?"));
+        assertThat(simpleGenerator.generate("I am a ${name}, Who are ${subject}?", keyMap), is("I am a Viacheslav, Who are you?"));
     }
 }

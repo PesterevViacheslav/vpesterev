@@ -10,43 +10,31 @@ import java.util.regex.Pattern;
  * @version 1
  */
 public class SimpleGenerator {
-    private String template;
-    private Map<String, String> keysMap;
-    private final Pattern keys;
-    /**
-     * Method SimpleGenerator. Конструктор
-     * @param template Строка с ключами
-     * @param keysMap Ключи
-     */
-    public SimpleGenerator(String template, Map<String, String> keysMap) {
-        this.template = template;
-        this.keysMap = keysMap;
-        this.keys = Pattern.compile("\\$\\{(.*?)\\}");
-    }
+    private final Pattern keys = Pattern.compile("\\$\\{(.*?)\\}");
     /**
      * Method generate. Генерация строки
      * @return Собранная строка
      */
-    public String generate() {
-        Matcher matcher = this.keys.matcher(this.template);
+    public String generate(String template, Map<String, String> keysMap) {
+        Matcher matcher = this.keys.matcher(template);
         Set<String> keys = new HashSet<>();
         while (matcher.find()) {
             int start = matcher.start();
             int end = matcher.end();
-            String key = this.template.substring(start + 2, end - 1);
-            if (!this.keysMap.containsKey(key)) {
+            String key = template.substring(start + 2, end - 1);
+            if (!keysMap.containsKey(key)) {
                 throw new KeyNotFoundException("Key not found");
             }
-            this.template = matcher.replaceFirst(this.keysMap.get(key));
+            template = matcher.replaceFirst(keysMap.get(key));
             keys.add(key);
-            matcher = this.keys.matcher(this.template);
+            matcher = this.keys.matcher(template);
         }
         for (String s : keys) {
-            this.keysMap.remove(s);
+            keysMap.remove(s);
         }
-        if (this.keysMap.size() > 0) {
+        if (keysMap.size() > 0) {
             throw new NotAllKeysReplacedException("Not all keys used");
         }
-        return this.template;
+        return template;
     }
 }
