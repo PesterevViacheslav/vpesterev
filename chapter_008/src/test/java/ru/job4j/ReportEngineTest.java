@@ -28,7 +28,7 @@ public class ReportEngineTest {
                 .append(worker.getHired()).append(";")
                 .append(worker.getFired()).append(";")
                 .append(worker.getSalary()).append(";");
-        assertThat(engine.generate(em -> true, new ReportDepartment("user")), is(expect.toString()));
+        assertThat(engine.generate(em -> true, new DefaultUser()), is(expect.toString()));
     }
     /**
      * Тест отчета - формат для программистов.
@@ -48,7 +48,7 @@ public class ReportEngineTest {
                 .append(worker.getFired()).append(";")
                 .append(worker.getSalary()).append(";")
                 .append("<br></body></html>");
-        assertThat(engine.generate(em -> true, new Programmer("user")), is(expect.toString()));
+        assertThat(engine.generate(em -> true, new Programmer()), is(expect.toString()));
     }
     /**
      * Тест отчета - формат для HR.
@@ -73,7 +73,7 @@ public class ReportEngineTest {
                 .append(worker2.getName()).append(";")
                 .append(worker2.getSalary()).append(";");
 
-        assertThat(engine.generate(em -> true, new HR("user")), is(expect.toString()));
+        assertThat(engine.generate(em -> true, new HR()), is(expect.toString()));
     }
     /**
      * Тест отчета - формат для бухгалтерии.
@@ -91,6 +91,6 @@ public class ReportEngineTest {
                 .append(worker.getHired()).append(";")
                 .append(worker.getFired()).append(";")
                 .append(String.format("%.2f", worker.getSalary())).append(";");
-        assertThat(engine.generate(em -> true, new Accountant("user")), is(expect.toString()));
+        assertThat(engine.generate(em -> true, new Accountant()), is(expect.toString()));
     }
 }

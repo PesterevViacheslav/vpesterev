@@ -11,14 +11,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
  * @since 16.03.2020
  * @version 1
  */
-public class Programmer extends ReportDepartment {
-    /**
-     * Method Programmer. Конструктор
-     * @param name Название
-     */
-    public Programmer(String name) {
-        super(name);
-    }
+public class Programmer implements Print {
     /**
      * Method print. Формирование строки для печати
      * @param store Хранилище

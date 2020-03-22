@@ -10,14 +10,7 @@ import java.util.function.Predicate;
  * @since 16.03.2020
  * @version 1
  */
-public class HR extends ReportDepartment {
-    /**
-     * Method HR. Конструктор
-     * @param name Название
-     */
-    public HR(String name) {
-        super(name);
-    }
+public class HR implements Print {
     /**
      * Method print. Формирование строки для печати
      * @param store Хранилище

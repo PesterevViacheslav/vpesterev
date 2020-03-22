@@ -22,7 +22,7 @@ public class ReportEngine {
      * @param department Подразделение
      * @return Строка для печати
      */
-    public String generate(Predicate<Employer> filter, ReportDepartment department) {
+    public String generate(Predicate<Employer> filter, Print department) {
         return department.print(this.store, filter);
     }
 }

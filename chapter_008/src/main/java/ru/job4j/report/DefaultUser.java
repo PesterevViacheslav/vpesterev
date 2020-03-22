@@ -1,21 +1,13 @@
 package ru.job4j.report;
 import java.util.function.Predicate;
 /**
- * Class ReportDepartment - Подразделение печати. Решение задач уровня Junior. Части 004. ООД.
+ * Class DefaultUser - Подразделение по умолчанию. Решение задач уровня Junior. Части 004. ООД.
  *
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)
  * @since 16.03.2020
  * @version 1
  */
-public class ReportDepartment implements Print {
-    private String name;
-    /**
-     * Method ReportDepartment. Конструктор
-     * @param name Название
-     */
-    public ReportDepartment(String name) {
-        this.name = name;
-    }
+public class DefaultUser implements Print {
     /**
      * Method print. Формирование строки для печати
      * @param store Хранилище
@@ -34,4 +26,5 @@ public class ReportDepartment implements Print {
         }
         return text.toString();
     }
+
 }

@@ -7,14 +7,7 @@ import java.util.function.Predicate;
  * @since 16.03.2020
  * @version 1
  */
-public class Accountant extends ReportDepartment {
-    /**
-     * Method Accountant. Конструктор
-     * @param name Название
-     */
-    public Accountant(String name) {
-        super(name);
-    }
+public class Accountant implements Print {
     /**
      * Method print. Формирование строки для печати
      * @param store Хранилище
