@@ -34,7 +34,7 @@ public class MemoryUsage {
         Runtime runtime = Runtime.getRuntime();
         long memory = runtime.freeMemory();
         LOG.info(memory);
-        User user = new User(12,"name");
+        User user = new User(12, "name");
         LOG.info(memory - runtime.freeMemory());
         user = null;
         System.gc();
