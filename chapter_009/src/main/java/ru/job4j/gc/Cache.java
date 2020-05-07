@@ -1,4 +1,5 @@
 package ru.job4j.gc;
+import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 /**
@@ -18,6 +19,10 @@ public class Cache {
         SoftReference<Document> softRef = map.get(key);
         if (softRef == null) {
             return null;
+        }
+        if (softRef.get() == null) {
+            put(key, new Document(key, new File(getClass().getClassLoader().getResource(key).getFile())));
+            softRef = map.get(key);
         }
         return softRef.get();
     }
