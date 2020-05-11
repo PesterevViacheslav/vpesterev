@@ -16,7 +16,7 @@ public class AttachmentSort {
                 new Attachment("image 1", 100),
                 new Attachment("image 2", 34),
                 new Attachment("image 3", 13),
-                new Attachment(null, 1)
+                null
         );
         Comparator comparator =  new Comparator() {
             @Override
@@ -26,32 +26,17 @@ public class AttachmentSort {
                 return left.getSize() - right.getSize();
             }
         };
-        attachments.sort(comparator);
+        attachments.sort(Comparator.nullsFirst(comparator));
         System.out.println(attachments);
         Comparator comparatorByName =  new Comparator() {
             @Override
             public int compare(Object o1, Object o2) {
                 Attachment left = (Attachment) o1;
                 Attachment right = (Attachment) o2;
-                if (o1 == null && o2 == null) {
-                    return 0;
-                }
-                if (left.getName() == null) {
-                    return -1;
-                }
-                if (right.getName() == null) {
-                    return 1;
-                }
-                if (o1 == null) {
-                    return -1;
-                }
-                if (o2 == null) {
-                    return 1;
-                }
                 return left.getName().compareTo(right.getName());
             }
         };
-        attachments.sort(comparatorByName);
+        attachments.sort(Comparator.nullsLast(comparatorByName));
         System.out.println(attachments);
     }
 }
