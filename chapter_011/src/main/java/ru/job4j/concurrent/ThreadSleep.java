@@ -2,6 +2,7 @@ package ru.job4j.concurrent;
 /**
  * Class ThreadSleep - Ожидания потоков. Решение задач уровня Middle. Блок 1. Multithreading
  * 1. Threads. 1.2. Режим ожидания.[#283071].
+ *             3.1. Прерывание блокированной нити.[#283072]
  *
  * @author Viacheslav Pesterev (pesterevvv@gmail.com)
  * @since 17.05.2020
@@ -19,7 +20,7 @@ public class ThreadSleep {
                         }
                         System.out.println("Loaded.");
                     } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        Thread.currentThread().interrupt();
                     }
                 }
         );
