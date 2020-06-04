@@ -1,5 +1,8 @@
 package ru.job4j.concurrent;
-import java.io.*;
+
+import java.io.BufferedInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 /**
  * Class FileDownload - Закачка файла. Решение задач уровня Middle. Блок 1. Multithreading
@@ -10,27 +13,27 @@ import java.net.URL;
  * @version 1
  */
 public class FileDownload {
-    public static void main(String[] args) throws Exception {
-        //java -jar download.jar -url https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml -speed 1
-        String url = "";
-        int downloadSpeedKB = 1;
-        long st, en;
-        String prev = "";
-        for (String s : args) {
-            if (prev.equals("-url")) {
-                url = s;
-            } else if (prev.equals("-speed")) {
-                downloadSpeedKB = Integer.valueOf(s);
-            }
-            prev = s;
-        }
-        String file = url;
-        try (BufferedInputStream in = new BufferedInputStream(new URL(file).openStream());
+    private Args args;
+    /**
+     * Method FileDownload. Конструктор
+     * @param args
+     */
+    public FileDownload(Args args) {
+        this.args = args;
+    }
+    /**
+     * Method download. Закачка файла
+     * @throws InterruptedException
+     */
+    public void download() throws InterruptedException {
+        long st;
+        long en;
+        try (BufferedInputStream in = new BufferedInputStream(new URL(this.args.getUrl()).openStream());
              FileOutputStream fileOutputStream = new FileOutputStream("pom_tmp.xml")) {
-            byte[] dataBuffer = new byte[downloadSpeedKB * 1024];
-            float speedLimit = (float) downloadSpeedKB * 1024 / 1000;
+            byte[] dataBuffer = new byte[this.args.getSpeed() * 1024];
+            float speedLimit = (float) this.args.getSpeed() * 1024 / 1000;
             int bytesRead;
-            while ((bytesRead = in.read(dataBuffer, 0, downloadSpeedKB * 1024)) != -1) {
+            while ((bytesRead = in.read(dataBuffer, 0, this.args.getSpeed() * 1024)) != -1) {
                 st = System.nanoTime();
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
                 en = System.nanoTime();
