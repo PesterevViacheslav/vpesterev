@@ -1,7 +1,5 @@
 package ru.job4j.synchronize;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 /**
  * Class ParseFile - Разбор файла. Решение задач уровня Middle. Части 011. Multithreading.
  * Синхронизация. 1. Visibility. Общий ресурс вне критической секции[#283084]
@@ -11,19 +9,15 @@ import java.nio.file.Paths;
  * @version 1
  */
 public class ParseFile {
-    private File file;
+    private final Content content;
+    private final File file;
     /**
      * Method ParseFile. Конструктор
+     * @param content
      * @param file
      */
-    public ParseFile(File file) {
-        this.file = file;
-    }
-    /**
-     * Method setFile. Изменения файла
-     * @param file Файл
-     */
-    public synchronized void setFile(File file) {
+    public ParseFile(Content content, File file) {
+        this.content = content;
         this.file = file;
     }
     /**
@@ -38,19 +32,7 @@ public class ParseFile {
      * @throws IOException
      */
     public synchronized String getContent() throws IOException {
-        String output = "";
-        if (this.file != null) {
-            output = new String(Files.readAllBytes(Paths.get(file.getPath())));
-        }
-        return output;
-    }
-    /**
-     * Method getContentWithoutUnicode. Содержимое файда без юникода
-     * @return Содержимое
-     * @throws IOException
-     */
-    public synchronized String getContentWithoutUnicode() throws IOException {
-        return getContent().replaceAll("[^\\x00-\\x79]", "");
+        return this.content.get(this.file);
     }
     /**
      * Method saveContent. Сохранение в файл
