@@ -1,6 +1,8 @@
 package ru.job4j.synchronize;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
+
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.Optional;
 /**
@@ -14,16 +16,14 @@ import java.util.Optional;
 @ThreadSafe
 public class UserStorage {
     @GuardedBy("this")
-    private User[] array;
-    @GuardedBy("this")
-    private int size = 0;
+    private HashMap<Integer, User> userHashMap;
     @GuardedBy("this")
     private int count = 0;
     /**
      * Метод UserStorage. Конструктор.
      */
     public UserStorage(int size) {
-        this.array = new User[size];
+        this.userHashMap = new HashMap<>();
     }
     /**
      * Метод add. Добавление пользователя.
@@ -31,10 +31,8 @@ public class UserStorage {
      */
     public synchronized boolean add(User user) {
         boolean res = false;
-        if (!getIDByUser(user).isPresent()) {
-            this.array[this.size] = user;
+        if (this.userHashMap.put(user.id, user) == null) {
             res = true;
-            size++;
         }
         return res;
     }
@@ -43,19 +41,15 @@ public class UserStorage {
      * @return Размер.
      */
     public synchronized int getSize() {
-        return this.size;
+        return this.userHashMap.size();
     }
     /**
      * Метод update. Изменение пользователя.
      * @param user Пользователь.
      */
     public synchronized boolean update(User user) {
-        boolean res = false;
-        if (getIDByUser(user).isPresent()) {
-            this.array[getIDByUser(user).get()] = user;
-            res = true;
-        }
-        return res;
+        this.userHashMap.put(user.id, user);
+        return true;
     }
     /**
      * Метод delete. Удаление пользователя.
@@ -63,34 +57,10 @@ public class UserStorage {
      */
     public synchronized boolean delete(User user) {
         boolean res = false;
-        if (this.size > 0 && getIDByUser(user).isPresent()) {
-            int positionTmp = 0;
-            for (int i = 0; i < this.size; i++) {
-                positionTmp++;
-                if (this.array[i].equals(user)) {
-                    res = true;
-                    break;
-                }
-            }
-            if (res) {
-                this.size--;
-                System.arraycopy(this.array, positionTmp, this.array, positionTmp - 1, this.size - positionTmp + 1);
-            }
+        if (this.userHashMap.remove(user.id) != null) {
+            res = true;
         }
         return res;
-    }
-    /**
-     * Метод getIDByUser. Получение ID пользователя.
-     * @return Пользователь.
-     */
-    public synchronized Optional<Integer> getIDByUser(User user) {
-        Optional<Integer> id = Optional.empty();
-        for (User u : this.array) {
-            if (u != null && u.equals(user)) {
-                id = Optional.of(u.id);
-            }
-        }
-        return id;
     }
     /**
      * Метод getTotalBalance. Получает сумму остатков на всех счетах
@@ -99,7 +69,7 @@ public class UserStorage {
     public synchronized int getTotalBalance() throws InterruptedException {
         int sum = 0;
         this.count++;
-        for (User u : this.array) {
+        for (User u : this.userHashMap.values()) {
             sum += u.amount;
         }
         System.out.println("Total=" + sum + " " + Thread.currentThread() + " count=" + this.count);
@@ -116,10 +86,10 @@ public class UserStorage {
      */
     public synchronized boolean transfer(int fromId, int toId, int amount) {
         boolean res = false;
-        if (this.array[fromId].amount >= amount) {
-            this.array[fromId].amount -= amount;
+        if (this.userHashMap.get(fromId).amount >= amount) {
+            this.userHashMap.get(fromId).amount -= amount;
             System.out.println(Thread.currentThread() + " Перевод суммы " + amount + " со счета " + fromId + " на счет " + toId);
-            this.array[toId].amount += amount;
+            this.userHashMap.get(toId).amount += amount;
             res = true;
         }
         return res;
