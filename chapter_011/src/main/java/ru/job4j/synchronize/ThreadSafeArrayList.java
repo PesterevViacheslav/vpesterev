@@ -15,7 +15,7 @@ import java.util.Iterator;
 @ThreadSafe
 public class ThreadSafeArrayList<E> implements SimpleContainer<E> {
     @GuardedBy("this")
-    private SimpleArrayList<E> array;
+    private final SimpleArrayList<E> array;
     /**
      * Method ThreadSafeArrayList. Конструктор.
      * @param size Размер.
