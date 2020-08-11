@@ -8,7 +8,7 @@ package ru.job4j.wait;
  * @version 1
  */
 public class ParallelSearch {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<Integer>();
         final Thread consumer = new Thread(
                 () -> {
@@ -44,12 +44,8 @@ public class ParallelSearch {
         System.out.println("Producer start");
         consumer.start();
         System.out.println("Consumer start");
-        try {
-            producer.join();
-            System.out.println("Producer finished");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        producer.join();
+        System.out.println("Producer finished");
         while (true) {
             if (queue.size() == 0) {
                 consumer.interrupt();
@@ -57,11 +53,7 @@ public class ParallelSearch {
                 break;
             }
         }
-        try {
-            consumer.join();
-            System.out.println("Main finished");
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+        consumer.join();
+        System.out.println("Main finished");
     }
 }
