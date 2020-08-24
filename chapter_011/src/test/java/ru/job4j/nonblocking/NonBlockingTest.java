@@ -26,7 +26,6 @@ public class NonBlockingTest {
                 queue.add(new NonBlocking.Base(1));
                 queue.add(new NonBlocking.Base(2));
             } catch (OptimisticException e) {
-                System.out.println("Thread1 interrupt");
                 ex.set(e);
                 Thread.currentThread().interrupt();
             }
@@ -38,7 +37,6 @@ public class NonBlockingTest {
                 queue.add(new NonBlocking.Base(0));
 
             } catch (OptimisticException e) {
-                System.out.println("Thread2 interrupt");
                 ex.set(e);
                 Thread.currentThread().interrupt();
             }
@@ -54,7 +52,6 @@ public class NonBlockingTest {
             try {
                 queue.update(new NonBlocking.Base(0, queue.get(0).version));
             } catch (OptimisticException e) {
-                System.out.println("Thread3 interrupt");
                 ex.set(e);
                 Thread.currentThread().interrupt();
             }
@@ -65,7 +62,6 @@ public class NonBlockingTest {
             try {
                 queue.update(new NonBlocking.Base(0, queue.get(0).version));
             } catch (OptimisticException e) {
-                System.out.println("Thread4 interrupt");
                 ex.set(e);
                 Thread.currentThread().interrupt();
             }
@@ -80,7 +76,6 @@ public class NonBlockingTest {
             try {
                 queue.delete(new NonBlocking.Base(0, queue.get(0).version));
             } catch (OptimisticException e) {
-                System.out.println("Thread5 interrupt");
                 ex.set(e);
                 Thread.currentThread().interrupt();
             }
@@ -90,7 +85,6 @@ public class NonBlockingTest {
             try {
                 queue.delete(new NonBlocking.Base(0, queue.get(0).version));
             } catch (OptimisticException e) {
-                System.out.println("Thread5 interrupt");
                 ex.set(e);
                 Thread.currentThread().interrupt();
             }
@@ -100,7 +94,6 @@ public class NonBlockingTest {
         t6.start();
         t5.join();
         t6.join();
-        //assertThat(queue.size(), is(2));
         Assert.assertThat(ex.get().getMessage(), is("deleteOptimisticException"));
     }
 }

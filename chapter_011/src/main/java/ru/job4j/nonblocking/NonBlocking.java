@@ -17,7 +17,6 @@ public class NonBlocking {
      * @return model Элемент.
      */
     public int size() {
-        System.out.println("array=" + cache.toString());
         return this.cache.size();
     }
     /**
@@ -25,7 +24,6 @@ public class NonBlocking {
      * @return Элемент.
      */
     public Base get(int id) {
-        System.out.println("get id=" + id);
         Optional<Base> res = Optional.of(this.cache.get(id));
         return res.orElseGet(null);
     }
@@ -42,34 +40,34 @@ public class NonBlocking {
      * @param model Элемент.
      */
     public void update(Base model) {
-        if (this.cache.computeIfPresent(model.id, (Integer k, Base v) -> {
+        this.cache.computeIfPresent(model.id, (Integer k, Base v) -> {
             Base res = model;
             if (model.equals(v)) {
                 res = new Base(model.id, ++model.version);
                 this.cache.put(model.id, res);
             }
-            System.out.println("update " + v.id + " " + Thread.currentThread().getName());
+            if (res.equals(model)) {
+                throw new OptimisticException("updateOptimisticException");
+            }
             return res;
-        }).equals(model)) {
-            throw new OptimisticException("updateOptimisticException");
-        }
+        });
     }
     /**
      * Метод delete. Добавление элемента в коллекцию.
      * @param model Элемент.
      */
     public void delete(Base model) {
-        if (this.cache.computeIfPresent(model.id, (Integer k, Base v) -> {
+        this.cache.computeIfPresent(model.id, (Integer k, Base v) -> {
             Base res = model;
             if (model.equals(v)) {
                 res = new Base(model.id, ++model.version);
                 this.cache.remove(model.id);
             }
-            System.out.println("delete " + v.id + " " + Thread.currentThread().getName());
+            if (res != null) {
+                throw new OptimisticException("deleteOptimisticException");
+            }
             return res;
-        }) != null) {
-            throw new OptimisticException("deleteOptimisticException");
-        }
+        });
     }
     /**
      * Класс - элемент кеша
