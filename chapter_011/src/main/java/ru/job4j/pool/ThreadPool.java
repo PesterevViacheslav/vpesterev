@@ -12,9 +12,6 @@ import java.util.List;
  */
 public class ThreadPool {
     private final List<Thread> threads = new LinkedList<>();
-    public List<Thread> getThreads() {
-        return this.threads;
-    }
     private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
     private volatile boolean processing = true;
     /**
@@ -23,7 +20,7 @@ public class ThreadPool {
     public ThreadPool() {
         int availableProcessors = Runtime.getRuntime().availableProcessors();
         for (int i = 0; i < availableProcessors; i++) {
-            this.threads.add(new Thread(() -> {
+            Thread thread = new Thread(() -> {
                 try {
                     while (this.processing) {
                         this.tasks.poll().run();
@@ -31,9 +28,10 @@ public class ThreadPool {
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-            }));
-            this.threads.get(i).setName("Thread" + i);
-            this.threads.get(i).start();
+            });
+            this.threads.add(thread);
+            thread.setName("Thread" + i);
+            thread.start();
         }
     }
     /**
