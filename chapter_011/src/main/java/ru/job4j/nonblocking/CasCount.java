@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class CasCount<T> {
     private final AtomicReference<Integer> count = new AtomicReference<>();
     /**
-     * Method CASСount. Конструктор
+     * Method CasCount. Конструктор
      */
     public CasCount() {
         this.count.set(0);
@@ -34,15 +34,6 @@ public class CasCount<T> {
      * @return Значение
      */
     public int get() {
-        Integer current;
-        Integer next;
-        do {
-            current = this.count.get();
-            if (current == null) {
-                throw new IllegalStateException("Counter is empty");
-            }
-            next = current;
-        } while (!count.compareAndSet(current, next));
-        return current;
+        return this.count.get();
     }
 }
