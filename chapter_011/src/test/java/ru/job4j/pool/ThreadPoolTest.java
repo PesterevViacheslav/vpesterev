@@ -40,9 +40,6 @@ public class ThreadPoolTest {
         assertThat(pool.size(), is(0));
         pool.shutdown();
         Thread.currentThread().join(1000);
-        for (Thread t: pool.getThreads()) {
-            System.out.println(t.getName() + " " + t.getState());
-        }
         Thread.currentThread().join(1000);
     }
 }
