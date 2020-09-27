@@ -29,7 +29,7 @@ public class EmailNotification {
      * @param body Тело письма.
      * @param email Адрес.
      */
-    private void send(String subject, String body, String email){
+    private void send(String subject, String body, String email) {
     }
     /**
      * Метод close. Остановка пула.
