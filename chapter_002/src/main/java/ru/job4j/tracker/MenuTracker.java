@@ -147,7 +147,7 @@ public class MenuTracker {
         } else {
             System.out.println("Wrong menu key");
         }
-        if (this.actions.get(checkedKey) != null && checkedKey != -1) {
+        if (checkedKey != -1 && this.actions.get(checkedKey) != null) {
             this.actions.get(checkedKey).execute(this.input, this.tracker);
         }
     }
