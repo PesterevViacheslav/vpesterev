@@ -31,7 +31,7 @@ public class Tracker implements ITracker {
      * @param id ID заявки.
      * @return Заявка
      */
-    public Item findById(String id) {
+    public Item findById(Integer id) {
         Item result = new Item();
         for (int i = 0; i < this.items.size(); i++) {
             if (this.items.get(i) != null && id.equals(this.items.get(i).getId())) {
@@ -63,14 +63,14 @@ public class Tracker implements ITracker {
      * @param item Заявка.
      * @return Признак найдена ли заявка
      */
-    public boolean replace(String id, Item item) {
+    public boolean replace(Integer id, Item item) {
         boolean res = false;
         Item result = findById(id);
         if (result != null) {
             result.setId(item.getId());
             result.setName(item.getName());
             result.setDescription(item.getDescription());
-            result.setChanged(System.currentTimeMillis());
+            //result.setChanged(System.currentTimeMillis());
             res = true;
         }
         return res;
@@ -81,13 +81,13 @@ public class Tracker implements ITracker {
      * @param item Заявка.
      * @return Признак найдена ли заявка
      */
-    public boolean change(String id, Item item) {
+    public boolean change(Integer id, Item item) {
         boolean res = false;
         Item result = findById(id);
         if (result != null) {
             result.setName(item.getName());
             result.setDescription(item.getDescription());
-            result.setChanged(System.currentTimeMillis());
+            //result.setChanged(System.currentTimeMillis());
             res = true;
         }
         return res;
@@ -97,7 +97,7 @@ public class Tracker implements ITracker {
      * @param id ID заявки.
      * @return Признак найдена ли заявка
      */
-    public boolean delete(String id) {
+    public boolean delete(Integer id) {
         boolean res = false;
         Item exists = findById(id);
         if (this.position > 0 && exists.getId() != null) {

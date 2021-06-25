@@ -1,7 +1,10 @@
 package ru.job4j.tracker;
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
+@Entity
+@Table(name = "item")
 /**
  * Class Item - Заявка. Решение задачи Части 002. ООП. Общая задача на второй модуль.
  *
@@ -10,11 +13,16 @@ import java.util.Objects;
  * @version 1
  */
 public class Item {
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "item_name")
     private String name;
+    @Column(name = "item_description")
     private String description;
-    private long created;
-    private long changed;
+    //private long created;
+    //private long changed;
     /**
      * Method Item. Конструктор по умолчанию.
      */
@@ -29,36 +37,34 @@ public class Item {
         this.id = generateId();
         this.name = name;
         this.description = description;
-        this.created = System.currentTimeMillis();
+        //this.created = System.currentTimeMillis();
     }
     /**
      * Method Item. Конструктор.
      * @param id ID заявки.
      * @param name Названия заявки.
      * @param description Описание заявки.
-     * @param created Описание заявки.
-     * @param changed Названия заявки.
      */
-    public Item(String id, String name, String description, long created, long changed) {
+    public Item(Integer id, String name, String description/*, long created, long changed*/) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.created = created;
-        this.changed = changed;
+        //this.created = created;
+        //this.changed = changed;
     }
-    private String generateId() {
-        return new SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis()) + "_" + Math.round(Math.random() * 1000);
+    private int generateId() {
+        return (int) Math.round(Math.random() * 1000); //SimpleDateFormat("ddMMyyyyHHmmss").format(System.currentTimeMillis()) + "_" + Math.round(Math.random() * 1000);
     }
     /**
      * Method getId. Получить значение ID заявки.
      */
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
     /**
      * Method getId. Получить значение ID заявки.
      */
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
     /**
@@ -90,22 +96,28 @@ public class Item {
     /**
      * Method getCreated. Получить значение Даты создания заявки.
      */
+/*
     public long getCreated() {
         return this.created;
     }
+*/
     /**
      * Method getChanged. Получить значение Даты изменения заявки.
      */
+/*
     public long getChanged() {
         return this.changed;
     }
+*/
     /**
      * Method setChanged. Установить значение Даты изменения заявки.
      * @param changed Названия заявки.
      */
+/*
     public void setChanged(long changed) {
         this.changed = changed;
     }
+*/
     /**
      * Method equals. Переопределенный.
      */
@@ -136,8 +148,8 @@ public class Item {
                 + "id='" + id + '\''
                 + ", name='" + name + '\''
                 + ", description='" + description + '\''
-                + ", created=" + created
-                + ", changed=" + changed
+                //+ ", created=" + created
+                //+ ", changed=" + changed
                 + '}';
     }
 }

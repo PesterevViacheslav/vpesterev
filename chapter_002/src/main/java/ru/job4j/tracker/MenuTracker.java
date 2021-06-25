@@ -25,7 +25,7 @@ class ReplaceItem extends BaseAction {
         String name = input.ask("Input New Item Name:");
         String description = input.ask("Input New Item Description:");
         Item item = new Item(name, description);
-        if (!tracker.replace(id, item)) {
+        if (!tracker.replace(Integer.getInteger(id), item)) {
             System.out.println("***Item not found***");
         } else {
             System.out.println("***Item edited successfully***");
@@ -52,7 +52,7 @@ class DeleteItem extends BaseAction {
     public void execute(Input input, ITracker tracker) {
         System.out.println("***Delete item Start***");
         String id = input.ask("Input Item ID:");
-        if (!tracker.delete(id)) {
+        if (!tracker.delete(Integer.getInteger(id))) {
             System.out.println("***Item not found***");
         } else {
             System.out.println("***Item deleted successfully***");
@@ -114,7 +114,7 @@ public class MenuTracker {
                 String name = input.ask("Input New Item Name:");
                 String description = input.ask("Input New Item Description:");
                 Item item = new Item(name, description);
-                if (!tracker.change(id, item)) {
+                if (!tracker.change(Integer.getInteger(id), item)) {
                     System.out.println("***Item not found***");
                 }
                 System.out.println("***Item changed successfully***");
@@ -226,7 +226,7 @@ public class MenuTracker {
         public void execute(Input input, ITracker tracker) {
             System.out.println("***Find item by ID Start***");
             String id = input.ask("Input Item ID:");
-            Item item = tracker.findById(id);
+            Item item = tracker.findById(Integer.getInteger(id));
             if (item.equals(new Item())) {
                 System.out.println("Item not found");
             } else {

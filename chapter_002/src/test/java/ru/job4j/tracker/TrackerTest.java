@@ -23,7 +23,7 @@ public class TrackerTest {
         tracker.add(item);
         assertThat(tracker.findAll().get(0), is(item));
         Item item2 = new Item("test2", "dsc2");
-        tracker.add(item2);
+       tracker.add(item2);
         assertThat(tracker.findAll().get(1), is(item2));
     }
     /**
@@ -98,7 +98,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("test1", "dsc1");
         tracker.add(item);
-        assertThat(new Item(), is(tracker.findById("111111")));
+        assertThat(new Item(), is(tracker.findById(111111)));
     }
     /**
      * Тест метода поиска заявки по названию (Найдено).
