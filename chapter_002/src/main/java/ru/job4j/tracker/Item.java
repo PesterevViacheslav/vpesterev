@@ -16,7 +16,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private int id;
     @Column(name = "item_name")
     private String name;
     @Column(name = "item_description")
@@ -45,7 +45,7 @@ public class Item {
      * @param name Названия заявки.
      * @param description Описание заявки.
      */
-    public Item(Integer id, String name, String description/*, long created, long changed*/) {
+    public Item(int id, String name, String description/*, long created, long changed*/) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -58,13 +58,13 @@ public class Item {
     /**
      * Method getId. Получить значение ID заявки.
      */
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
     /**
      * Method getId. Получить значение ID заявки.
      */
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
     /**

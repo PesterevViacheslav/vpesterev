@@ -31,10 +31,10 @@ public class Tracker implements ITracker {
      * @param id ID заявки.
      * @return Заявка
      */
-    public Item findById(Integer id) {
+    public Item findById(int id) {
         Item result = new Item();
         for (int i = 0; i < this.items.size(); i++) {
-            if (this.items.get(i) != null && id.equals(this.items.get(i).getId())) {
+            if (this.items.get(i) != null && id == this.items.get(i).getId()) {
                 result = this.items.get(i);
                 break;
             }
@@ -63,7 +63,7 @@ public class Tracker implements ITracker {
      * @param item Заявка.
      * @return Признак найдена ли заявка
      */
-    public boolean replace(Integer id, Item item) {
+    public boolean replace(int id, Item item) {
         boolean res = false;
         Item result = findById(id);
         if (result != null) {
@@ -81,7 +81,7 @@ public class Tracker implements ITracker {
      * @param item Заявка.
      * @return Признак найдена ли заявка
      */
-    public boolean change(Integer id, Item item) {
+    public boolean change(int id, Item item) {
         boolean res = false;
         Item result = findById(id);
         if (result != null) {
@@ -97,12 +97,12 @@ public class Tracker implements ITracker {
      * @param id ID заявки.
      * @return Признак найдена ли заявка
      */
-    public boolean delete(Integer id) {
+    public boolean delete(int id) {
         boolean res = false;
         Item exists = findById(id);
-        if (this.position > 0 && exists.getId() != null) {
+        if (this.position > 0) {
             for (int i = 0; i < this.position; i++) {
-                if (this.items.get(i).getId().equals(id)) {
+                if (this.items.get(i).getId() == id) {
                     this.items.remove(i);
                     this.position--;
                 }

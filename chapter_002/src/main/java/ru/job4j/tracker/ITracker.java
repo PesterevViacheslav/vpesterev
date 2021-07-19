@@ -21,13 +21,13 @@ public interface ITracker {
      * @param item Заявка.
      * @return Признак найдена ли заявка
      */
-    boolean replace(Integer id, Item item);
+    boolean replace(int id, Item item);
     /**
      * Method delete. Удаление заявки.
      * @param id ID заявки.
      * @return Признак найдена ли заявка
      */
-    boolean delete(Integer id);
+    boolean delete(int id);
     /**
      * Method findAll. Получение списка текущих заявок.
      * @return Заявки.
@@ -44,12 +44,12 @@ public interface ITracker {
      * @param id ID заявки.
      * @return Заявка
      */
-    Item findById(Integer id);
+    Item findById(int id);
     /**
      * Method change. Изменение заявки.
      * @param id ID заявки.
      * @param item Заявка.
      * @return Признак найдена ли заявка
      */
-    boolean change(Integer id, Item item);
+    boolean change(int id, Item item);
 }

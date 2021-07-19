@@ -159,7 +159,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @return Признак найдена ли заявка
      */
     @Override
-    public boolean replace(Integer id, Item item) {
+    public boolean replace(int id, Item item) {
         boolean res = false;
 //        try (PreparedStatement sql = this.connection.prepareStatement("UPDATE ITEM SET ID = ?, ITEM_NAME = ?, ITEM_DESCRIPTION = ?, CREATED = ?, CHANGED = ? WHERE ID = ?")) {
         try (PreparedStatement sql = this.connection.prepareStatement("UPDATE ITEM SET ID = ?, ITEM_NAME = ?, ITEM_DESCRIPTION = ? WHERE ID = ?")) {
@@ -186,7 +186,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @return Признак удалена ли заявка
      */
     @Override
-    public boolean delete(Integer id) {
+    public boolean delete(int id) {
         boolean res = false;
         try (PreparedStatement sql = this.connection.prepareStatement("DELETE FROM ITEM WHERE ID = ?")) {
             sql.setInt(1, Integer.valueOf(id));
@@ -257,7 +257,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @return Заявка
      */
     @Override
-    public Item findById(Integer id) {
+    public Item findById(int id) {
         Item res = null;
         try (PreparedStatement sql = this.connection.prepareStatement("SELECT * FROM ITEM WHERE ID = ?")) {
             sql.setInt(1, Integer.valueOf(id));
@@ -284,7 +284,7 @@ public class TrackerSQL implements ITracker, AutoCloseable {
      * @return Признак найдена ли заявка
      */
     @Override
-    public boolean change(Integer id, Item item) {
+    public boolean change(int id, Item item) {
         boolean res = false;
         try (PreparedStatement sql = this.connection.prepareStatement("UPDATE ITEM SET ITEM_NAME = ?, ITEM_DESCRIPTION = ?/*, CREATED = ?, CHANGED = ?*/ WHERE ID = ?")) {
             sql.setString(1, item.getName());
