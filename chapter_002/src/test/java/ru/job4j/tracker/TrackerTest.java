@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 import org.junit.Test;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import static org.hamcrest.core.Is.is;
@@ -19,10 +20,10 @@ public class TrackerTest {
     @Test
     public void whenAddNewItemThenTrackerHasSameItem() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "dsc");
+        Item item = new Item("test1", "dsc", new Timestamp(System.currentTimeMillis()));
         tracker.add(item);
         assertThat(tracker.findAll().get(0), is(item));
-        Item item2 = new Item("test2", "dsc2");
+        Item item2 = new Item("test2", "dsc2", new Timestamp(System.currentTimeMillis()));
        tracker.add(item2);
         assertThat(tracker.findAll().get(1), is(item2));
     }
@@ -32,9 +33,9 @@ public class TrackerTest {
     @Test
     public void whenReplaceItemThenReturnNewItem() {
         Tracker tracker = new Tracker();
-        Item prev = new Item("test1", "dsc1");
+        Item prev = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(prev);
-        Item next = new Item("test2", "dsc2");
+        Item next = new Item("test2", "dsc2", new Timestamp(System.currentTimeMillis()));
         tracker.replace(prev.getId(), next);
         assertThat(tracker.findById(prev.getId()), is(next));
     }
@@ -44,9 +45,9 @@ public class TrackerTest {
     @Test
     public void whenChangeItemThenReturnNewItem() {
         Tracker tracker = new Tracker();
-        Item prev = new Item("test1", "dsc1");
+        Item prev = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(prev);
-        Item next = new Item("test2", "dsc2");
+        Item next = new Item("test2", "dsc2", new Timestamp(System.currentTimeMillis()));
         tracker.change(prev.getId(), next);
         assertThat(tracker.findById(prev.getId()).getName(), is("test2"));
         assertThat(tracker.findById(prev.getId()).getDescription(), is("dsc2"));
@@ -57,9 +58,9 @@ public class TrackerTest {
     @Test
     public void whenDeleteItemThenDeletedItemNotFound() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "dsc1");
+        Item item = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item);
-        Item item2 = new Item("test2", "dsc1");
+        Item item2 = new Item("test2", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item2);
         tracker.delete(item.getId());
         assertThat(new Item(), is(tracker.findById(item.getId())));
@@ -71,9 +72,9 @@ public class TrackerTest {
     @Test
     public void whenDeleteTwiceItemThenDeletedOnce() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "dsc1");
+        Item item = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item);
-        Item item2 = new Item("test2", "dsc1");
+        Item item2 = new Item("test2", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item2);
         tracker.delete(item.getId());
         tracker.delete(item.getId());
@@ -86,7 +87,7 @@ public class TrackerTest {
     @Test
     public void whenFoundById() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "dsc1");
+        Item item = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item);
         assertThat(item, is(tracker.findById(item.getId())));
     }
@@ -96,7 +97,7 @@ public class TrackerTest {
     @Test
     public void whenNotFoundById() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "dsc1");
+        Item item = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item);
         assertThat(new Item(), is(tracker.findById(111111)));
     }
@@ -106,11 +107,11 @@ public class TrackerTest {
     @Test
     public void whenFoundByName() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "dsc1");
+        Item item = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item);
-        Item item2 = new Item("test1", "dsc2");
+        Item item2 = new Item("test1", "dsc2", new Timestamp(System.currentTimeMillis()));
         tracker.add(item2);
-        Item item3 = new Item("test2", "dsc3");
+        Item item3 = new Item("test2", "dsc3", new Timestamp(System.currentTimeMillis()));
         tracker.add(item3);
         ArrayList<Item> items = new ArrayList<>();
         items.add(item);
@@ -123,11 +124,11 @@ public class TrackerTest {
     @Test
     public void whenNotFoundByName() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "dsc1");
+        Item item = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item);
-        Item item2 = new Item("test1", "dsc2");
+        Item item2 = new Item("test1", "dsc2", new Timestamp(System.currentTimeMillis()));
         tracker.add(item2);
-        Item item3 = new Item("test2", "dsc3");
+        Item item3 = new Item("test2", "dsc3", new Timestamp(System.currentTimeMillis()));
         tracker.add(item3);
         assertThat(new ArrayList<Item>(), is(tracker.findByName("test5")));
     }
@@ -137,11 +138,11 @@ public class TrackerTest {
     @Test
     public void whenFoundAllItems() {
         Tracker tracker = new Tracker();
-        Item item = new Item("test1", "dsc1");
+        Item item = new Item("test1", "dsc1", new Timestamp(System.currentTimeMillis()));
         tracker.add(item);
-        Item item2 = new Item("test1", "dsc2");
+        Item item2 = new Item("test1", "dsc2", new Timestamp(System.currentTimeMillis()));
         tracker.add(item2);
-        Item item3 = new Item("test2", "dsc3");
+        Item item3 = new Item("test2", "dsc3", new Timestamp(System.currentTimeMillis()));
         tracker.add(item3);
         ArrayList<Item> items = new ArrayList<>();
         items.add(item);

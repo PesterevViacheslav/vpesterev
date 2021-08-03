@@ -1,4 +1,5 @@
 package ru.job4j.tracker;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -24,7 +25,7 @@ class ReplaceItem extends BaseAction {
         String id = input.ask("Input Item ID:");
         String name = input.ask("Input New Item Name:");
         String description = input.ask("Input New Item Description:");
-        Item item = new Item(name, description);
+        Item item = new Item(name, description, new Timestamp(System.currentTimeMillis()));
         if (!tracker.replace(Integer.getInteger(id), item)) {
             System.out.println("***Item not found***");
         } else {
@@ -113,7 +114,7 @@ public class MenuTracker {
                 String id = input.ask("Input Item ID:");
                 String name = input.ask("Input New Item Name:");
                 String description = input.ask("Input New Item Description:");
-                Item item = new Item(name, description);
+                Item item = new Item(name, description, new Timestamp(System.currentTimeMillis()));
                 if (!tracker.change(Integer.getInteger(id), item)) {
                     System.out.println("***Item not found***");
                 }
@@ -172,7 +173,7 @@ public class MenuTracker {
             System.out.println("***Add new item Start***");
             String name = input.ask("Input Item Name:");
             String description = input.ask("Input Item Description:");
-            tracker.add(new Item(name, description));
+            tracker.add(new Item(name, description, new Timestamp(System.currentTimeMillis())));
         }
     }
     /**

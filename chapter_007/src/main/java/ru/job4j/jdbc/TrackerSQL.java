@@ -212,9 +212,8 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 while (rs.next()) {
                     res.add(new Item(rs.getInt("id"),
                             rs.getString("item_name"),
-                            rs.getString("item_description")/*,
-                            timestampToLong(rs.getTimestamp("created")),
-                            timestampToLong(rs.getTimestamp("changed"))*/)
+                            rs.getString("item_description"),
+                            rs.getTimestamp("created"))
                     );
                 }
             }
@@ -238,9 +237,8 @@ public class TrackerSQL implements ITracker, AutoCloseable {
                 while (rs.next()) {
                     res.add(new Item(rs.getInt("id"),
                                     rs.getString("item_name"),
-                                    rs.getString("item_description")/*,
-                                    timestampToLong(rs.getTimestamp("created")),
-                                    timestampToLong(rs.getTimestamp("changed"))*/
+                                    rs.getString("item_description"),
+                                    rs.getTimestamp("created")
                             )
                     );
                 }
@@ -264,10 +262,9 @@ public class TrackerSQL implements ITracker, AutoCloseable {
             try (ResultSet rs = sql.executeQuery()) {
                 while (rs.next()) {
                     res = new Item(rs.getInt("id"),
-                            rs.getString("item_name"),
-                            rs.getString("item_description")//,
-                            //timestampToLong(rs.getTimestamp("created")),
-                            //timestampToLong(rs.getTimestamp("changed"))
+                                   rs.getString("item_name"),
+                                   rs.getString("item_description"),
+                                   rs.getTimestamp("created")
                     );
                 }
             }

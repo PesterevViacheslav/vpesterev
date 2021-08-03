@@ -1,5 +1,6 @@
 package ru.job4j.tracker;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class Item {
     private String name;
     @Column(name = "item_description")
     private String description;
-    //private long created;
+    private Timestamp created;
     //private long changed;
     /**
      * Method Item. Конструктор по умолчанию.
@@ -33,10 +34,11 @@ public class Item {
      * @param name Названия заявки.
      * @param description Описание заявки.
      */
-    public Item(String name, String description) {
+    public Item(String name, String description, Timestamp created) {
         this.id = generateId();
         this.name = name;
         this.description = description;
+        this.created = created;
         //this.created = System.currentTimeMillis();
     }
     /**
@@ -45,11 +47,11 @@ public class Item {
      * @param name Названия заявки.
      * @param description Описание заявки.
      */
-    public Item(int id, String name, String description/*, long created, long changed*/) {
+    public Item(int id, String name, String description, Timestamp created) {
         this.id = id;
         this.name = name;
         this.description = description;
-        //this.created = created;
+        this.created = created;
         //this.changed = changed;
     }
     private int generateId() {
@@ -96,11 +98,12 @@ public class Item {
     /**
      * Method getCreated. Получить значение Даты создания заявки.
      */
-/*
-    public long getCreated() {
+    public Timestamp getCreated() {
         return this.created;
     }
-*/
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
     /**
      * Method getChanged. Получить значение Даты изменения заявки.
      */
@@ -148,7 +151,7 @@ public class Item {
                 + "id='" + id + '\''
                 + ", name='" + name + '\''
                 + ", description='" + description + '\''
-                //+ ", created=" + created
+                + ", created=" + created + '\''
                 //+ ", changed=" + changed
                 + '}';
     }
